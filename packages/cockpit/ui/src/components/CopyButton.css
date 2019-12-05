@@ -1,9 +1,0 @@
-#root .copy-to-clipboard {
-  position: absolute;
-  right: 1px;
-  top: 0.5px;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
-  cursor: pointer;
-  z-index: 100;
-}

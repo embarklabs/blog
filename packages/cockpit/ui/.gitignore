@@ -1,9 +1,0 @@
-.env.development.local
-.env.local
-.env.production.local
-.env.test.local
-.pnp
-.pnp.js
-build
-public/vsdir
-storybook-static
