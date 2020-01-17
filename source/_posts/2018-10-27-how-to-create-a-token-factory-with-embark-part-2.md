@@ -40,7 +40,7 @@ First, we’ll add a simple form to *app/index.html* to get address of the token
   </head>
   <body>
     <h3>Welcome to Embark!</h3>
-    <p>See the <a href="https://github.com/iurimatias/embark-framework/wiki">Wiki</a> to see what you can do with Embark!</p>
+    <p>See the <a href="https://github.com/iurimatias/embarklabs/wiki">Wiki</a> to see what you can do with Embark!</p>
     <div id="useToken">
       <h3>Token Address</h3>
       <input placeholder="enter token address" />
@@ -138,7 +138,7 @@ First we’ll add a simple form to *app/index.html* to get the desired supply of
   </head>
   <body>
     <h3>Welcome to Embark!</h3>
-    <p>See the <a href="https://github.com/iurimatias/embark-framework/wiki">Wiki</a> to see what you can do with Embark!</p>
+    <p>See the <a href="https://github.com/iurimatias/embarklabs/wiki">Wiki</a> to see what you can do with Embark!</p>
     <div id="deployToken">
       <h3>Deploy new Token</h3>
       <input placeholder="enter token supply" />
