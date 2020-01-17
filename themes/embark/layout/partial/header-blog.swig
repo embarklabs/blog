@@ -9,7 +9,7 @@
             <svg class="c-icon c-icon--xs"><use xlink:href="{{url_for('../assets/icons/symbols.svg#icon-close')}}"></use></svg>
           </button>
         </div>
-        <div class="c-navigation__body">
+        <div class="c-navigation__body" style="display: none">
           <ul class="c-navigation__list">
             <li class="c-navigation__item">
               <a href="{{ url_for('docs/quick_start.html') }}" class="c-navigation__anchor {% if is_quickstart() %}is-active{% endif %}" title="{{__('navigation.quick_start')}}">{{__('navigation.quick_start')}}</a>
@@ -30,7 +30,7 @@
         </div>
       </nav>
       <div class="o-flex o-flex-center">
-        <form action="" class="o-flex__item u-hidden-until-large">
+        <form action="" class="o-flex__item u-hidden-until-large" style="display: none">
           <input type="search" placeholder="Search" id="search-input">
         </form>
         <div class="o-flex__item">
