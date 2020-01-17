@@ -4,7 +4,7 @@ description: "Embark is a simple & powerful framework for decentralized applicat
 author: Embark
 language: en
 
-url: https://embark.status.im
+url: https://embark.embarklabs.io
 root: /
 permalink: news/:year/:month/:day/:title/
 code_dir: downloads/code

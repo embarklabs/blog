@@ -166,7 +166,7 @@ myContract.deploy({
 
 The above examples aren't supposed to be perfect continuous code, and should definitely *not* be copy/pasted into a production project, but they are there to show off roughly how `Web.js` works, and give an overview of interacting with the 2 main pieces of functionality, as I see them – Wallets and Contracts.
 
-In my next tutorial series, we will be utilising [Embark](https://embark.status.im/docs/quick_start.html), and therefore we'll be diving deeper into `web3.js`, and showing off much more of its potential.
+In my next tutorial series, we will be utilising [Embark](https://embark.embarklabs.io/docs/quick_start.html), and therefore we'll be diving deeper into `web3.js`, and showing off much more of its potential.
 
 
 # Web.js in Other Languages
