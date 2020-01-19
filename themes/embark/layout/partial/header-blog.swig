@@ -1,36 +1,33 @@
 <header role="banner" class="c-header c-header--compact">
   <div class="o-container">
     <div class="c-header__top">
-      <a href="{{ url_for_lang('') }}" title="Embark" class="c-logo c-logo--negative">Embark</a>
+      <a href="https://embarklabs.io" title="Embark" class="c-logo c-logo--negative">Embark</a>
       <nav role="navigation" class="c-navigation">
         <div class="c-navigation__header">
-          <a href="{{ url_for_lang('') }}" title="Embark" class="c-logo">Embark</a>
+          <a href="https://embarklabs.io" title="Embark" class="c-logo">Embark</a>
           <button class="c-navigation__close u-text-light" title="Close menu">
             <svg class="c-icon c-icon--xs"><use xlink:href="{{url_for('../assets/icons/symbols.svg#icon-close')}}"></use></svg>
           </button>
         </div>
-        <div class="c-navigation__body" style="display: none">
+        <div class="c-navigation__body" style="">
           <ul class="c-navigation__list">
             <li class="c-navigation__item">
-              <a href="{{ url_for('docs/quick_start.html') }}" class="c-navigation__anchor {% if is_quickstart() %}is-active{% endif %}" title="{{__('navigation.quick_start')}}">{{__('navigation.quick_start')}}</a>
+              <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="{{__('navigation.blog')}}">{{__('navigation.blog')}}</a>
             </li>
             <li class="c-navigation__item">
-              <a href="/docs" class="c-navigation__anchor {% if is_current('/docs') && !is_quickstart() %}is-active{% endif %}" title="{{__('navigation.learn')}}">{{__('navigation.learn')}}</a>
+              <a href="https://embark.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
             </li>
             <li class="c-navigation__item">
-              <a href="/plugins" class="c-navigation__anchor {% if is_current('/plugins') %}is-active{% endif %}" title="{{__('navigation.plugins')}}">{{__('navigation.plugins')}}</a>
+              <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
             </li>
             <li class="c-navigation__item">
-              <a href="/community" class="c-navigation__anchor {% if is_current('/community') %}is-active{% endif %}" title="{{__('navigation.community')}}">{{__('navigation.community')}}</a>
-            </li>
-            <li class="c-navigation__item">
-              <a href="/news" class="c-navigation__anchor {% if is_current('/news') %}is-active{% endif %}" title="{{__('navigation.blog')}}">{{__('navigation.blog')}}</a>
+              <a href="https://embark.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
             </li>
           </ul>
         </div>
       </nav>
       <div class="o-flex o-flex-center">
-        <form action="" class="o-flex__item u-hidden-until-large" style="display: none">
+        <form action="" class="o-flex__item u-hidden-until-large" style="">
           <input type="search" placeholder="Search" id="search-input">
         </form>
         <div class="o-flex__item">
