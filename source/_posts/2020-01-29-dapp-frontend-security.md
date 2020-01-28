@@ -1,5 +1,5 @@
-title: "Web Security - From Front end to Back end"
-summary: "Web Application Security is not just a consideration for Backend Developers, but for Frontend Developers too.  In this article we'll cover a comprehensive security strategy for Web Applications."
+title: "DApp Frontend Security"
+summary: "Security is not just a consideration for DApp Backend Developers, but for Frontend Developers too.  In this article we'll cover a comprehensive security strategy for DApp Frontends."
 author: robin_percy
 categories:
   - tutorials
@@ -8,7 +8,7 @@ image: '/assets/images/web3-article-header.png'
 
 ---
 
-![Web3.js](../assets/images/web3-article-header.png)
+![Web3.js](/assets/images/web3-article-header.png)
 
 
 ## Introduction
