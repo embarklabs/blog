@@ -9,7 +9,7 @@ image: '/assets/images/web3-article-header.png'
 
 ![Web3.js](/assets/images/web3-article-header.png)
 
-*This article is the first in my series of articles based on the frontend of the web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for web apps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
+*This article is the second in my series of articles based on the frontend of the web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for DApps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
 
 To kick this article off, I first have to reaffirm, for those that aren't aware, I am not, and never have been, a ***lover*** of JavaScript.  While my cool friends were off learning Node.js, and for some reason moving a scripting language to the backend, I was learning C and Go, Erlang and Distributed Systems.
 

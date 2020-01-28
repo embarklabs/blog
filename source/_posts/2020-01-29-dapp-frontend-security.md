@@ -13,7 +13,7 @@ image: '/assets/images/web3-article-header.png'
 
 ## Introduction
 
-*This article is the second in my series of articles based on the frontend of the web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for web apps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
+*This article is the second in my series of articles based on the frontend of the web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for DApps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
 
 Working for a [security-focused company like Status](https://status.im/security/) means that security, in its many forms, is mentioned on a daily basis. 
 
