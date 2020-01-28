@@ -9,9 +9,9 @@ image: '/assets/images/web3-article-header.png'
 
 ![Web3.js](/assets/images/web3-article-header.png)
 
-*This will be a fairly brief write-up, introducing Web3 ahead of my next DApp tutorial series.*
+*This article is the first in my series of articles based on the frontend of the web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for web apps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
 
-To kick this article off, I first have to reaffirm, for those that aren't aware, I am not, and never have been, a ***lover*** of JavaScript.  While my cool friends were off learning Node, and for some reason moving a scripting language to the backend, I was learning C and Go, Erlang and Distributed Systems.
+To kick this article off, I first have to reaffirm, for those that aren't aware, I am not, and never have been, a ***lover*** of JavaScript.  While my cool friends were off learning Node.js, and for some reason moving a scripting language to the backend, I was learning C and Go, Erlang and Distributed Systems.
 
 For years, I harboured a deep hatred of JS, and actively whinged about it at every opportunity I got; being ***forced*** to use it in my daily work life.  Now however, I do have to say; over the last few years I have *softened* to JS, and I am much more comfortable in my own skin when having to use it.
 
@@ -166,7 +166,7 @@ myContract.deploy({
 
 The above examples aren't supposed to be perfect continuous code, and should definitely *not* be copy/pasted into a production project, but they are there to show off roughly how `Web.js` works, and give an overview of interacting with the 2 main pieces of functionality, as I see them – Wallets and Contracts.
 
-In my next tutorial series, we will be utilising [Embark](https://embark.embarklabs.io/docs/quick_start.html), and therefore we'll be diving deeper into `web3.js`, and showing off much more of its potential.
+In my next tutorial series, we will be utilising [Embark](https://embark.status.im/docs/quick_start.html), and therefore we'll be diving deeper into `web3.js`, and showing off much more of its potential.
 
 
 # Web.js in Other Languages
