@@ -224,7 +224,7 @@ Do you know the ins-and-outs of each library your Developers use?  Probably not 
 
 The issue here is that using so much *automation* in modern development, we grant access to a huge amount of tools/libraries without *really* knowing exactly what they're doing.  We take it for granted that each of these libraries is entirely safe and without their security vulnerabilities - or worse - performing malicious activities themselves.
 
-We all want the most streamlined Dev cycle possible.  We all use automation tools that trigger a whole bunch of processes, doings things that barely any of us are aware of.  The propensity of some Devs to throw `sudo` commands at package managers if a command fails is also truly terrifying.
+We all want the most streamlined Dev cycle possible.  We all use automation tools that trigger a whole bunch of processes, doing things that barely any of us are aware of.  The propensity of some Devs to throw `sudo` commands at package managers if a command fails is also truly terrifying.
 
 So how do we get around this?  ***Take a Tech Blueprint!***  This needn't be a complex process, it's as simple as knowing what each piece of Software is doing on your servers, and what authority they've been granted.  Take a note of any new tools / packages before you grant them permissions, and do a little research.  Some simple Googling of key phrases i.e. `*package* security vulnerabilities` will usually bring up more results than you'd expect.  It's also worth checking out the *Issues* tab on the package's GitHub page.  Vulnerabilities are often discussed there and you'll be able to act accordingly.  This applies to the top-level Package Managers too.
 
@@ -236,12 +236,10 @@ Package managers are used by almost ALL of us.  If you really want to scare your
   $ npm show $module scripts
 ```
 
-## Security for DApps
+## Security for DApp Users
 
 ![Dapp security](https://cdn-media-1.freecodecamp.org/images/1*sd62aH6GGS1RoCR9t4QNyQ.png)
 [Image Source](https://www.freecodecamp.org/news/how-to-design-a-secure-backend-for-your-decentralized-application-9541b5d8bddb/)
-
-It's not only regular web apps that need securing, but decentralised web apps too!
 
 With more and more DApps being created including web-based exchanges, crypto-based games etc.  The opportunities for bad actors increase with each new DApp released.  Say, for instance, someone released an interactive game built around Web3, and directly interacting with user's wallets.  On registration for the game, wallets are created, and they collected sensitive data, including user's private keys being stored in local storage (super insecure).
 
