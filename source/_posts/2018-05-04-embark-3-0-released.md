@@ -11,7 +11,7 @@ Embark is now part of [Status](https://status.im/) and we are happy to announce 
 
 ## New website and Documentation
 
-Embark has a new website and up to date documentation which can be found at https://embark.embarklabs.io/docs/
+Embark has a new website and up to date documentation which can be found at https://framework.embarklabs.io/docs/
 
 ## More Smart Contract Languages
 
