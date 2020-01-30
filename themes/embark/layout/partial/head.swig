@@ -148,4 +148,5 @@
 
 svg4everybody();
 </script>
+{{ open_graph() }}
 </head>
