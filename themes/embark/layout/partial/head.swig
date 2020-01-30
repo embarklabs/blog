@@ -32,7 +32,6 @@
 
   <!-- RSS -->
   {{ feed_tag('atom.xml') }}
-  <meta property="og:image" content="/img/share.png?v=0.0.5" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/styles/dracula.min.css">
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
