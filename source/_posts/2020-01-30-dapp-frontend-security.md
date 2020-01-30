@@ -1,5 +1,6 @@
 title: "DApp Frontend Security"
 summary: "Security is not just a consideration for DApp Backend Developers, but for Frontend Developers too.  In this article we'll cover a comprehensive security strategy for DApp Frontends."
+description: "Security is not just a consideration for DApp Backend Developers, but for Frontend Developers too.  In this article we'll cover a comprehensive security strategy for DApp Frontends."
 author: robin_percy
 categories:
   - tutorials

@@ -8,7 +8,7 @@ layout: blog-post
 
 If you've been following the development of Embark you're probably aware that we regularly put out alpha and beta releases for upcoming major or feature versions of Embark. In the past ~6 months since the release of Embark 4, we've published 10 alpha releases and one beta release for Embark 5 and today we're happy to announce the Embark 5 stable release!
 
-In this post we'll be looking at some of the main changes and features to get up and running with v5. Notice that we've add a [migration guide](https://embark.embarklabs.io/docs/migrating_from_3.x.html#Updating-to-v5) to our official docs as well.
+In this post we'll be looking at some of the main changes and features to get up and running with v5. Notice that we've add a [migration guide](https://framework.embarklabs.io/docs/migrating_from_3.x.html#Updating-to-v5) to our official docs as well.
 
 ## New Features
 

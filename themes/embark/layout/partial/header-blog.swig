@@ -15,13 +15,13 @@
               <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="{{__('navigation.blog')}}">{{__('navigation.blog')}}</a>
             </li>
             <li class="c-navigation__item">
-              <a href="https://embark.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
+              <a href="https://framework.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
             </li>
             <li class="c-navigation__item">
               <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
             </li>
             <li class="c-navigation__item">
-              <a href="https://embark.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
+              <a href="https://framework.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
             </li>
           </ul>
         </div>

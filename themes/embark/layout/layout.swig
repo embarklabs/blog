@@ -2,6 +2,9 @@
 <html lang="en" dir="ltr">
   {{ partial('partial/head') }}
   <body>
+
+    {{ open_graph() }}
+
     {{ body }}
     {{ partial('partial/footer') }}
 
