@@ -125,7 +125,7 @@ Starting with Embark 4 beta.1, Embark no longer supplies the Dapp with `Web3.js`
 
 To continue using `Web3.js` inside the Embark 4 Dapp, execute the following command in the Embark console: `plugin install embarkjs-connector-web3`.
 
-This simply [installs `embarkjs-connector-web3` as a plugin](https://embark.embarklabs.io/docs/installing_plugins.html). Alternatively, this plugin can be installed manually by executing:
+This simply [installs `embarkjs-connector-web3` as a plugin](https://framework.embarklabs.io/docs/installing_plugins.html). Alternatively, this plugin can be installed manually by executing:
 1. `yarn add embarkjs-connector-web3` or `npm install --save embarkjs-connector-web3`
 2. Adding `"embarkjs-connector-web3": {}` to the `plugins` section of `embark.json`
 
@@ -133,11 +133,11 @@ It's as simple as that. This plugin will add the necessary commands and code for
 
 ## New Blockchain account configs
 
-Embark 4 adds some new blockchain account configurations. To try to keep things as simple as possible, these additions are really similar to the ones in the contract configuration. For more information, please read the [Accounts Blockchain configuration guide](https://embark.embarklabs.io/docs/blockchain_accounts_configuration.html) in our docs.
+Embark 4 adds some new blockchain account configurations. To try to keep things as simple as possible, these additions are really similar to the ones in the contract configuration. For more information, please read the [Accounts Blockchain configuration guide](https://framework.embarklabs.io/docs/blockchain_accounts_configuration.html) in our docs.
 
 However, we did introduce some small breaking changes. We removed:
-- `account`: This is completely replaced by the new `accounts` property (notice the `s` at the end of `accounts`). It gives the developer more flexibility. To have exactly the same behavior as before, just use the `nodeAccounts` account type as [described in the docs](https://embark.embarklabs.io/docs/blockchain_accounts_configuration.md#parameter-descriptions)
-- `simulatorMnemonic`: Removed in favor of Ganache's default mnemonic. If this functionality is still needed, please specify the desired mnemonic in the [blockchain config's `mnemonic` account type](https://embark.embarklabs.io/docs/blockchain_accounts_configuration.md#parameter-descriptions).
+- `account`: This is completely replaced by the new `accounts` property (notice the `s` at the end of `accounts`). It gives the developer more flexibility. To have exactly the same behavior as before, just use the `nodeAccounts` account type as [described in the docs](https://framework.embarklabs.io/docs/blockchain_accounts_configuration.md#parameter-descriptions)
+- `simulatorMnemonic`: Removed in favor of Ganache's default mnemonic. If this functionality is still needed, please specify the desired mnemonic in the [blockchain config's `mnemonic` account type](https://framework.embarklabs.io/docs/blockchain_accounts_configuration.md#parameter-descriptions).
 
 ## Conclusion
 

@@ -11,7 +11,7 @@ After four months of development we're happy to tell you that we've released Emb
 
 ## New `beforeDeploy` hook
 
-In Embark 4, we've introduced a handful of new [deployment hooks](https://embark.embarklabs.io/docs/contracts_configuration.html#Deployment-hooks) and with 4.1, we're expanding the APIs from there. The new `beforeDeploy` hook lets you run an action either before all of your Smart Contracts are getting deployed, or, selectively for a subset of them.
+In Embark 4, we've introduced a handful of new [deployment hooks](https://framework.embarklabs.io/docs/contracts_configuration.html#Deployment-hooks) and with 4.1, we're expanding the APIs from there. The new `beforeDeploy` hook lets you run an action either before all of your Smart Contracts are getting deployed, or, selectively for a subset of them.
 
 Very similar to the existing deployment hooks, `beforeDeploy` is an asynchronous function that returns a promise and has access to a context object that provides dependencies that your function may or may not be interested in. Adding a `beforeDeploy` hook that runs before your Smart Contracts are being deployed is as simple as adding it to the `contracts` configuration like this:
 
@@ -64,7 +64,7 @@ The new `service` command lets you start and stop `api`, `webserver`, `blockchai
 $ service <service> on/off
 ```
 
-This works within Embark's command line Dashboard, as well as [Cockpit's dashboard](https://embark.embarklabs.io/docs/cockpit_dashboard.html). To learn more about Embark's interactive console and its command, head over to the [documentation](/docs/using_the_console.html#Enabling-and-disabling-processes).
+This works within Embark's command line Dashboard, as well as [Cockpit's dashboard](https://framework.embarklabs.io/docs/cockpit_dashboard.html). To learn more about Embark's interactive console and its command, head over to the [documentation](/docs/using_the_console.html#Enabling-and-disabling-processes).
 
 ## Accounts access inside tests
 
