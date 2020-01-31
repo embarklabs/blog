@@ -121,7 +121,7 @@ app.use(express.static(__dirname + '/'));
 app.listen(process.env.PORT || 3000);
 ```
 
-However, if we do not wish to allow *any* external sites to execute scripts on our Web App, we could simply include the following:
+However, if we do not wish to allow *any* external sites to execute scripts on our DApp, we could simply include the following:
 
 ```js
 function requestHandler(req, res) {
@@ -142,26 +142,26 @@ Content Security Policies are both excellent and very powerful, but must be used
 
 Cross Site Request Forgery (CSRF) has been at the forefront of Web App Security for longer than any of us care to remember.  The idea behind it is that a malicious agent sends a (forged) request from one app to another whilst the User is signed in and authorised.  This would therefore allow the request to enter and alter restricted actions on the requested App, with the requested app believing entirely that the actions were coming from the logged in User.  A better way for me to describe this is to show you:
 
-Imagine if you will, I am security-abusing miscreant, and I happen to know that Twitter has no CSRF protection.  (They do, this is all hypothetical.)  I'm also aware that most people who visit *my* Web App, probably leave their Twitter logged in, and therefore have a Cookie stored in their browser, to allow them fast access to Twitter the next time they want to post something.
+Imagine if you will, I am security-abusing miscreant, and I happen to know that Twitter has no CSRF protection.  (They do, this is all hypothetical.)  I'm also aware that most people who visit *my* DApp, probably leave their Twitter logged in, and therefore have a Cookie stored in their browser, to allow them fast access to Twitter the next time they want to post something.
 
-On my Web App, I could embed a script such as the following:
+On my DApp frontend, I could embed a script such as the following:
 
-~~~html
+```html
 <form action="https://twitter.com/tweet" method="POST" id="sendTweet">
 <input type="hidden" name="tweet" value="Hey!  Check out my awesome spam site - spam.com">
-~~~
+```
 
-When your browser loads my Web App, this form will be loaded (entirely invisibly) too.  I would then also have embedded a small piece of JS to POST the form, without you ever knowing:
+When a user's browser loads my DApp, this form will be loaded (entirely invisibly) too.  I would then also have embedded a small piece of JS to POST the form, without them ever knowing:
 
-~~~js
+```js
 document.getElementById("sendTweet").submit();
-~~~
+```
 
-In doing this, I've just sent a Tweet on your account, without ever having to know your Username or Password.  The Cookie you had stored in your Browser allowed my app to send a *forged request*, pretending to be you - and if Twitter had no CSRF mitigation, it would have worked too!
+In doing this, I've just sent a Tweet on their account, without ever having to know their Username or Password.  The Cookie they had stored in their Browser allowed my app to send a *forged request*, pretending to be them - and if Twitter had no CSRF mitigation, it would have worked too!
 
 For years, we have been trying to solve CSRF requests by checking HTTP headers such as the `Origin` and `Referer`.  Whilst these have offered fairly robust protection for a few years, there is now a simple directive that once applied; will entirely mitigate CSRF attacks.
 
-Enter, the ***SameSite*** Cookie directive.  SameSite is relatively new, and only been around for the past year, in which it has gained some publicity, but is still widely unknown.  In essence, the SameSite directive, once applied, will tell the Browser to **never** send that cookie when a request from an external (Cross Site) url is made.  We can apply this directive by altering our Cookies as such:
+Enter, the ***SameSite*** Cookie directive.  `SameSite` is relatively new, and only been around for the past year, in which it has gained some publicity, but is still widely unknown.  In essence, the `SameSite` directive, once applied, will tell the Browser to **never** send that cookie when a request from an external (Cross Site) url is made.  We can apply this directive by altering our Cookies as such:
 
 	Set-Cookie: sess=sessionid123; path=/; SameSite
 
@@ -229,7 +229,7 @@ We all want the most streamlined Dev cycle possible.  We all use automation tool
 
 So how do we get around this?  ***Take a Tech Blueprint!***  This needn't be a complex process, it's as simple as knowing what each piece of Software is doing on your servers, and what authority they've been granted.  Take a note of any new tools / packages before you grant them permissions, and do a little research.  Some simple Googling of key phrases i.e. `*package* security vulnerabilities` will usually bring up more results than you'd expect.  It's also worth checking out the *Issues* tab on the package's GitHub page.  Vulnerabilities are often discussed there and you'll be able to act accordingly.  This applies to the top-level Package Managers too.
 
-Package managers are used by almost ALL of us.  If you really want to scare yourself, go ahead and search `*package manager* security vulnerability` and take a look at all of the results!  Again, knowing what we are installing and granting permissions to, and especially keeping a note of this, could just save our Bacon.  Take a look at [https://medium.com/friendship-dot-js/i-peeked-into-my-node-modules-directory-and-you-wont-believe-what-happened-next-b89f63d21558](this article for a relevant example!)
+Package managers are used by almost ALL of us.  If you really want to scare yourself, go ahead and search `*package manager* security vulnerability` and take a look at all of the results!  Again, knowing what we are installing and granting permissions to, and especially keeping a note of this, could just save our Bacon.  Take a look at [this article for a relevant example!](https://medium.com/friendship-dot-js/i-peeked-into-my-node-modules-directory-and-you-wont-believe-what-happened-next-b89f63d21558)
 
 **Handy tip:**  if you want to know which hooks an npm package runs, before you install it, run the command:
 
@@ -261,6 +261,7 @@ By following the tips in this article, keeping up-to-date with any security anno
 
 So, from enforcing HTTPS with Strict Transport Security, to securing our DApp frontend with a Content Security Policy; we’ve covered the main topics, in my opinion to ensuring Front end to Back end security for our web & decentralised web applications. These topics are all techniques I utilise myself and would advocate for use in your apps on an ongoing basis.
 
-[ **_- @rbin_**](https://twitter.com/rbin)
+For any future projects, I recommend taking a look at these [Blockchain Security providers.](https://nexus.mythx.io/directory#!/)
 
+[ **_- @rbin_**](https://twitter.com/rbin)
 
