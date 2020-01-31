@@ -14,24 +14,24 @@ image: '/assets/images/web3-article-header.png'
 
 ## Introduction
 
-*This article is the second in my series of articles based on the frontend of the web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for DApps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
+*This article is the second in my series of articles based on the Frontend of the Decentralised Web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, frontend to backend security for DApps,  how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app in Phoenix LiveView!*
 
 Working for a [security-focused company like Status](https://status.im/security/) means that security, in its many forms, is mentioned on a daily basis. 
 
-However; outside of [Status](http://status.im) one of the broadest, most important, yet often ignored considerations when deploying and running web applications is the security of the app.  When I use the term _security_,  I’m not just speaking from a Back end perspective, but also of the Front end of the application.  Having good infrastructure security is highly important, but there are also security factors on the front end of the application that we really _must_ take into account.
+However; outside of [Status](http://status.im) one of the broadest, most important, yet often ignored considerations when deploying and running web applications is the security of the app.  When I use the term _security_,  I’m not just speaking from a backend perspective, but also of the frontend of the application.  Having good infrastructure security is highly important, but there are also security factors on the frontend of the application that we really _must_ take into account.
 
 Security is an ongoing, and ever-changing, practice that you must observe to ensure that your product is never included in the companies that one hears about on the news after a huge data breach. Regardless of which programming paradigm, language or framework you wish to use, there are plenty of non-specific, terse security practices you should follow from the very start of the project.
 
 In my last personal Startup, we provided User Authentication as a Service, so we were a major target for hackers. On one of our first evenings live, we watched someone attempt to send 5million malicious requests within 30 minutes. None of which had any affect other than exposing the hacker. This is because we made security a priority — which is something we all need to do in the modern world of Tech.
 
-In this article, I'll introduce you to my biggest tips for top to bottom (Front end to Back end) security for your web applications.  We'll take a look at security for your DApps too!
+In this article, I'll introduce you to my biggest tips for top to bottom (Frontend to Backend) security for your web applications.  We'll take a look at security for your DApps too!
 
 
 ## Strict Transport Security (HSTS)
 
-HSTS is a security header that allows us to enforce HTTPS across our entire Web App.  If you read my previous article, you'll remember I advocate the idea of HTTPS everywhere, and showed you how to get a trusted, secure SSL certificate free-of-charge from [Let's Encrypt](https://letsencrypt.org).  The reason we need HTTPS everywhere is that our users are vulnerable to Cookie stealing and Man-in-the-middle attacks if we don't have it implemented.
+HSTS is a security header that allows us to enforce HTTPS across our entire DApp.  If you read my previous article, you'll remember I advocate the idea of HTTPS everywhere, and showed you how to get a trusted, secure SSL certificate free-of-charge from [Let's Encrypt](https://letsencrypt.org).  The reason we need HTTPS everywhere is that our users are vulnerable to Cookie stealing and Man-in-the-middle attacks if we don't have it implemented.
 
-Now, as you're probably aware, simply owning an SSL Cert will *not* immediately make all of your Web App HTTPS only - we need to tell our App to do that, ourselves.  One of the best ways of doing this is by using the HTTP Header of HSTS.  By using this Header, we can force all traffic on our App to use HTTPS and upgrade non-HTTPS.  This Header may also even provide a performance ***boost***, as we no longer would have to send our users through a manual redirect.
+Now, as you're probably aware, simply owning an SSL Cert will *not* immediately make all of your DApp HTTPS only - we need to tell our App to do that, ourselves.  One of the best ways of doing this is by using the HTTP Header of HSTS.  By using this Header, we can force all traffic on our App to use HTTPS and upgrade non-HTTPS.  This Header may also even provide a performance ***boost***, as we no longer would have to send our users through a manual redirect.
 
 So, you're probably thinking "Wow! I need this!".  Well, whilst I agree - alongside the *Content Security Policy* I'll talk about later, this needs to be implemented **with caution.**  Allow me to explain!  Here's what a sample HSTS Header looks like:
 
@@ -47,9 +47,9 @@ function requestHandler(req, res) {
 
 In this Header, we have 3 *directives* that apply.  `max-age`, `includeSubDomains` and `preload`.
 
-***max-age***:  By specifying a max-age, we are telling the user's browser to cache the fact that we use only HTTPS.  This means that if the user tries to visit a non-HTTPS version of the site, their browser will be automatically redirected to the HTTPS site, *before* it even sends a message to the Server.  Therein lies the slight performance boost I mentioned earlier.  Now, while this *does* sound fantastic in theory, what we need to be aware of here, is the fact that if a user ever *needed* to access a non-HTTPS page, their browser simply won't let them, until this `max-age` expires. If you are going to activate this feature, and set a long `max-age`, (required by the pre-load sites I'll talk about in a second), you ***really*** need to be sure that you have your SSL cert setup correctly, and HTTPS enabled on *all* of your Web App before you take action!
+***max-age***:  By specifying a max-age, we are telling the user's browser to cache the fact that we use only HTTPS.  This means that if the user tries to visit a non-HTTPS version of the site, their browser will be automatically redirected to the HTTPS site, *before* it even sends a message to the Server.  Therein lies the slight performance boost I mentioned earlier.  Now, while this *does* sound fantastic in theory, what we need to be aware of here, is the fact that if a user ever *needed* to access a non-HTTPS page, their browser simply won't let them, until this `max-age` expires. If you are going to activate this feature, and set a long `max-age`, (required by the pre-load sites I'll talk about in a second), you ***really*** need to be sure that you have your SSL cert setup correctly, and HTTPS enabled on *all* of your DApp before you take action!
 
-***includeSubDomains***:  The `includeSubDomains` directive does exactly what it says on-the-tin.  It simply offers additional protection by enforcing the policy across your subdomains too.  This is useful if you run a Web App that sets Cookies from one section (perhaps a gaming section), to another section (perhaps a profile section), that need to be kept secure.  Again, the issue with this lies similarly to the above, in that you ***must*** be sure *every* subdomain you own and run, is entirely ready for this to be applied.
+***includeSubDomains***:  The `includeSubDomains` directive does exactly what it says on-the-tin.  It simply offers additional protection by enforcing the policy across your subdomains too.  This is useful if you run a DApp that sets Cookies from one section (perhaps a gaming section), to another section (perhaps a profile section), that need to be kept secure.  Again, the issue with this lies similarly to the above, in that you ***must*** be sure *every* subdomain you own and run, is entirely ready for this to be applied.
 
 ***preload***:  The most dangerous directive of them all!  Basically, the `preload` directive is an in-browser-built directive that comes straight from the browser creators. This means that your Web App can be hard-coded into the actual *Browser* to always use HTTPS.  Again, whilst this would mean no redirects, and therefore a performance boost, once you're on this list; it's ***very*** difficult to get back off it!  Considering that Chrome takes around 3 months from build-to-table, and that's only for the people who auto-update, you've got a *huge* wait-time if you make a mistake.
 
@@ -62,9 +62,9 @@ If you are going to use the HSTS protocol, start out with a small `max-age` - so
 
 ## Using the X-XSS-Protection Header
 
-XSS (Cross Site Scripting) is the most common of all Web App attacks.  XSS occurs when a malicious entity injects scripts to be run into your Web App.  A few years back, most web browsers added a security filter for XSS attacks built into the browser itself.  Now whilst in theory this was a good step, they did tend to throw-up false-positives quite often.  Due to this, the filter can be turned off by the User. (As the option should be available, in my opinion.)
+XSS (Cross Site Scripting) is the most common of all Web App attacks.  XSS occurs when a malicious entity injects scripts to be run into your app.  A few years back, most web browsers added a security filter for XSS attacks built into the browser itself.  Now whilst in theory this was a good step, they did tend to throw-up false-positives quite often.  Due to this, the filter can be turned off by the User. (As the option should be available, in my opinion.)
 
-To ensure our Users are protected, we can force this filter (worth it), on our Web App by using the `X-XSS-Protection` Header.  This Header is widely supported by common browsers, and something I'd recommend using every time.
+To ensure our Users are protected, we can force this filter (worth it), on our DApp by using the `X-XSS-Protection` Header.  This Header is widely supported by common browsers, and something I'd recommend using every time.
 
 To apply this header to your Node.js app, you should include the following:
 
@@ -87,7 +87,7 @@ Now, if the browser detects an XSS attack, the page will be sanitized, and repor
 
 Clickjacking occurs when a malicious agent injects objects / iFrames into your DApp, made to look identical, that actually sends the User to a malicious site when clicked.  Another common, and possibly more scary example is that malicious agents insert something like a payment form into your DApp, that looks identical to your DApp, but steals payment details.
 
-Now, whilst this *could* be a very dangerous issue, it's very easy to mitigate, with almost no impact on your Web App.  Servers offer Browsers a Header Protocol named `X-Frame-Options`.  This protocol allows us to specify domains to accept iFrames from.  It also allows us to state which sites our Web App can be embedded on.  With this protocol, we get three fairly self-explanitory options/directives:  `DENY`, `ALLOW-FROM`, and `SAMEORIGIN`.
+Now, whilst this *could* be a very dangerous issue, it's very easy to mitigate, with almost no impact on your DApp.  Servers offer Browsers a Header Protocol named `X-Frame-Options`.  This protocol allows us to specify domains to accept iFrames from.  It also allows us to state which sites our DApp can be embedded on.  With this protocol, we get three fairly self-explanatory options/directives:  `DENY`, `ALLOW-FROM`, and `SAMEORIGIN`.
 
 If we choose `DENY`, we can block all framing.  If we use `ALLOW-FROM`, we can supply a list of domains to allow framing within.  I use the `SAMEORIGIN` directive, as this means framing can only be done within the current domain.  This can be utilised with the following:
 
@@ -100,7 +100,7 @@ function requestHandler(req, res) {
 
 ## Content Security Policy (CSP)
 
-CSP is another major topic when it comes to Server-Browser security for Web Apps.  At a high-level; Content Security Policies tell the browser what content is authorised to execute on a Web App, and what will block.  Primarily, this can be used to prevent XSS, in which an attacker could place a `<script>` tag on your Web App.  The Content-Security-Policy is a Server-Browser header that we can set to ensure our Server tells the Browser exactly which media, scripts, and their origins, we will allow to be executed on our Web app.
+CSP is another major topic when it comes to Server-Browser security for Web Apps.  At a high-level; Content Security Policies tell the browser what content is authorised to execute on a Web App, and what will block.  Primarily, this can be used to prevent XSS, in which an attacker could place a `<script>` tag on your Web App.  The Content-Security-Policy is a Server-Browser header that we can set to ensure our Server tells the Browser exactly which media, scripts, and their origins, allowed to be executed on our DApp.
 
 The whitelisting of resource loading and execution URIs provides a good level of security, that will in most parts, defend against most attacks.
 
@@ -129,7 +129,7 @@ function requestHandler(req, res) {
 }
 ```
 
-Note the `script-src` directive here, that we have set to `self`, therefore only allowing scripts from within our own domain.  Of course, CSP is not without its own problems.  Firstly, it would be very easy for us to forget about some of the media we have in our Web App and to simply exclude them accidentally.  Now that the web is so *rich* in media, this would be reasonably easy to do.  Secondly, many of us use third-party plugins on our Web App.  Again, unless we have a full blueprint of these, we could very easily block them.
+Note the `script-src` directive here, that we have set to `self`, therefore only allowing scripts from within our own domain.  Of course, CSP is not without its own problems.  Firstly, it would be very easy for us to forget about some of the media we have in our DApp and to simply exclude them accidentally.  Now that the web is so *rich* in media, this would be reasonably easy to do.  Secondly, many of us use third-party plugins on our DApp.  Again, unless we have a full blueprint of these, we could very easily block them.
 
 So, once activated, this Server Header *could* potentially be very detrimental to us.  However, there are two great ways of testing this.  You can set a strict policy, and use the built in directives; `report-only` and `report-uri` to test them.  The `report-uri` directive tells the Browser to send a JSON report of all of the blocked scripts to a URi that we specify.  The `report-only` directive does the same, but will ***not*** block the scripts on the site.  This is very useful for testing, before we put this Header into production.
 
@@ -165,7 +165,7 @@ Enter, the ***SameSite*** Cookie directive.  `SameSite` is relatively new, and o
 
 	Set-Cookie: sess=sessionid123; path=/; SameSite
 
-It really is that easy.  I wouldn't recommend removing your existing CSRF protection just yet, but I would definitely recommend including this directive on your Web App.
+It really is that easy.  I wouldn't recommend removing your existing CSRF protection just yet, but I would definitely recommend including this directive on your DApp.
 
 
 ## Cookies
@@ -214,7 +214,7 @@ Now, if we include the tips from my first article, and the tips above, we can ma
 
 	Set-Cookie: __Host-sess=id123; path=/; Secure; HttpOnly; SameSite
 
-In this most-secure-cookie, we're utilising the `__Host` prefix which means the `Secure` attribute has to be set, and it must be served from a secure host.  There is no `Domain` attribute set and the `Path` is /.  We've set `HttpOnly` for XSS protection, and SameSite is enabled too to prevent CSRF.  Of course, this won't be the best or most practical solution for a lot of people, but it *is* the most in-theory secure Cookie we could set from our Web App.
+In this most-secure-cookie, we're utilising the `__Host` prefix which means the `Secure` attribute has to be set, and it must be served from a secure host.  There is no `Domain` attribute set and the `Path` is /.  We've set `HttpOnly` for XSS protection, and SameSite is enabled too to prevent CSRF.  Of course, this won't be the best or most practical solution for a lot of people, but it *is* the most in-theory secure Cookie we could set from our DApp.
 
 
 ## Take a DApp Blueprint
@@ -257,11 +257,10 @@ There is an excellent write-up on DApp security standards you [can check out her
 ## Conclusion
 Without a doubt, the most effective method for maintaining the security of your DApps  is keeping up-to-date with any security protocols on an ongoing basis.  Vulnerabilities are an extremely fickle and dynamic topic, in that they change / pop up so regularly.
 
-By following the tips in this article, keeping up-to-date with any security announcements, and having an in-depth overview of your systems, you can rest assured that you are well on your way to having a jolly well secured web app.  As stressed in this article, security considerations are not only found on the Back end of our apps, but on the Front end too.  Ensuring that we approach both means we can be confident about the safety of our users (which should be our number one priority).  The best tools in web security are common sense and vigilance.
+By following the tips in this article, keeping up-to-date with any security announcements, and having an in-depth overview of your systems, you can rest assured that you are well on your way to having a jolly well secured DApp.  As stressed in this article, security considerations are not only found on the backend of our apps, but on the frontend too.  Ensuring that we approach both means we can be confident about the safety of our users (which should be our number one priority).  The best tools in web security are common sense and vigilance.
 
-So, from enforcing HTTPS with Strict Transport Security, to securing our DApp frontend with a Content Security Policy; we’ve covered the main topics, in my opinion to ensuring Front end to Back end security for our web & decentralised web applications. These topics are all techniques I utilise myself and would advocate for use in your apps on an ongoing basis.
+So, from enforcing HTTPS with Strict Transport Security, to securing our DApp frontend with a Content Security Policy; we’ve covered the main topics, in my opinion to ensuring frontend to backend security for our web & decentralised web applications. These topics are all techniques I utilise myself and would advocate for use in your apps on an ongoing basis.
 
 For any future projects, I recommend taking a look at these [Blockchain Security providers.](https://nexus.mythx.io/directory#!/)
 
 [ **_- @rbin_**](https://twitter.com/rbin)
-
