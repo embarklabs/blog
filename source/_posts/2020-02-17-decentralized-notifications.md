@@ -5,6 +5,7 @@ categories:
   - dapp-development
   - tools
 layout: blog-post
+image: '/assets/images/embark-header_blank.jpg'
 ---
 
 Supporting Email Notifications in DApps
