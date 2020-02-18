@@ -9,7 +9,7 @@ image: '/assets/images/web3-article-header.png'
 
 ![Web3.js](/assets/images/web3-article-header.png)
 
-*This article is the first in my series of articles based on the frontend of the decentralised web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Phoenix LiveView!*
+*This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how [WebAssembly / eWasm](/news/2020/02/14/wasm-ewasm-what-and-why/) has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Elixir & Phoenix LiveView!*
 
 To kick this article off, I first have to reaffirm, for those that aren't aware, I am not, and never have been, a ***lover*** of JavaScript.  While my cool friends were off learning Node.js, and for some reason moving a scripting language to the backend, I was learning C and Go, Erlang and Distributed Systems.
 
