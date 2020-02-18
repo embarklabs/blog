@@ -13,7 +13,7 @@ image: '/assets/images/web3-article-header.png'
 
 ## Introduction
 
-*This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how [WebAssembly / eWasm](/news/2020/02/14/wasm-ewasm-what-and-why/) has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Elixir & Phoenix LiveView!*
+*This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how [WebAssembly / eWasm](/news/2020/02/18/wasm-ewasm-what-and-why/) has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Elixir & Phoenix LiveView!*
 
 Working for a [security-focused company like Status](https://status.im/security/) means that security, in its many forms, is mentioned on a daily basis. 
 
