@@ -11,13 +11,13 @@ image: '/assets/images/web3-article-header.png'
 ![Web3.js](/assets/images/web3-article-header.png)
 
 
-## Introduction
+> *This article is the second in my series of articles based on the frontend of the decentralised web.  Throughout the series we'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how [eWasm / WebAssembly](/news/2020/02/18/wasm-ewasm-what-and-why/) has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Phoenix LiveView!*
 
-*This article is the second in my series of articles based on the frontend of the decentralised web.  We'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how WebAssembly has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Phoenix LiveView!*
+## Introduction
 
 Working for a [security-focused company like Status](https://status.im/security/) means that security, in its many forms, is mentioned on a daily basis. 
 
-However; outside of [Status](http://status.im) one of the broadest, most important, yet often ignored considerations when deploying and running web applications is the security of the app.  When I use the term _security_,  I’m not just speaking from a backend perspective, but also of the frontend of the application.  Having good infrastructure security is highly important, but there are also security factors on the frontend of the application that we really _must_ take into account.
+However; outside of [Status](http://status.im) one of the broadest, most important, yet *often ignored* considerations when deploying and running web applications is the security of the app.  When I use the term _security_,  I’m not just speaking from a backend perspective, but also of the frontend of the application.  Having good infrastructure security is highly important, but there are also security factors on the frontend of the application that we really _must_ take into account.
 
 Security is an ongoing, and ever-changing, practice that you must observe to ensure that your product is never included in the companies that one hears about on the news after a huge data breach. Regardless of which programming paradigm, language or framework you wish to use, there are plenty of non-specific, terse security practices you should follow from the very start of the project.
 
