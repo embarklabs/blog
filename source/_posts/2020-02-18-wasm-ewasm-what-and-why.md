@@ -4,7 +4,7 @@ author: robin_percy
 categories:
   - tutorials
 layout: blog-post
-image: '../assets/images/web3-article-header.png'
+image: '/assets/images/web3-article-header.png'
 ---
 
 ![Web3.js](https://blog.embarklabs.io/assets/images/web3-article-header.png)
@@ -22,7 +22,7 @@ Basically; Wasm can be summarised as an ***efficient*** binary format.  This bin
 
 Today, I'd like to show you what I've discovered about *Wasm*, and in keeping with my  **decentralised web frontend** series; in particular – [**eWasm** (Web Assembly for Ethereum)](https://eWasm.readthedocs.io/en/mkdocs/).
 
-> ***'Ethereum WebAssembly is a proposed redesign of the Ethereum smart contract execution layer using a deterministic subset of WebAssembly.'***
+> ***'Ethereum WebAssembly is a proposed redesign of the Ethereum Smart Contract execution layer using a deterministic subset of WebAssembly.'***
 
 
 
@@ -50,8 +50,7 @@ WebAssembly delivers significant performance gains because modern browser engine
 
 From what I've read, I believe one of the biggest ideas behind Wasm; is to make it possible to run media-rich game engines, and support such graphics-heavy games in-browser, without the use of plug-ins. It also has non-web applications such as the Internet of Things, mobile apps and JavaScript virtual machines.
 
-<iframe width="680" height="382" src="https://www.youtube.com/embed/MaJCfdmr9Wg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<iframe width="100%" height="300" src="https://www.youtube.com/embed/MaJCfdmr9Wg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 If you want to get started with Wasm, you can download a precompiled toolchain to compile C/C++ to WebAssembly by running the following:
 
@@ -67,11 +66,11 @@ $ ./emsdk activate latest
 
 Great! &nbsp; Now that we have Wasm introduced, explained, and out-of-the-way, we can move onto the (arguably) more important topic – ***eWasm***!  So.. what exactly is eWasm?
 
-Simply put; eWasm is a restricted subset of Wasm to be used for contracts in Ethereum.  Much like Wasm, one of the biggest goals of eWasm is to be fast & efficient.  To truly distinguish Ethereum as the *"World Computer",* we need to have a super performant VM. The current architecture of the VM is one of the greatest blockers to raw performance.  
+Simply put; eWasm is a restricted subset of Wasm to be used for Smart Contracts in Ethereum.  Much like Wasm, one of the biggest goals of eWasm is to be fast & efficient.  To truly distinguish Ethereum as the *"World Computer",* we need to have a super performant VM. The current architecture of the VM is one of the greatest blockers to raw performance.  
 
 As I mentioned in the Wasm section above; WebAssembly aims to execute at near native speed by taking advantage of common hardware capabilities available on a wide range of platforms. This will open the door for Ethereum to a wide array of uses that require performance/throughput.
 
-Security is another key goal.  With the added performance gains from eWasm we will be able to implement parts of Ethereum such as the precompiled contract in the VM itself which will minimise our trusted computing base.  WebAssembly is currently being designed as an open standard by a W3C Community Group and is actively being developed by engineers from Mozilla, Google, Microsoft, and Apple
+Security is another key goal.  With the added performance gains from eWasm we will be able to implement parts of Ethereum such as the precompiled Smart Contract in the VM itself which will minimise our trusted computing base.  WebAssembly is currently being designed as an open standard by a W3C Community Group and is actively being developed by engineers from Mozilla, Google, Microsoft, and Apple.
 
 
 
@@ -79,19 +78,19 @@ Security is another key goal.  With the added performance gains from eWasm we wi
 
 Goals of the eWasm project:
 
- - To provide a specification of eWasm contract semantics and the Ethereum interface.
- - To provide an EVM transcompiler, preferably as an eWasm contract.
- - To provide a metering injector*, preferably as an eWasm contract.
- - To provide a VM implementation for executing eWasm contracts.
+ - To provide a specification of eWasm Smart Contract semantics and the Ethereum interface.
+ - To provide an EVM transcompiler, preferably as an eWasm Smart Contract.
+ - To provide a VM implementation for executing eWasm Smart Contracts.
  - To implement an eWasm backend in the Solidity compiler.
- - To provide a library and instructions for writing contracts in Rust.
- - To provide a library and instructions for writing contracts in C.
+ - To provide a library and instructions for writing Smart Contracts in Rust.
+ - To provide a library and instructions for writing Smart Contracts in C.
+ - To provide a *metering injector**, preferably as an eWasm Smart Contract.
 
-*Metering injector is a transformation tool inserting metering code to an eWasm contract.
+**Metering injector* is a transformation tool inserting metering code to an eWasm Smart Contract.
 
-**Toolchain Compatibility:** A LLVM front-end for Wasm is part of the MVP. This will allow developers to write contracts and reuse applications written in common languages such as C/C++, go and rust.
+**Toolchain Compatibility:** A LLVM front-end for Wasm is part of the MVP. This will allow developers to write Smart Contracts and reuse applications written in common languages such as C/C++, go and rust.
 
-**Portability**: Wasm is targeted to be deployed in all the major web browsers which will result in it being one of the most widely deployed VM architecture. Contracts compiled to eWasm will share compatibility with any standard Wasm environment. Which will make running a program either directly on Ethereum, on a cloud hosting environment, or on one's local machine - a frictionless process.
+**Portability**: Wasm is targeted to be deployed in all the major web browsers which will result in it being one of the most widely deployed VM architecture. Smart Contracts compiled to eWasm will share compatibility with any standard Wasm environment. Which will make running a program either directly on Ethereum, on a cloud hosting environment, or on one's local machine - a frictionless process.
 
 **Optional And Flexible Metering:** Metering the VM adds overhead but is essential for running untrusted code. If code is trusted, then metering maybe optional. eWasm defines metering as an optional layer to accommodate for these usecases.
 
@@ -103,6 +102,15 @@ This chart shows the Wasm-based EVM setting new performance records in a typical
 ![Wasm EVM benchmarking](/assets/images/wasm-evm-benchmarks.png)  
 
 I took this benchmark directly from the eWasm GitHub, I didn't run the tests myself. You can find the full details, alongside more benchmark testing [here.](https://github.com/eWasm/benchmarking#sha1)
+
+
+## eWasm and Embark
+
+With Status / Embark being at the forefront of Decentralised technology; naturally we are very on-board with eWasm and the improvements it brings to the EVM.
+
+Check out two of our extremely talented engineers; [Pascal](https://twitter.com/PascalPrecht) and [Eric](https://twitter.com/ericmastro) giving about eWasm at Devcon 5:
+
+<iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/t2LgFXxcFtc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
