@@ -22,7 +22,7 @@ Basically; Wasm can be summarised as an ***efficient*** binary format.  This bin
 
 Today, I'd like to show you what I've discovered about *Wasm*, and in keeping with my  **decentralised web frontend** series; in particular – [**eWasm** (Web Assembly for Ethereum)](https://eWasm.readthedocs.io/en/mkdocs/).
 
-> ***'Ethereum WebAssembly is a proposed redesign of the Ethereum Smart Contract execution layer using a deterministic subset of WebAssembly.'***
+> ***'Ethereum flavoured WebAssembly is a proposed redesign of the Ethereum Smart Contract execution layer using a deterministic subset of WebAssembly.'***
 
 
 
