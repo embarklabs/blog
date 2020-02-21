@@ -4,10 +4,10 @@ author: robin_percy
 categories:
   - tutorials
 layout: blog-post
-image: '/assets/images/web3-article-header.png'
+image: '/assets/images/eWASM-header.png'
 ---
 
-![Web3.js](https://blog.embarklabs.io/assets/images/web3-article-header.png)
+![eWasm](/assets/images/eWASM-header.png)
 
 
 > *This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we'll look at [Web3.js](/news/2019/12/09/web3-what-are-your-options/) & accessing the Ethereum Blockchain client-side, [frontend security for DApps](/news/2020/01/30/dapp-frontend-security/), how [eWasm / WebAssembly](/news/2020/02/18/wasm-eWasm-what-and-why/) has become the "4th language of the web", and we'll build a realtime Blockchain explorer app with Phoenix LiveView!*
