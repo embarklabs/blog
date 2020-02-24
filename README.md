@@ -7,8 +7,8 @@ The website for Embark.
 Install dependencies:
 
 ``` bash
-$ git clone https://github.com/status-im/embark-site.git
-$ cd embark-site
+$ git clone https://github.com/rbnpercy/embark-blog
+$ cd embark-blog
 $ npm install
 ```
 
@@ -21,5 +21,5 @@ $ hexo generate
 Run server:
 
 ``` bash
-$ hexo server
+$ npx hexo serve --watch
 ```
