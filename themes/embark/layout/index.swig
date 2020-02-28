@@ -187,7 +187,7 @@
     </div>
   </section>
   <section>
-    <div class="o-container-medium o-distance o-center">
+    <div class="o-container o-distance o-center">
       <div class="c-box c-box--spot">
           <h3><span>{{__('start_page.newsletter_section.heading.title')}}</span></h3>
           <div id="mc_embed_signup" class="o-distance-l">

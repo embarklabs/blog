@@ -55,7 +55,7 @@
       <input type="search" id="inp-search" placeholder="Search">
     </div>
   </div>
-  <div class="o-container-medium">
+  <div class="o-container">
     <div class="c-header__body">
       <h1 class="c-title u-text-ghost">{{ title }}</h1>
       {% if author %}

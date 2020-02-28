@@ -9,7 +9,11 @@ layout: blog-post
 image: '/assets/images/embark-header_blank.jpg'
 ---
 
+<span class="o-center">
+
 ![Embark Labs](/assets/images/embark_logo.png)
+
+</span>
 
 Embark 5.2
 ===
@@ -144,7 +148,7 @@ config({
       }
     }
   }
-})  
+})
 ```
 
 ## Improved compatibility

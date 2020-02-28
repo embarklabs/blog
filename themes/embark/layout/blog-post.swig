@@ -7,13 +7,13 @@
   })
 }}
 <main role="main" class="o-standard-page">
-  <section class="o-container-medium o-distance">
+  <section class="o-container o-distance">
     {{page.content}}
   </section>
-  
+
   {% if page.next !== null || page.prev !== null %}
 
-  <div class="o-container-medium o-distance">
+  <div class="o-container o-distance">
     {{ partial('partial/paginator', { next: page.next, prev: page.prev }) }}
   </div>
   {% endif %}
