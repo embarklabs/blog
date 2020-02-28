@@ -24,7 +24,7 @@
   }}
 {% endif %}
 <main role="main">
-  <section class="o-container-medium o-distance">
+  <section class="o-container o-distance">
     {% for post in page.posts %}
       {{
         partial('partial/whisperbox', {
