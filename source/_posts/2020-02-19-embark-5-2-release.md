@@ -6,7 +6,7 @@ categories:
   - releases
   - embark
 layout: blog-post
-image: '/assets/images/embark-header_blank.jpg'
+image: '/assets/images/embark_logo.png'
 ---
 
 <span class="o-center">
