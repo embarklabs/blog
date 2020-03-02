@@ -71,10 +71,8 @@
   color: get-color(unique, white);
 }
 
-.o-grid__column--large-1-3 {
-  .c-box--cover {
-    height: 150px;
-  }
+.o-grid__column--large-1-3 .c-box--cover, .o-grid__column--large-1-3.c-box--cover {
+  height: 150px;
 }
 
 .c-box--spot {

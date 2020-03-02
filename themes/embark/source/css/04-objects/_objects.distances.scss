@@ -7,25 +7,25 @@
 }
 
 .o-distance-s {
-  margin-top: get-spacing-stack(s);
+  margin-top: get-spacing-stack(s) !important;
 }
 
 .o-distance-m {
-  margin-top: get-spacing-stack(m);
+  margin-top: get-spacing-stack(m) !important;
 }
 
 .o-distance-l {
-  margin-top: get-spacing-stack(l);
+  margin-top: get-spacing-stack(l) !important;
 }
 
 .o-distance-xl {
-  margin-top: get-spacing-stack(xl);
+  margin-top: get-spacing-stack(xl) !important;
 }
 
 .o-distance-xxl {
-  margin-top: get-spacing-stack(xl);
+  margin-top: get-spacing-stack(xl) !important;
 
   @include breakpoint(l) {
-    margin-top: get-spacing-stack(xxl);
+    margin-top: get-spacing-stack(xxl) !important;
   }
 }
