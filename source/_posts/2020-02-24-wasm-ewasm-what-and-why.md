@@ -108,7 +108,7 @@ I took this benchmark directly from the eWasm GitHub, I didn't run the tests mys
 
 With Status / Embark being at the forefront of Decentralised technology; naturally we are very on-board with eWasm and the improvements it brings to the EVM.
 
-Check out two of our extremely talented engineers; [Pascal](https://twitter.com/PascalPrecht) and [Eric](https://twitter.com/ericmastro) giving about eWasm at Devcon 5:
+Check out two of our extremely talented engineers; [Pascal](https://twitter.com/PascalPrecht) and [Eric](https://twitter.com/ericmastro) giving a talk about eWasm at Devcon 5:
 
 <iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/t2LgFXxcFtc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
