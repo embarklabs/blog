@@ -62,7 +62,7 @@
       <div class="o-distance-m">
         <div class="o-flex o-flex-center">
           <span class="o-flex__item">
-            <img src="{{ author.image }}" class="c-avatar-small">
+            <img src="{{ author.image }}" class="c-avatar-small" alt="author picture">
           </span>
           <p class="o-flex__item">
             Written by {% if author.twitter %}<a href="https://twitter.com/{{author.twitter}}" title="{{author.name}} on Twitter">{{author.name}}</a>{% else %}{{author.name}}{% endif %} on the {% if articleDate %}<time class="u-text-ghost">{{ date(articleDate, 'Do MMMM YYYY') }}</time>{% endif %}

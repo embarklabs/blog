@@ -1,4 +1,4 @@
-.c-navigation {
+.c-navigation, .categories, .categories-list {
   height: 100%;
   position: fixed;
   left: 0;
@@ -27,7 +27,7 @@
     }
   }
 
-  &__list {
+  &__list, &-list {
     @include list-reset();
 
     @include breakpoint(l) {
@@ -37,13 +37,16 @@
     }
   }
 
-  &__item {
+  &__item, &-item {
     padding-bottom: get-spacing-inset(m);
     padding-top: get-spacing-inset(m);
     border-top: $border-width solid $border-color;
+    text-transform: capitalize;
 
     @include breakpoint(l) {
-      margin-left: get-spacing-inline(m);
+      &:not(:first-child) {
+        margin-left: get-spacing-inline(m);
+      }
       padding-bottom: 0;
       padding-top: 0;
       border-top: 0;
@@ -52,6 +55,10 @@
     &:first-child {
       padding-top: 0;
       border-top: 0;
+    }
+
+    .categories-list-count {
+      margin-left: 5px;
     }
   }
 
