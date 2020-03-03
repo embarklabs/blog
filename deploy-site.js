@@ -4,7 +4,7 @@ const path = require('path');
 const args = require('minimist')(process.argv.slice(2));
 
 const execWithOutput = (cmd) => execSync(cmd, { stdio: 'inherit' });
-
+// FIXME this file still points to the Embark site
 const DEPLOY_REPOSITORY = 'https://github.com/embarklabs/embark-site';
 const DEPLOY_REMOTE = 'embark-site';
 

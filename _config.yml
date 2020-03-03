@@ -37,3 +37,5 @@ node_sass:
   outputStyle: nested
   precision: 5
   sourceComments: false
+external_link:
+  enable: false
