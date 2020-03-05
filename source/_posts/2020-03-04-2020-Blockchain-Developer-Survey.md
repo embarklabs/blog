@@ -1,3 +1,13 @@
+title: 2020 Blockchain Developer Report
+summary: "2020 Blockchain Developer Report was created to guage the thoughts and feelings of the blockchain developer community. Learn how devs are feeling about this space."
+author: graham_mcbain
+categories:
+  - Report
+layout: blog-post
+image: '/assets/images/Header_Banner.png'
+---
+
+![2020 Developer Survey](/assets/images/Header_Banner.png)
 
 ## Abstract
 The blockchain developer mindset is not well understood. This survey initiative was created in an effort to shed light on the current sentiment in the blockchain developer community. The echo chamber of crypto Twitter doesn’t allow for thoughtful discussion, and we felt there was a need for a survey of the community outside of that forum. Though our sample size is small we are happy with the input we received from developers around the world. 
