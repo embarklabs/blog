@@ -1,14 +1,14 @@
-# Embark Official Website
+# Embark Official Blog
 
-The website for Embark.
+The Blog for Embark.
 
 ## Getting started
 
 Install dependencies:
 
 ``` bash
-$ git clone https://github.com/status-im/embark-site.git
-$ cd embark-site
+$ git clone https://https://github.com/rbnpercy/embark-blog.git
+$ cd embark-blog
 $ npm install
 ```
 
