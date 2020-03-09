@@ -80,6 +80,12 @@
         <a class="github-button" href="https://github.com/embarklabs/embark" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star embarklabs/embark on GitHub">Star</a>
       </div>
       {% endif %}
+
+      {% if showTags %}
+        <div class="categories o-distance-s">
+          {{ list_categories({depth: 1, class: "categories"}) }}
+        </div>
+      {% endif %}
     </div>
   </div>
 </header>

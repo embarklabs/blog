@@ -4,3 +4,7 @@
   }
   border: $border-width solid $color;
 }
+
+.border-normal {
+  @include border();
+}
