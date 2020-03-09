@@ -4,7 +4,7 @@ author: robin_percy
 categories:
   - tutorials
 layout: blog-post
-image: '/assets/images/nim-crystal-header_blank.jpg'
+image: '/assets/images/nim-crystal-header-img_NEW.jpg'
 ---
 
 ![crystal vs nim](/assets/images/nim-crystal-header-img_NEW.jpg)
@@ -26,7 +26,7 @@ Anyway, let's take a look at both languages, and you can make your own mind up a
 
 ## Nim
 
-Nim is a statically-typed, imperative, systems programming language; aiming to achieve the performance of C, be as expressive as Lisp, and have a simple, clear syntax like Python.  I have to say, from my experience Nim manages to ***pretty much*** fit these criterion.  
+Nim is a statically-typed, imperative, systems programming language; aiming to achieve the performance of C, be as expressive as Lisp, and have a simple, clear syntax like Python.  I have to say, from my experience Nim manages to ***pretty much*** fit these criterion.
 
 > By compiling to C, Nim is able to take advantage of many features offered by modern C compilers. The primary benefits gained by this compilation model include incredible portability and optimisations.
 
@@ -462,7 +462,7 @@ Once again, to my surprise, Crystal came out on top. And did again and again for
 
 ## Conclusion
 
-The summary of this first-in-series article, is most definitely one of surprise.  I already knew that Crystal was a highly-performant language, and I have previously done my own research & testing to see how close to *C speeds* it could achieve.  That being said, I was *also* already aware that Nim **claims** close to C speeds, and that one of the language's principals was to run well on old & less-performant hardware.  
+The summary of this first-in-series article, is most definitely one of surprise.  I already knew that Crystal was a highly-performant language, and I have previously done my own research & testing to see how close to *C speeds* it could achieve.  That being said, I was *also* already aware that Nim **claims** close to C speeds, and that one of the language's principals was to run well on old & less-performant hardware.
 
 Yet, Crystal beat not only my own expectations; but beat Nim for both memory usage **AND** execution times.  I really didn't expect to see Crystal come out *this* far ahead in performance.  On the other hand, Nim came out by-far the leader when it comes to language interoperability.  **Nim makes it even easier** than Crystal when interfacing other langs – not something I thought possible, given just how easy Crystal makes the task.
 
