@@ -1,7 +1,8 @@
 {{ partial('partial/header', {
   title: __(page.title),
   tagline: __(page.tagline),
-  compact: true
+  compact: true,
+  showTags: true
 }) }}
 
 {% set len = site.posts.length %}

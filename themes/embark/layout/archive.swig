@@ -1,7 +1,7 @@
 {% if is_category() %}
   {{
     partial('partial/header', {
-      title: 'Categories: ' +site.data.categories[page.category],
+      title: 'Categories: ' + site.data.categories[page.category],
       tagline: '&nbsp;',
       compact: true,
       link: {
