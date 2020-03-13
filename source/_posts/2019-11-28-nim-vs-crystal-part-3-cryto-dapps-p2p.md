@@ -4,7 +4,7 @@ author: robin_percy
 categories:
   - tutorials
 layout: blog-post
-image: '/assets/images/nim-crystal-header_blank.jpg'
+image: '/assets/images/nim-crystal-header-img_NEW.jpg'
 ---
 
 ![crystal vs nim](/assets/images/nim-crystal-header-img_NEW.jpg)
