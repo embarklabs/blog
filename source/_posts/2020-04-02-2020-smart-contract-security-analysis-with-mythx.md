@@ -1,8 +1,8 @@
 title: Smart Contract security analysis with MythX
 summary: "Analyse Smart Contract security throughout the development lifecycle using the Embark MythX plugin."
-author: graham_mcbain
+author: eric_mastro
 categories:
-  - smart contracts
+  - smart-contracts
   - security
   - mythx
   - tutorial
@@ -47,7 +47,10 @@ npm i -g embark
 The rest of this article will assume you have Embark installed globally, and therefore available from the CLI.
 
 ### Create a MythX account
-You'll need to [create a MythX account](https://docs.mythx.io/en/latest/getting-started/index.html) before any contracts can be submitted. The dashboard of this account will list all completed analyses. Signing up for a free plan is easy. The free plan is a great way to test out MythX's features without forking over any dollary-doos. You may skip the step of connecting your Ethereum address with MetaMask if you'd like, as a username and password are sufficient to proceed with this tutorial.
+You'll need to [create a MythX account](https://docs.mythx.io/en/latest/getting-started/index.html) before any contracts can be submitted. The dashboard of this account will list all completed analyses. Signing up for a free plan is easy. The free plan is a great way to test out MythX's features without forking over any dollary-doos. You may skip the step of connecting your Ethereum address with MetaMask if you'd like, as a username, password, and API key are sufficient to proceed with this tutorial.
+
+### Obtain a MythX API key
+Once you've created a MythX account, we need to obtain an API key. This can be done on the [Tools page](https://dashboard.mythx.io/#/console/tools). Simply enter your MythX password and click the "Generate API Key" button. We will use the API key in Step 4.
 
 ## Step 2. Create a &ETH;App
 For this article, we will be creating a demo &ETH;App to use as a base for submitting our first contract for analysis. However, if you already have a &ETH;App with contracdts that you'd like to use instead, simply skip this step.
@@ -85,8 +88,9 @@ npm i embark-mythx --save
 ```
 
 ## Step 4. Create a `.env` file with MythX credentials
-Create a `.env` file in the root of your &ETH;App. Add your MythX username and password like so:
+Create a `.env` file in the root of your &ETH;App. Add your MythX API key, username, and password like so:
 ```
+MYTHX_API_KEY="1234...7890"
 MYTHX_USERNAME="satoshi.nakamoto@gmail.com"
 MYTHX_PASSWORD="abc123"
 ```
@@ -110,25 +114,32 @@ Embark (development) > verify help
 ```
 We can see there are a few options for us to use and we can also see how they can be used:
 ```
-Usage:
-        verify [--full] [--debug] [--limit] [--initial-delay] [<contracts>]
-        verify status <uuid>
-        verify help
+Available Commands
 
-Options:
-        --full, -f                      Perform full rather than quick analysis.
-        --debug, -d                     Additional debug output.
-        --limit, -l                     Maximum number of concurrent analyses.
-        --initial-delay, -i             Time in seconds before first analysis status check.
+  verify <options> [contracts]    Runs MythX verification. If array of contracts are specified, only those contracts will be analysed.
+  verify report [--format] uuid   Get the report of a completed analysis.
+  verify status uuid              Get the status of an already submitted analysis.
+  verify list                     Displays a list of the last 20 submitted analyses in a table.
+  verify help                     Display this usage guide.
 
-        [<contracts>]                   List of contracts to submit for analysis (default: all).
-        status <uuid>                   Retrieve analysis status for given MythX UUID.
-        help                            This help.
+Examples
+
+  verify --mode full SimpleStorage ERC20                                Runs a full MythX verification for the SimpleStorage and ERC20 contracts only. 
+  verify status 0d60d6b3-e226-4192-b9c6-66b45eca3746                    Gets the status of the MythX analysis with the specified uuid.
+  verify report --format stylish 0d60d6b3-e226-4192-b9c6-66b45eca3746   Gets the status of the MythX analysis with the specified uuid.
+
+Verify options
+
+  -m, --mode string        Analysis mode. Options: quick, standard, deep (default: quick).
+  -o, --format string      Output format. Options: text, stylish, compact, table, html, json (default: stylish).
+  -c, --no-cache-lookup    Deactivate MythX cache lookups (default: false).
+  -d, --debug              Print MythX API request and response.
+  -l, --limit number       Maximum number of concurrent analyses (default: 10).
+  -t, --timeout number     Timeout in secs to wait for analysis to finish (default: smart default based on mode).
 ```
 
 ### Verify the SimpleStorage contract
 Let's take a peek to see how easy it is to analyse our SimpleStorage contract.
-
 In the Embark console, execute the following command to submit our SimpleStorage contract for MythX security analysis:
 ```
 verify
@@ -136,7 +147,9 @@ verify
 The results should look the following:
 ![SimpleStorage security analysis](/assets/images/mythx_simplestorage-analysis.png)
 
-We can see from the security analysis output in the console that there is an error marked "SWC-103". Looking at the [SWC Registry for SWC-103](https://swcregistry.io/docs/SWC-103) help, we can remedy this by changing line 1 of our `contracts/simple_storage.sol` to:
+First, we can see that a MythX job was submitted, with a URL that takes us to the analysis job in the MythX dashboard.
+
+Second, we can see from the security analysis output in the console that there is a warning marked "SWC-103". Looking at the [SWC Registry for SWC-103](https://swcregistry.io/docs/SWC-103) help, we can remedy this by changing line 1 of our `contracts/simple_storage.sol` to:
 ```
 pragma solidity 0.6.1;
 ```
@@ -144,17 +157,13 @@ Embark will detect the change in the contract and automatically recompile and re
 ```
 verify
 ```
-And voila! 
-```
-Running MythX analysis in background.
-Submitting 'SimpleStorage' for quick analysis...
+And voila!
+![SimpleStorage security analysis success](/assets/images/mythx_simplestorage-analysis-success.png)
 
-MythX analysis found no vulnerabilities.
-```
 MythX has confirmed that we no longer have any security issues!
 
 ### Viewing the submissions in the MythX dashboard
-Open your browser and go to the [MythX analyses](https://dashboard.mythx.io/#/console/analyses) page. After logging in, you should be able to see a list of all the contracts you've submitted for analyses. 
+Open your browser and go to the [MythX analyses](https://dashboard.mythx.io/#/console/analyses) page. After logging in, you should be able to see a list of all the contracts you've submitted for analyses.
 
 ![Mythx Analysis List](/assets/images/mythx_dashboard_showing_submissions.png)
 
