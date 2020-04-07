@@ -41,5 +41,8 @@
     "gulp-unique-files": "^0.1.2",
     "gulp-useref": "^4.0.0",
     "rename": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=8.10.0 <12.0.0"
   }
 }
