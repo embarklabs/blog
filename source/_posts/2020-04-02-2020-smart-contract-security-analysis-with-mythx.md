@@ -21,7 +21,7 @@ Contracts are submitted to MythX using their [API](https://api.mythx.io/v1/opena
 
 ![MythX dashboard with analyses](/assets/images/mythx_dashboard-analyses.png)
 
-MythX was designed to work with third party security tools and developer plugins. This has paved the way to allow MythX integration in to Embark, by way of the [Embark MythX plugin](https://github.com/flex-dapps/embark-mythx). The Embark MythX plugin allows developers to easily submit their contracts (all contracts, or just those that need it) for analysis and see the resulting report in the console.
+MythX was designed to work with third party security tools and developer plugins. This has paved the way to allow MythX integration in to Embark, by way of the [Embark MythX plugin](https://github.com/embarklabs/embark-mythx). The Embark MythX plugin allows developers to easily submit their contracts (all contracts, or just those that need it) for analysis and see the resulting report in the console.
 
 Let's walk through this and see how it can be done!
 
@@ -63,7 +63,7 @@ cd embark_demo
 This will create a &ETH;App with one contract, SimpleStorage, which we will submit to MythX for analysis.
 
 ## Step 3. Install the Embark MythX plugin
-Installing the [Embark MythX](https://github.com/flex-dapps/embark-mythx) plugin in our &ETH;App is extremely simple:
+Installing the [Embark MythX](https://github.com/embarklabs/embark-mythx) plugin in our &ETH;App is extremely simple:
 1. Add the `embark-mythx` package to your &ETH;App:
 ```
 yarn add embark-mythx
