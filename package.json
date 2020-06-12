@@ -6,23 +6,31 @@
   "hexo": {
     "version": "4.2.0"
   },
+  "scripts": {
+    "build": "./node_modules/.bin/hexo generate",
+    "serve": "./node_modules/.bin/hexo serve",
+    "deploy": "./node_modules/.bin/hexo deploy",
+    "clean": "rm -fr public/*"
+  },
   "dependencies": {
     "cheerio": "^0.22.0",
     "hexo": "4.2.0",
     "hexo-autoprefixer": "^2.0.0",
+    "hexo-cli": "3.0.0",
     "hexo-deployer-git": "^2.1.0",
     "hexo-generator-alias": "^0.1.3",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
-    "hexo-generator-feed": "^2.2.0",
-    "hexo-generator-sitemap": "^2.0.0",
+    "hexo-generator-feed": "2.2.0",
+    "hexo-generator-sitemap": "2.0.0",
+    "hexo-render-sass": "2020.4.16",
     "hexo-renderer-jade": "^0.5.0",
     "hexo-renderer-marked": "^2.0.0",
-    "hexo-renderer-sass": "^0.4.0",
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
     "lodash": "^4.17.13",
     "lunr": "^2.3.8",
+    "node-sass": "4.13.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {

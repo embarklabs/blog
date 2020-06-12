@@ -39,3 +39,11 @@ node_sass:
   sourceComments: false
 external_link:
   enable: false
+feed:
+  type: atom
+  path: atom.xml
+  limit: false
+  hub:
+  order_by: -date
+  autodiscovery: true
+  template: ./atom_template.xml
