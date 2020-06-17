@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>WebAssembly / eWasm – What, and Why? | Embark Blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://blog.embarklabs.io/news/2020/02/24/wasm-ewasm-what-and-why/index.html">
+  <!-- Alternative links -->
+  
+
+  <!-- Icon -->
+  <meta name="msapplication-TileColor" content="#080E1A">
+  <link rel="icon" type="image/png" href="/assets/images/favicon-16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon-32.png" sizes="32x32" />
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-60x60-precomposed.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-76x76-precomposed.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-touch-icon-120x120-precomposed.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152-precomposed.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-precomposed.png">
+  <!-- CSS -->
+  
+<link rel="stylesheet" href="/css/embark.css">
+
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Embark Blog">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/styles/dracula.min.css">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<script>
+  !function(root, factory) {
+    "function" == typeof define && define.amd ? // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function() {
+        return root.svg4everybody = factory();
+    }) : "object" == typeof module && module.exports ? // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory() : root.svg4everybody = factory();
+}(this, function() {
+    /*! svg4everybody v2.1.9 | github.com/jonathantneal/svg4everybody */
+    function embed(parent, svg, target) {
+        // if the target exists
+        if (target) {
+            // create a document fragment to hold the contents of the target
+            var fragment = document.createDocumentFragment(), viewBox = !svg.hasAttribute("viewBox") && target.getAttribute("viewBox");
+            // conditionally set the viewBox on the svg
+            viewBox && svg.setAttribute("viewBox", viewBox);
+            // copy the contents of the clone into the fragment
+            for (// clone the target
+            var clone = target.cloneNode(!0); clone.childNodes.length; ) {
+                fragment.appendChild(clone.firstChild);
+            }
+            // append the fragment into the svg
+            parent.appendChild(fragment);
+        }
+    }
+    function loadreadystatechange(xhr) {
+        // listen to changes in the request
+        xhr.onreadystatechange = function() {
+            // if the request is ready
+            if (4 === xhr.readyState) {
+                // get the cached html document
+                var cachedDocument = xhr._cachedDocument;
+                // ensure the cached html document based on the xhr response
+                cachedDocument || (cachedDocument = xhr._cachedDocument = document.implementation.createHTMLDocument(""),
+                cachedDocument.body.innerHTML = xhr.responseText, xhr._cachedTarget = {}), // clear the xhr embeds list and embed each item
+                xhr._embeds.splice(0).map(function(item) {
+                    // get the cached target
+                    var target = xhr._cachedTarget[item.id];
+                    // ensure the cached target
+                    target || (target = xhr._cachedTarget[item.id] = cachedDocument.getElementById(item.id)),
+                    // embed the target into the svg
+                    embed(item.parent, item.svg, target);
+                });
+            }
+        }, // test the ready state change immediately
+        xhr.onreadystatechange();
+    }
+    function svg4everybody(rawopts) {
+        function oninterval() {
+            // while the index exists in the live <use> collection
+            for (// get the cached <use> index
+            var index = 0; index < uses.length; ) {
+                // get the current <use>
+                var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent), src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                if (!src && opts.attributeName && (src = use.getAttribute(opts.attributeName)),
+                svg && src) {
+                    if (polyfill) {
+                        if (!opts.validate || opts.validate(src, svg, use)) {
+                            // remove the <use> element
+                            parent.removeChild(use);
+                            // parse the src and get the url and id
+                            var srcSplit = src.split("#"), url = srcSplit.shift(), id = srcSplit.join("#");
+                            // if the link is external
+                            if (url.length) {
+                                // get the cached xhr request
+                                var xhr = requests[url];
+                                // ensure the xhr request exists
+                                xhr || (xhr = requests[url] = new XMLHttpRequest(), xhr.open("GET", url), xhr.send(),
+                                xhr._embeds = []), // add the svg and id as an item to the xhr embeds list
+                                xhr._embeds.push({
+                                    parent: parent,
+                                    svg: svg,
+                                    id: id
+                                }), // prepare the xhr ready state change event
+                                loadreadystatechange(xhr);
+                            } else {
+                                // embed the local id into the svg
+                                embed(parent, svg, document.getElementById(id));
+                            }
+                        } else {
+                            // increase the index when the previous value was not "valid"
+                            ++index, ++numberOfSvgUseElementsToBypass;
+                        }
+                    }
+                } else {
+                    // increase the index when the previous value was not "valid"
+                    ++index;
+                }
+            }
+            // continue the interval
+            (!uses.length || uses.length - numberOfSvgUseElementsToBypass > 0) && requestAnimationFrame(oninterval, 67);
+        }
+        var polyfill, opts = Object(rawopts), newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/, webkitUA = /\bAppleWebKit\/(\d+)\b/, olderEdgeUA = /\bEdge\/12\.(\d+)\b/, edgeUA = /\bEdge\/.(\d+)\b/, inIframe = window.top !== window.self;
+        polyfill = "polyfill" in opts ? opts.polyfill : newerIEUA.test(navigator.userAgent) || (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 || (navigator.userAgent.match(webkitUA) || [])[1] < 537 || edgeUA.test(navigator.userAgent) && inIframe;
+        // create xhr requests object
+        var requests = {}, requestAnimationFrame = window.requestAnimationFrame || setTimeout, uses = document.getElementsByTagName("use"), numberOfSvgUseElementsToBypass = 0;
+        // conditionally start the interval if the polyfill is active
+        polyfill && oninterval();
+    }
+    function getSVGAncestor(node) {
+        for (var svg = node; "svg" !== svg.nodeName.toLowerCase() && (svg = svg.parentNode); ) {}
+        return svg;
+    }
+    return svg4everybody;
+});
+
+svg4everybody();
+</script>
+<meta name="description" content="This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we’ll look at Web3.js &amp; accessing the Ethereum Blockchain client-side, f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebAssembly &#x2F; eWasm – What, and Why?">
+<meta property="og:url" content="https://blog.embarklabs.io/news/2020/02/24/wasm-ewasm-what-and-why/index.html">
+<meta property="og:site_name" content="Embark Blog">
+<meta property="og:description" content="This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we’ll look at Web3.js &amp; accessing the Ethereum Blockchain client-side, f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/eWASM-header.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/wasm_explorer_online_app.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/wasm-evm-benchmarks.png">
+<meta property="article:published_time" content="2020-02-23T23:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:04:44.202Z">
+<meta property="article:author" content="Embark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.embarklabs.io/assets/images/eWASM-header.png">
+</head>
+
+  <body>
+
+    <header role="banner" class="c-header c-header--compact">
+  <div class="o-container">
+    <div class="c-header__top">
+      <a href="https://embarklabs.io" title="Embark" class="c-logo c-logo--negative">Embark</a>
+      <nav role="navigation" class="c-navigation">
+        <div class="c-navigation__header">
+          <a href="https://embarklabs.io" title="Embark" class="c-logo">Embark</a>
+          <button class="c-navigation__close u-text-light" title="Close menu">
+            <svg class="c-icon c-icon--xs"><use xlink:href="/../assets/icons/symbols.svg#icon-close"></use></svg>
+          </button>
+        </div>
+        <div class="c-navigation__body" style="">
+          <ul class="c-navigation__list">
+            <li class="c-navigation__item">
+              <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="Blog">Blog</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="o-flex o-flex-center">
+        <form action="" class="o-flex__item u-hidden-until-large" style="">
+          <input type="search" placeholder="Search" id="search-input">
+        </form>
+        <div class="o-flex__item">
+          <ul class="o-flex o-flex-center">
+            <li class="o-flex__item">
+              <a href="https://github.com/embarklabs/embark" title="Github" target="_blank" class="u-link-ghost">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-github"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item">
+              <a href="https://twitter.com/EmbarkProject" title="Twitter" target="_blank">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-twitter"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item u-hidden-large-up">
+              <button type="button"class="c-navigation__trigger u-link-ghost" title="Open menu">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-navigation-menu"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="c-quick-search o-distance-m u-hidden-large-up">
+      <input type="search" id="inp-search" placeholder="Search">
+    </div>
+  </div>
+  <div class="o-container">
+    <div class="c-header__body">
+      <h1 class="c-title u-text-ghost">WebAssembly / eWasm – What, and Why?</h1>
+      
+      <div class="o-distance-m">
+        <div class="o-flex o-flex-center">
+          <span class="o-flex__item">
+            <img src="https://avatars1.githubusercontent.com/u/29288325?s=400&v=4" class="c-avatar-small" alt="author picture">
+          </span>
+          <p class="o-flex__item">
+            Written by <a href="https://twitter.com/rbin" title="Robin Percy on Twitter">Robin Percy</a> on the <time class="u-text-ghost">24th February 2020</time>
+          </p>
+        </div>
+      </div>
+      
+
+      
+
+      
+      
+    </div>
+  </div>
+</header>
+
+
+<main role="main" class="o-standard-page">
+  <section class="o-container o-distance">
+    <p><img src="/assets/images/eWASM-header.png" alt="eWasm"></p>
+<blockquote>
+<p><em>This article is the third in my series of articles based on the frontend of the decentralised web.  Throughout the series we’ll look at <a href="/news/2019/12/09/web3-what-are-your-options/">Web3.js</a> &amp; accessing the Ethereum Blockchain client-side, <a href="/news/2020/01/30/dapp-frontend-security/">frontend security for DApps</a>, how <a href="/news/2020/02/18/wasm-eWasm-what-and-why/">eWasm / WebAssembly</a> has become the “4th language of the web”, and we’ll build a realtime Blockchain explorer app with Phoenix LiveView!</em></p>
+</blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>As I mentioned in the foreword of this article series; I read recently that WebAssembly (<em>Wasm</em>) has become the <em>4th language for the decentralised web</em>, and as I took time to really consider that notion, I came up with some points both for, and against it.</p>
+<p>WebAssembly is a way of taking code written in programming languages other than JavaScript and running that code in the browser.</p>
+<p>Basically; Wasm can be summarised as an <strong><em>efficient</em></strong> binary format.  This binary format serves as a compilation target, which can be compiled to <strong>execute at native speed</strong>, by taking advantage of common hardware capabilities available over a range of platforms – including mobile and IoT.</p>
+<p>Today, I’d like to show you what I’ve discovered about <em>Wasm</em>, and in keeping with my  <strong>decentralised web frontend</strong> series; in particular – <a href="https://eWasm.readthedocs.io/en/mkdocs/"><strong>eWasm</strong> (Web Assembly for Ethereum)</a>.</p>
+<blockquote>
+<p><strong><em>‘Ethereum flavoured WebAssembly is a proposed redesign of the Ethereum Smart Contract execution layer using a deterministic subset of WebAssembly.’</em></strong></p>
+</blockquote>
+<h2 id="Firstly-Wasm-Goals"><a href="#Firstly-Wasm-Goals" class="headerlink" title="Firstly; Wasm Goals"></a>Firstly; Wasm Goals</h2><p>The original design goals of WebAssembly are the following:</p>
+<ul>
+<li>Fast: executes with near native code performance, taking advantage of capabilities common to all contemporary hardware.</li>
+<li>Safe: code is validated and executes in a memory-safe, sandboxed environment preventing data corruption or security breaches.</li>
+<li>Well-defined: fully and precisely defines valid programs and their behaviour in a way that is easy to reason about informally and formally.</li>
+<li>Hardware-independent: can be compiled on all modern architectures, desktop or mobile devices and embedded systems alike.</li>
+<li>Language-independent: does not privilege any particular language, programming model, or object model.</li>
+<li>Platform-independent: can be embedded in browsers, run as a stand-alone VM, or integrated in other environments.</li>
+<li>Open: programs can interoperate with their environment in a simple and universal manner.</li>
+</ul>
+<p>As far as I can see, Wasm has indeed achieved the above goals.</p>
+<h2 id="How-Wasm-Works"><a href="#How-Wasm-Works" class="headerlink" title="How Wasm Works"></a>How Wasm Works</h2><p>WebAssembly delivers significant performance gains because modern browser engines can parse and execute its binary format an order of magnitude faster than vanilla JavaScript itself.  So; you can take C/C++ code, translate it into Wasm using a compiler tool, and load the generated Wasm module into a JavaScript app, where it will be executed by the browser.</p>
+<p><img src="/assets/images/wasm_explorer_online_app.png" alt="wasm editor"></p>
+<p>From what I’ve read, I believe one of the biggest ideas behind Wasm; is to make it possible to run media-rich game engines, and support such graphics-heavy games in-browser, without the use of plug-ins. It also has non-web applications such as the Internet of Things, mobile apps and JavaScript virtual machines.</p>
+<iframe width="100%" height="300" src="https://www.youtube.com/embed/MaJCfdmr9Wg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>If you want to get started with Wasm, you can download a precompiled toolchain to compile C/C++ to WebAssembly by running the following:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/emscripten-core/emsdk.git</span><br><span class="line">$ <span class="built_in">cd</span> emsdk</span><br><span class="line">$ ./emsdk install latest</span><br><span class="line">$ ./emsdk activate latest</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Wasm-to-eWasm-Ethereum-flavoured-WebAssembly"><a href="#Wasm-to-eWasm-Ethereum-flavoured-WebAssembly" class="headerlink" title="Wasm to eWasm (Ethereum flavoured WebAssembly)"></a>Wasm to eWasm (Ethereum flavoured WebAssembly)</h2><p>Great! &nbsp; Now that we have Wasm introduced, explained, and out-of-the-way, we can move onto the (arguably) more important topic – <strong><em>eWasm</em></strong>!  So.. what exactly is eWasm?</p>
+<p>Simply put; eWasm is a restricted subset of Wasm to be used for Smart Contracts in Ethereum.  Much like Wasm, one of the biggest goals of eWasm is to be fast &amp; efficient.  To truly distinguish Ethereum as the *”World Computer”,* we need to have a super performant VM. The current architecture of the VM is one of the greatest blockers to raw performance.  </p>
+<p>As I mentioned in the Wasm section above; WebAssembly aims to execute at near native speed by taking advantage of common hardware capabilities available on a wide range of platforms. This will open the door for Ethereum to a wide array of uses that require performance/throughput.</p>
+<p>Security is another key goal.  With the added performance gains from eWasm we will be able to implement parts of Ethereum such as the precompiled Smart Contract in the VM itself which will minimise our trusted computing base.  WebAssembly is currently being designed as an open standard by a W3C Community Group and is actively being developed by engineers from Mozilla, Google, Microsoft, and Apple.</p>
+<h2 id="eWasm-Goals"><a href="#eWasm-Goals" class="headerlink" title="eWasm Goals"></a>eWasm Goals</h2><p>Goals of the eWasm project:</p>
+<ul>
+<li>To provide a specification of eWasm Smart Contract semantics and the Ethereum interface.</li>
+<li>To provide an EVM transcompiler, preferably as an eWasm Smart Contract.</li>
+<li>To provide a VM implementation for executing eWasm Smart Contracts.</li>
+<li>To implement an eWasm backend in the Solidity compiler.</li>
+<li>To provide a library and instructions for writing Smart Contracts in Rust.</li>
+<li>To provide a library and instructions for writing Smart Contracts in C.</li>
+<li>To provide a <em>metering injector*</em>, preferably as an eWasm Smart Contract.</li>
+</ul>
+<p><em>*Metering injector</em> is a transformation tool inserting metering code to an eWasm Smart Contract.</p>
+<p><strong>Toolchain Compatibility:</strong> A LLVM front-end for Wasm is part of the MVP. This will allow developers to write Smart Contracts and reuse applications written in common languages such as C/C++, go and rust.</p>
+<p><strong>Portability</strong>: Wasm is targeted to be deployed in all the major web browsers which will result in it being one of the most widely deployed VM architecture. Smart Contracts compiled to eWasm will share compatibility with any standard Wasm environment. Which will make running a program either directly on Ethereum, on a cloud hosting environment, or on one’s local machine - a frictionless process.</p>
+<p><strong>Optional And Flexible Metering:</strong> Metering the VM adds overhead but is essential for running untrusted code. If code is trusted, then metering maybe optional. eWasm defines metering as an optional layer to accommodate for these usecases.</p>
+<h2 id="eWasm-Performance"><a href="#eWasm-Performance" class="headerlink" title="eWasm Performance"></a>eWasm Performance</h2><p>This chart shows the Wasm-based EVM setting new performance records in a typical   sha1 benchmark experiment.  It is shown here against <em>Evmone</em> (a C++ implementation) and <em>Cita-vm</em> (a rust implementation).</p>
+<p><img src="/assets/images/wasm-evm-benchmarks.png" alt="Wasm EVM benchmarking">  </p>
+<p>I took this benchmark directly from the eWasm GitHub, I didn’t run the tests myself. You can find the full details, alongside more benchmark testing <a href="https://github.com/eWasm/benchmarking#sha1">here.</a></p>
+<h2 id="eWasm-and-Embark"><a href="#eWasm-and-Embark" class="headerlink" title="eWasm and Embark"></a>eWasm and Embark</h2><p>With Status / Embark being at the forefront of Decentralised technology; naturally we are very on-board with eWasm and the improvements it brings to the EVM.</p>
+<p>Check out two of our extremely talented engineers; <a href="https://twitter.com/PascalPrecht">Pascal</a> and <a href="https://twitter.com/ericmastro">Eric</a> giving a talk on eWasm at Devcon 5:</p>
+<iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/t2LgFXxcFtc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Since its launch a couple of years ago; <em>Wasm</em> has grown from an impressive concept into an even-more-impressive piece of technology.  Alongside which a flourishing community has grown.  </p>
+<p>Although, personally, I have my reservations in agreeing with the statement that <em>Wasm</em> is the “most significant new technology to come to the web platform in a decade”…   It definitely <strong>is</strong> impressive, and I can certainly see how &amp; why it has made a good impact, and does have a lot of devs working on relative tooling and implementations.  This was an interesting (albeit old) article I just stumbled across this morning:  <a href="https://medium.com/perlin-network/life-a-secure-blazing-fast-cross-platform-webassembly-vm-in-go-ea3b31fa6e09">Life: A secure, blazing-fast, cross-platform WebAssembly VM in Go.</a></p>
+<p>Between Wasm &amp; eWasm, I’m excited to see the performance boosts we can achieve as they grow, and as our own DApp development grows.  I’d love to find an excuse to build out a big piece of technology with eWasm, but this <em>would</em> be a big project that I just don’t have time for right now!</p>
+<p>Thanks again for reading my series on DApp frontend.  The next (and unfortunately) final article in the series will be released next week, and is sure to be a <strong>real humdinger!</strong>  We’ll be building a realtime crypto/blockchain tracker app using Elixir &amp; <a href="https://www.phoenixframework.org/">Phoenix’s</a> newly popular <a href="https://github.com/phoenixframework/phoenix_live_view">LiveView!</a></p>
+<p><a href="https://twitter.com/rbin"> <strong>- @rbin</strong></a></p>
+
+  </section>
+
+  
+
+  <div class="o-container o-distance">
+    <div class="o-flex o-flex-space-between">
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/02/19/embark-5-2-release/" class="c-button c-button--quite" title="Previous article">Previous</a>
+  </div>
+  
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/03/04/2020-Blockchain-Developer-Survey/" class="c-button c-button--quite" title="Next article">Next</a>
+  </div>
+  
+</div>
+
+
+  </div>
+  
+</main>
+
+
+    <footer role="contentinfo" class="c-footer o-distance-xxl">
+  <div class="o-container">
+    <div class="c-footer__top">
+      <p class="c-category-title c-footer__top__title u-text-light">
+        <a href="/" class="c-logo c-logo--negative" title="Embark">Embark</a>
+      </p>
+    </div>
+    <div class="c-footer__body">
+
+      <div class="o-grid">
+        <div class="o-grid__column--1-1 o-grid__column--medium-1-2 o-grid__column--large-1-6">
+          <p class="c-category-title u-text-light">The Status Network</p>
+          <ul class="o-list-bare six-columns">
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://status.im/" target="_blank">Status</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://keycard.tech/" target="_blank">Keycard</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://dap.ps/" target="_blank">dap.ps</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://framework.embarklabs.io/" target="_blank">Embark</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://subspace.status.im/" target="_blank">Subspace</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://vac.dev/" target="_blank">Vac</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="c-footer__bottom">
+      <p class="u-text-light">
+        <a href="https://status.im/privacy-policy.html" title="Privacy Policy" target="_blank" class="u-text-light">Privacy Policy</a>
+        / © 2020 Embark
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <script>
+      const EMBARK_DOC_VERSIONS = {
+        
+      };
+    </script>
+
+    
+
+    <script src="/js/index.js"></script>
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+      docsearch({
+        apiKey: '439d8dc2add18007a2f31be4a9c0ed70',
+        indexName: 'embark',
+        inputSelector: '#search-input'
+      });
+    </script>
+    
+  </body>
+</html>
+

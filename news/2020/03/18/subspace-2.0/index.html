@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>Subspace 2.0 | Embark Blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://blog.embarklabs.io/news/2020/03/18/subspace-2.0/index.html">
+  <!-- Alternative links -->
+  
+
+  <!-- Icon -->
+  <meta name="msapplication-TileColor" content="#080E1A">
+  <link rel="icon" type="image/png" href="/assets/images/favicon-16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon-32.png" sizes="32x32" />
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-60x60-precomposed.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-76x76-precomposed.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-touch-icon-120x120-precomposed.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152-precomposed.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-precomposed.png">
+  <!-- CSS -->
+  
+<link rel="stylesheet" href="/css/embark.css">
+
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Embark Blog">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/styles/dracula.min.css">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<script>
+  !function(root, factory) {
+    "function" == typeof define && define.amd ? // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function() {
+        return root.svg4everybody = factory();
+    }) : "object" == typeof module && module.exports ? // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory() : root.svg4everybody = factory();
+}(this, function() {
+    /*! svg4everybody v2.1.9 | github.com/jonathantneal/svg4everybody */
+    function embed(parent, svg, target) {
+        // if the target exists
+        if (target) {
+            // create a document fragment to hold the contents of the target
+            var fragment = document.createDocumentFragment(), viewBox = !svg.hasAttribute("viewBox") && target.getAttribute("viewBox");
+            // conditionally set the viewBox on the svg
+            viewBox && svg.setAttribute("viewBox", viewBox);
+            // copy the contents of the clone into the fragment
+            for (// clone the target
+            var clone = target.cloneNode(!0); clone.childNodes.length; ) {
+                fragment.appendChild(clone.firstChild);
+            }
+            // append the fragment into the svg
+            parent.appendChild(fragment);
+        }
+    }
+    function loadreadystatechange(xhr) {
+        // listen to changes in the request
+        xhr.onreadystatechange = function() {
+            // if the request is ready
+            if (4 === xhr.readyState) {
+                // get the cached html document
+                var cachedDocument = xhr._cachedDocument;
+                // ensure the cached html document based on the xhr response
+                cachedDocument || (cachedDocument = xhr._cachedDocument = document.implementation.createHTMLDocument(""),
+                cachedDocument.body.innerHTML = xhr.responseText, xhr._cachedTarget = {}), // clear the xhr embeds list and embed each item
+                xhr._embeds.splice(0).map(function(item) {
+                    // get the cached target
+                    var target = xhr._cachedTarget[item.id];
+                    // ensure the cached target
+                    target || (target = xhr._cachedTarget[item.id] = cachedDocument.getElementById(item.id)),
+                    // embed the target into the svg
+                    embed(item.parent, item.svg, target);
+                });
+            }
+        }, // test the ready state change immediately
+        xhr.onreadystatechange();
+    }
+    function svg4everybody(rawopts) {
+        function oninterval() {
+            // while the index exists in the live <use> collection
+            for (// get the cached <use> index
+            var index = 0; index < uses.length; ) {
+                // get the current <use>
+                var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent), src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                if (!src && opts.attributeName && (src = use.getAttribute(opts.attributeName)),
+                svg && src) {
+                    if (polyfill) {
+                        if (!opts.validate || opts.validate(src, svg, use)) {
+                            // remove the <use> element
+                            parent.removeChild(use);
+                            // parse the src and get the url and id
+                            var srcSplit = src.split("#"), url = srcSplit.shift(), id = srcSplit.join("#");
+                            // if the link is external
+                            if (url.length) {
+                                // get the cached xhr request
+                                var xhr = requests[url];
+                                // ensure the xhr request exists
+                                xhr || (xhr = requests[url] = new XMLHttpRequest(), xhr.open("GET", url), xhr.send(),
+                                xhr._embeds = []), // add the svg and id as an item to the xhr embeds list
+                                xhr._embeds.push({
+                                    parent: parent,
+                                    svg: svg,
+                                    id: id
+                                }), // prepare the xhr ready state change event
+                                loadreadystatechange(xhr);
+                            } else {
+                                // embed the local id into the svg
+                                embed(parent, svg, document.getElementById(id));
+                            }
+                        } else {
+                            // increase the index when the previous value was not "valid"
+                            ++index, ++numberOfSvgUseElementsToBypass;
+                        }
+                    }
+                } else {
+                    // increase the index when the previous value was not "valid"
+                    ++index;
+                }
+            }
+            // continue the interval
+            (!uses.length || uses.length - numberOfSvgUseElementsToBypass > 0) && requestAnimationFrame(oninterval, 67);
+        }
+        var polyfill, opts = Object(rawopts), newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/, webkitUA = /\bAppleWebKit\/(\d+)\b/, olderEdgeUA = /\bEdge\/12\.(\d+)\b/, edgeUA = /\bEdge\/.(\d+)\b/, inIframe = window.top !== window.self;
+        polyfill = "polyfill" in opts ? opts.polyfill : newerIEUA.test(navigator.userAgent) || (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 || (navigator.userAgent.match(webkitUA) || [])[1] < 537 || edgeUA.test(navigator.userAgent) && inIframe;
+        // create xhr requests object
+        var requests = {}, requestAnimationFrame = window.requestAnimationFrame || setTimeout, uses = document.getElementsByTagName("use"), numberOfSvgUseElementsToBypass = 0;
+        // conditionally start the interval if the polyfill is active
+        polyfill && oninterval();
+    }
+    function getSVGAncestor(node) {
+        for (var svg = node; "svg" !== svg.nodeName.toLowerCase() && (svg = svg.parentNode); ) {}
+        return svg;
+    }
+    return svg4everybody;
+});
+
+svg4everybody();
+</script>
+<meta name="description" content="Subspace 2.0New to subspace? Check out the website at http:&#x2F;&#x2F;subspace.embarklabs.io&#x2F; Introducing Subspace React’s componentsA new set of components were created to simplify the usage of Subspace withi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Subspace 2.0">
+<meta property="og:url" content="https://blog.embarklabs.io/news/2020/03/18/subspace-2.0/index.html">
+<meta property="og:site_name" content="Embark Blog">
+<meta property="og:description" content="Subspace 2.0New to subspace? Check out the website at http:&#x2F;&#x2F;subspace.embarklabs.io&#x2F; Introducing Subspace React’s componentsA new set of components were created to simplify the usage of Subspace withi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-17T23:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:04:44.202Z">
+<meta property="article:author" content="Embark">
+<meta name="twitter:card" content="summary">
+</head>
+
+  <body>
+
+    <header role="banner" class="c-header c-header--compact">
+  <div class="o-container">
+    <div class="c-header__top">
+      <a href="https://embarklabs.io" title="Embark" class="c-logo c-logo--negative">Embark</a>
+      <nav role="navigation" class="c-navigation">
+        <div class="c-navigation__header">
+          <a href="https://embarklabs.io" title="Embark" class="c-logo">Embark</a>
+          <button class="c-navigation__close u-text-light" title="Close menu">
+            <svg class="c-icon c-icon--xs"><use xlink:href="/../assets/icons/symbols.svg#icon-close"></use></svg>
+          </button>
+        </div>
+        <div class="c-navigation__body" style="">
+          <ul class="c-navigation__list">
+            <li class="c-navigation__item">
+              <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="Blog">Blog</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="o-flex o-flex-center">
+        <form action="" class="o-flex__item u-hidden-until-large" style="">
+          <input type="search" placeholder="Search" id="search-input">
+        </form>
+        <div class="o-flex__item">
+          <ul class="o-flex o-flex-center">
+            <li class="o-flex__item">
+              <a href="https://github.com/embarklabs/embark" title="Github" target="_blank" class="u-link-ghost">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-github"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item">
+              <a href="https://twitter.com/EmbarkProject" title="Twitter" target="_blank">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-twitter"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item u-hidden-large-up">
+              <button type="button"class="c-navigation__trigger u-link-ghost" title="Open menu">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-navigation-menu"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="c-quick-search o-distance-m u-hidden-large-up">
+      <input type="search" id="inp-search" placeholder="Search">
+    </div>
+  </div>
+  <div class="o-container">
+    <div class="c-header__body">
+      <h1 class="c-title u-text-ghost">Subspace 2.0</h1>
+      
+      <div class="o-distance-m">
+        <div class="o-flex o-flex-center">
+          <span class="o-flex__item">
+            <img src="https://devcon.org/images/speakers/richard_ramos.jpg" class="c-avatar-small" alt="author picture">
+          </span>
+          <p class="o-flex__item">
+            Written by <a href="https://twitter.com/richardramos_me" title="Richard Ramos on Twitter">Richard Ramos</a> on the <time class="u-text-ghost">18th March 2020</time>
+          </p>
+        </div>
+      </div>
+      
+
+      
+
+      
+      
+    </div>
+  </div>
+</header>
+
+
+<main role="main" class="o-standard-page">
+  <section class="o-container o-distance">
+    <h1 id="Subspace-2-0"><a href="#Subspace-2-0" class="headerlink" title="Subspace 2.0"></a>Subspace 2.0</h1><p>New to subspace? Check out the website at <a href="http://subspace.embarklabs.io/">http://subspace.embarklabs.io/</a></p>
+<h2 id="Introducing-Subspace-React’s-components"><a href="#Introducing-Subspace-React’s-components" class="headerlink" title="Introducing Subspace React’s components"></a>Introducing Subspace React’s components</h2><p>A new set of components were created to simplify the usage of Subspace within React projects. Learn more about them <a href="https://subspace.embarklabs.io/react.html">here</a></p>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>You can install it through <code>npm</code> or <code>yarn</code>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install --save @embarklabs&#x2F;subspace-react web3 rxjs</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><h4 id="SubspaceProvider"><a href="#SubspaceProvider" class="headerlink" title="SubspaceProvider"></a>SubspaceProvider</h4><p>To use most of the <code>subspace-react</code> components, you need to wrap your app with the <code>&lt;SubspaceProvider web3={web3} /&gt;</code> component. This will make Subspace available to any nested components that accesses it via the <code>useSubspace</code> hook or has been wrapped in the <code>withSubspace</code> higher order component. Any React component might use Subspace so it makes sense to add the provider near the top level of your DApp. The <code>SubspaceProvider</code> requires a web3 object to interact with an Ethereum node.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line"><span class="keyword">import</span> MyApp <span class="keyword">from</span> <span class="string">'./MyApp'</span></span><br><span class="line"><span class="keyword">import</span> &#123; SubspaceProvider &#125; <span class="keyword">from</span> <span class="string">'@embarklabs/subspace-react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> web3 = <span class="keyword">new</span> Web3(<span class="string">"ws://localhost:8545"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootElement = <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;SubspaceProvider web3=&#123;web3&#125;&gt;</span><br><span class="line">    &lt;MyApp /&gt;</span><br><span class="line">  &lt;<span class="regexp">/SubspaceProvider&gt;,</span></span><br><span class="line"><span class="regexp">  rootElement</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="useSubspace"><a href="#useSubspace" class="headerlink" title="useSubspace"></a>useSubspace</h4><p>Rather than relying on global variables or passing Subspace through props, the easiest way to access Subspace features is via the <code>useSubspace</code> hook. Be sure that your entire DApp is wrapped with a <code>&lt;SubspaceProvider /&gt;</code> to have it available throughout the component tree.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSubspace &#125; <span class="keyword">from</span> <span class="string">'@embarklabs/subspace-react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> subspace = useSubspace();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do something....</span></span><br><span class="line">  <span class="comment">// subspace.trackBalance(web3.eth.defaultAccount);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ...;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyComponent</span><br></pre></td></tr></table></figure>
+
+<h4 id="withSubspace"><a href="#withSubspace" class="headerlink" title="withSubspace"></a>withSubspace</h4><p>This higher order component is provided as an alternative to the <code>useSubspace</code> hook. This injects the <code>subspace</code> property with an already initialized Subspace instance. Just like with the hook, your entire DApp needs to be wrapped with a <code>&lt;SubspaceProvider /&gt;</code>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; withSubspace &#125; <span class="keyword">from</span> <span class="string">'@embarklabs/subspace-react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// do something....</span></span><br><span class="line">  <span class="comment">// props.subspace.trackBalance(web3.eth.defaultAccount);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ...;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withSubspace(MyComponent);</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="observe"><a href="#observe" class="headerlink" title="observe"></a>observe</h4><p>This function is useful to make your component subscribe to any observable props it receives when the component is mounted and automatically unsubscribes when the component is unmounted. It can be used with any kind of observables. This component already existed in the previous version of Subspace. The only difference is that it has been moved to the <code>subspace-react</code> package. </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; observe &#125; <span class="keyword">from</span> <span class="string">'@embarklabs/subspace-react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ObserverComponent = observe(WrappedComponent);</span><br></pre></td></tr></table></figure>
+
+<h5 id="Example-usage"><a href="#Example-usage" class="headerlink" title="Example usage:"></a>Example usage:</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> MyComponent = <span class="function">(<span class="params">&#123;eventData&#125;</span>) =&gt;</span>  &#123;</span><br><span class="line">  <span class="comment">// Handle initial state when no data is available</span></span><br><span class="line">  <span class="keyword">if</span> (!eventData) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>No data<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Value: &#123;eventData.someReturnValue&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyEnhancedComponent = observe(MyComponent);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> SomeOtherComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> myObservable$ = MyContractInstance.events.MyEvent.track(&#123;<span class="attr">fromBlock</span>: <span class="number">1</span>&#125;);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyEnhancedComponent</span> <span class="attr">myProp</span>=<span class="string">&#123;myObservable$&#125;</span> /&gt;</span>;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Breaking-changes"><a href="#Breaking-changes" class="headerlink" title="Breaking changes"></a>Breaking changes</h2><ul>
+<li><p><strong>Peer dependencies</strong><br>Installing subspace requires explicitly installing <code>web3</code> and <code>rxjs</code> as peer depenencies, while before they were installed as dependencies of the package</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm install --save @embarklabs/subspace web3 rxjs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Web3</strong><br>In the previous version, Subspace received a web3.js provider in the constructor. This new version receives instead a <code>Web3</code> object:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> web3 = <span class="keyword">new</span> Web3(<span class="string">"http://localhost:8545"</span>);</span><br><span class="line"><span class="keyword">const</span> subspace = <span class="keyword">new</span> Subspace(web3);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>init()</code> is <code>async</code>.</strong><br>This means that you need to wait until Subspace has been initialized to use its features:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">await</span> subspace.init();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>The <code>observe</code> higher-order component was moved from the <code>@embarklabs/subspace</code> package to the new <code>@embarklabs/subspace-react</code> package.</p>
+</li>
+<li><p>If no call interval is specified in the Subspace options, it will use the average blocktime as the interval of time to poll the contract addresses for changes in state or balance.</p>
+</li>
+</ul>
+<h2 id="Maintenance-Bug-fixes"><a href="#Maintenance-Bug-fixes" class="headerlink" title="Maintenance / Bug fixes"></a>Maintenance / Bug fixes</h2><ul>
+<li>Major refactor increasing the usage of observables within the subspace package: Subjects in tracking functions were replaced by observables (they still keep the same functionality), New blocks and interval timers are done via observables.</li>
+<li>Subscriptions to web3js are handled automatically depending on the number of subscribers. The subscriptions are kept if there is at least one observer subscribed to an observable, otherwise the subscription is closed and will be reopened once there’s a new subscriber.</li>
+<li>The checksum of the address to be tracked is performed automatically when performing balance tracking</li>
+<li>Dropped the usage of <code>web3-utils</code>.</li>
+<li>Simplified the logic for tracking events</li>
+<li>Added Lerna to the repository to organize the different packages, as well as making the documentation part of the project</li>
+<li>Updated all the examples to use the latest subspace-react components</li>
+</ul>
+<h3 id="Contributions"><a href="#Contributions" class="headerlink" title="Contributions"></a>Contributions</h3><p>Subspace and the entire Embark labs organization are open source. As such, we welcome contributions and input from the community using the product. </p>
+<p>If you’d like to contribute to Subspace, please fork this <a href="https://github.com/embarklabs/subspace">repository</a>, fix, commit and send a pull request for the maintainers to review and merge into the main code base. If you wish to submit more complex changes though, please check up with the core devs first on #embark-status channel to ensure those changes are in line with the general philosophy of the project and/or get some early feedback which can make both your efforts much lighter as well as our review and merge procedures quick and simple.</p>
+
+  </section>
+
+  
+
+  <div class="o-container o-distance">
+    <div class="o-flex o-flex-space-between">
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/03/04/2020-Blockchain-Developer-Survey/" class="c-button c-button--quite" title="Previous article">Previous</a>
+  </div>
+  
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/03/24/2020-using-vyper-with-embark/" class="c-button c-button--quite" title="Next article">Next</a>
+  </div>
+  
+</div>
+
+
+  </div>
+  
+</main>
+
+
+    <footer role="contentinfo" class="c-footer o-distance-xxl">
+  <div class="o-container">
+    <div class="c-footer__top">
+      <p class="c-category-title c-footer__top__title u-text-light">
+        <a href="/" class="c-logo c-logo--negative" title="Embark">Embark</a>
+      </p>
+    </div>
+    <div class="c-footer__body">
+
+      <div class="o-grid">
+        <div class="o-grid__column--1-1 o-grid__column--medium-1-2 o-grid__column--large-1-6">
+          <p class="c-category-title u-text-light">The Status Network</p>
+          <ul class="o-list-bare six-columns">
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://status.im/" target="_blank">Status</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://keycard.tech/" target="_blank">Keycard</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://dap.ps/" target="_blank">dap.ps</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://framework.embarklabs.io/" target="_blank">Embark</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://subspace.status.im/" target="_blank">Subspace</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://vac.dev/" target="_blank">Vac</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="c-footer__bottom">
+      <p class="u-text-light">
+        <a href="https://status.im/privacy-policy.html" title="Privacy Policy" target="_blank" class="u-text-light">Privacy Policy</a>
+        / © 2020 Embark
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <script>
+      const EMBARK_DOC_VERSIONS = {
+        
+      };
+    </script>
+
+    
+
+    <script src="/js/index.js"></script>
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+      docsearch({
+        apiKey: '439d8dc2add18007a2f31be4a9c0ed70',
+        indexName: 'embark',
+        inputSelector: '#search-input'
+      });
+    </script>
+    
+  </body>
+</html>
+

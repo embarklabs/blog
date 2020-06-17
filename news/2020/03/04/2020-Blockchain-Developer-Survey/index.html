@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>2020 Blockchain Developer Report | Embark Blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://blog.embarklabs.io/news/2020/03/04/2020-Blockchain-Developer-Survey/index.html">
+  <!-- Alternative links -->
+  
+
+  <!-- Icon -->
+  <meta name="msapplication-TileColor" content="#080E1A">
+  <link rel="icon" type="image/png" href="/assets/images/favicon-16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon-32.png" sizes="32x32" />
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-60x60-precomposed.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-76x76-precomposed.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-touch-icon-120x120-precomposed.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152-precomposed.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-precomposed.png">
+  <!-- CSS -->
+  
+<link rel="stylesheet" href="/css/embark.css">
+
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Embark Blog">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/styles/dracula.min.css">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<script>
+  !function(root, factory) {
+    "function" == typeof define && define.amd ? // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function() {
+        return root.svg4everybody = factory();
+    }) : "object" == typeof module && module.exports ? // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory() : root.svg4everybody = factory();
+}(this, function() {
+    /*! svg4everybody v2.1.9 | github.com/jonathantneal/svg4everybody */
+    function embed(parent, svg, target) {
+        // if the target exists
+        if (target) {
+            // create a document fragment to hold the contents of the target
+            var fragment = document.createDocumentFragment(), viewBox = !svg.hasAttribute("viewBox") && target.getAttribute("viewBox");
+            // conditionally set the viewBox on the svg
+            viewBox && svg.setAttribute("viewBox", viewBox);
+            // copy the contents of the clone into the fragment
+            for (// clone the target
+            var clone = target.cloneNode(!0); clone.childNodes.length; ) {
+                fragment.appendChild(clone.firstChild);
+            }
+            // append the fragment into the svg
+            parent.appendChild(fragment);
+        }
+    }
+    function loadreadystatechange(xhr) {
+        // listen to changes in the request
+        xhr.onreadystatechange = function() {
+            // if the request is ready
+            if (4 === xhr.readyState) {
+                // get the cached html document
+                var cachedDocument = xhr._cachedDocument;
+                // ensure the cached html document based on the xhr response
+                cachedDocument || (cachedDocument = xhr._cachedDocument = document.implementation.createHTMLDocument(""),
+                cachedDocument.body.innerHTML = xhr.responseText, xhr._cachedTarget = {}), // clear the xhr embeds list and embed each item
+                xhr._embeds.splice(0).map(function(item) {
+                    // get the cached target
+                    var target = xhr._cachedTarget[item.id];
+                    // ensure the cached target
+                    target || (target = xhr._cachedTarget[item.id] = cachedDocument.getElementById(item.id)),
+                    // embed the target into the svg
+                    embed(item.parent, item.svg, target);
+                });
+            }
+        }, // test the ready state change immediately
+        xhr.onreadystatechange();
+    }
+    function svg4everybody(rawopts) {
+        function oninterval() {
+            // while the index exists in the live <use> collection
+            for (// get the cached <use> index
+            var index = 0; index < uses.length; ) {
+                // get the current <use>
+                var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent), src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                if (!src && opts.attributeName && (src = use.getAttribute(opts.attributeName)),
+                svg && src) {
+                    if (polyfill) {
+                        if (!opts.validate || opts.validate(src, svg, use)) {
+                            // remove the <use> element
+                            parent.removeChild(use);
+                            // parse the src and get the url and id
+                            var srcSplit = src.split("#"), url = srcSplit.shift(), id = srcSplit.join("#");
+                            // if the link is external
+                            if (url.length) {
+                                // get the cached xhr request
+                                var xhr = requests[url];
+                                // ensure the xhr request exists
+                                xhr || (xhr = requests[url] = new XMLHttpRequest(), xhr.open("GET", url), xhr.send(),
+                                xhr._embeds = []), // add the svg and id as an item to the xhr embeds list
+                                xhr._embeds.push({
+                                    parent: parent,
+                                    svg: svg,
+                                    id: id
+                                }), // prepare the xhr ready state change event
+                                loadreadystatechange(xhr);
+                            } else {
+                                // embed the local id into the svg
+                                embed(parent, svg, document.getElementById(id));
+                            }
+                        } else {
+                            // increase the index when the previous value was not "valid"
+                            ++index, ++numberOfSvgUseElementsToBypass;
+                        }
+                    }
+                } else {
+                    // increase the index when the previous value was not "valid"
+                    ++index;
+                }
+            }
+            // continue the interval
+            (!uses.length || uses.length - numberOfSvgUseElementsToBypass > 0) && requestAnimationFrame(oninterval, 67);
+        }
+        var polyfill, opts = Object(rawopts), newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/, webkitUA = /\bAppleWebKit\/(\d+)\b/, olderEdgeUA = /\bEdge\/12\.(\d+)\b/, edgeUA = /\bEdge\/.(\d+)\b/, inIframe = window.top !== window.self;
+        polyfill = "polyfill" in opts ? opts.polyfill : newerIEUA.test(navigator.userAgent) || (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 || (navigator.userAgent.match(webkitUA) || [])[1] < 537 || edgeUA.test(navigator.userAgent) && inIframe;
+        // create xhr requests object
+        var requests = {}, requestAnimationFrame = window.requestAnimationFrame || setTimeout, uses = document.getElementsByTagName("use"), numberOfSvgUseElementsToBypass = 0;
+        // conditionally start the interval if the polyfill is active
+        polyfill && oninterval();
+    }
+    function getSVGAncestor(node) {
+        for (var svg = node; "svg" !== svg.nodeName.toLowerCase() && (svg = svg.parentNode); ) {}
+        return svg;
+    }
+    return svg4everybody;
+});
+
+svg4everybody();
+</script>
+<meta name="description" content="AbstractThe blockchain developer mindset is not well understood. This survey initiative was created in an effort to shed light on the current sentiment in the blockchain developer community. The echo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020 Blockchain Developer Report">
+<meta property="og:url" content="https://blog.embarklabs.io/news/2020/03/04/2020-Blockchain-Developer-Survey/index.html">
+<meta property="og:site_name" content="Embark Blog">
+<meta property="og:description" content="AbstractThe blockchain developer mindset is not well understood. This survey initiative was created in an effort to shed light on the current sentiment in the blockchain developer community. The echo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/Header_Banner.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/Chains.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/tools.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/motivations.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/Public_Private_Chains.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/Perception_of_public_sentiment.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/ETH2_perception.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/Who_are_you_building_for.png">
+<meta property="article:published_time" content="2020-03-03T23:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:04:44.202Z">
+<meta property="article:author" content="Embark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.embarklabs.io/assets/images/Header_Banner.png">
+</head>
+
+  <body>
+
+    <header role="banner" class="c-header c-header--compact">
+  <div class="o-container">
+    <div class="c-header__top">
+      <a href="https://embarklabs.io" title="Embark" class="c-logo c-logo--negative">Embark</a>
+      <nav role="navigation" class="c-navigation">
+        <div class="c-navigation__header">
+          <a href="https://embarklabs.io" title="Embark" class="c-logo">Embark</a>
+          <button class="c-navigation__close u-text-light" title="Close menu">
+            <svg class="c-icon c-icon--xs"><use xlink:href="/../assets/icons/symbols.svg#icon-close"></use></svg>
+          </button>
+        </div>
+        <div class="c-navigation__body" style="">
+          <ul class="c-navigation__list">
+            <li class="c-navigation__item">
+              <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="Blog">Blog</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="o-flex o-flex-center">
+        <form action="" class="o-flex__item u-hidden-until-large" style="">
+          <input type="search" placeholder="Search" id="search-input">
+        </form>
+        <div class="o-flex__item">
+          <ul class="o-flex o-flex-center">
+            <li class="o-flex__item">
+              <a href="https://github.com/embarklabs/embark" title="Github" target="_blank" class="u-link-ghost">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-github"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item">
+              <a href="https://twitter.com/EmbarkProject" title="Twitter" target="_blank">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-twitter"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item u-hidden-large-up">
+              <button type="button"class="c-navigation__trigger u-link-ghost" title="Open menu">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-navigation-menu"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="c-quick-search o-distance-m u-hidden-large-up">
+      <input type="search" id="inp-search" placeholder="Search">
+    </div>
+  </div>
+  <div class="o-container">
+    <div class="c-header__body">
+      <h1 class="c-title u-text-ghost">2020 Blockchain Developer Report</h1>
+      
+
+      
+
+      
+      
+    </div>
+  </div>
+</header>
+
+
+<main role="main" class="o-standard-page">
+  <section class="o-container o-distance">
+    <p><img src="/assets/images/Header_Banner.png" alt="2020 Developer Survey"></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>The blockchain developer mindset is not well understood. This survey initiative was created in an effort to shed light on the current sentiment in the blockchain developer community. The echo chamber of crypto Twitter doesn’t allow for thoughtful discussion, and we felt there was a need for a survey of the community outside of that forum. Though our sample size is small we are happy with the input we received from developers around the world. </p>
+<p>In addition to the survey form we conducted interviews on Zoom to ask more detailed questions. This community is truly global in scope. What is most apparent from this survey is that the world of blockchain development is just getting started, and there is more we can do to make it accessible to those looking to invest their time in learning about this exciting technology. </p>
+<p>The main takeaways of this study are:<br>Popular sentiment on Crypto Twitter does not represent blockchain developer attitudes<br>There is general interest in developing across chains, and across public/enterprise blockchain platforms<br>Developers care about decentralization, but don’t believe it is something the general public cares about at all</p>
+<h2 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h2><p>For this inaugural survey we focused on the sentiments of developers in the Ethereum community to access the significant volume of work that  occurs in Ethereum. Next year we will  expand the sample  to a much broader swath of the blockchain community. </p>
+<p>We focused on three key areas of questioning in this survey: </p>
+<ul>
+<li>Technology</li>
+<li>Sentiment</li>
+<li>Motivation</li>
+</ul>
+<p>Within these sections we hoped to understand better how developers are spending their time and what drives them to be a part of this industry. We used a qualitative, open-ended question method in order to generate a broad range of ideas. In future studies we will use this data to develop more precise attitude and behavior measures.</p>
+<h2 id="Chains"><a href="#Chains" class="headerlink" title="Chains"></a>Chains</h2><p>Of all respondents surveyed, a little under fifty five percent identified as exclusively developing on Ethereum. While many responded that they develop on many platforms including Ethereum, only six percent of respondents said they do no development work on Ethereum, excluding EVM compatible chains, that number drops to two percent. </p>
+<p><img src="/assets/images/Chains.png" alt="Chains"></p>
+<p>What was surprising was the number of people who are working on EVM compatible chains (cue RUN EVM T-Shirts.) The most popular of these were EOS and and Cosmos in that order. What was perhaps most surprising was the fact that Lightning Network was more popular than any EVM compatible platform. This is most surprising because very little effort was made to get this survey in the hands of Lightning developers. This means either Lightning devs participated at a higher per capita rate than Ethereum devs, or that many Ethereum devs are self selecting to learn about Lightning. </p>
+<p>Responses to this question show  that Ethereum still dominates mindshare in the Ethereum community, but there is a diversity of effort happening. It will be interesting to see how these results develop over time, especially considering the concern around ETH2 expressed later in the survey.</p>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><p>The developer tools section was dominated by Truffle Suite with 68% of respondents saying they use it predominantly. As an early Ethereum project, this project deserves a lot of credit for making it easier to get into Ethereum development than other chains. On the framework side of things Embark came in close second with 34% of developers reporting using the toolsets. </p>
+<p> <img src="/assets/images/tools.png" alt="Tools"></p>
+<p>That little green sliver is one of the more interesting findings. We anticipated that there would be some who were experimenting with Lightning development but were surprised to find that number reaching close to 10% of respondents. With the recent announcement from Lightning Labs that they are rolling out Loop, a non-custodial Bitcoin to Lighting on-ramp/off-ramp, we’re excited to see where this community goes over the next few months.  It will also be useful to see how Lightning developers differ from Ethereum-only, or other EVM developers in future studies.</p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="/assets/images/motivations.png" alt="Motivation"></p>
+<p>There were a small number of participants who answered that their reason for being interested in blockchain development is to “make number go up”. Beyond the financial motivation, most people gave more than one answer to these questions. Among the most popular were smart contracts and their composable business logic. </p>
+<p>What was surprising was that philosophical reasoning wasn’t given more broadly. We had expected almost everyone to select censorship resistance and sound money for their reasoning to join crypto. As it stands only 28% gave these answers. DeFi, DAOs, and NFTs made a strong showing with close to half of responded saying they were a motivation. There seems to be a healthy mix of motivations for getting into the blockchain developer ecosystem. </p>
+<h2 id="Public-Private-Chains"><a href="#Public-Private-Chains" class="headerlink" title="Public/Private Chains"></a>Public/Private Chains</h2><p>Popular sentiment  among the crypto community is that private chains are not really a serious endeavor. Enterprise chains have gotten off to a slow start ever since the “blockchain not Bitcoin” movement of the 2015 era. Given this, we were surprised to see a strong interest in developing for these projects. </p>
+<p><img src="/assets/images/Public_Private_Chains.png" alt="Public/Private Chains"></p>
+<p>Over half of respondents indicated their interest in building on private chains, when you include those willing to do it, “for a price” that number jumps to over three quarters. The remaining quarter have varying degrees of opposition to building on private chains. We can see the arguments on Twitter forming, “what do you consider a private chain?” Though we could have done a better job clarifying, this question was intended to mean an enterprise chain. It was refreshing to see the willingness of people to work on things that are outside the overton window that crypto Twitter advocates for.</p>
+<h2 id="Perception-of-public-sentiment"><a href="#Perception-of-public-sentiment" class="headerlink" title="Perception of public sentiment"></a>Perception of public sentiment</h2><p>Back in the wild days of 2017 it was believed you could take any business model, throw the word Decentralized in front of it and people would flock to you. While this may have been true in the sense that people would throw money at your ICO, it hasn’t yet proven true in the race for acquiring real users. </p>
+<p><img src="/assets/images/Perception_of_public_sentiment.png" alt="Perception of public sentiment"></p>
+<p>In our survey we saw that a majority of developers agreed that they don’t believe users care about decentralization. This has been adopted by companies like Brave and Dharma which have adopted marketing that either doesn’t mention crypto at all or mentions it as a side note. That being said, decentralization was in fact important to developers with a majority of respondents saying that while users may not care, the developers still do.</p>
+<h2 id="ETH2-perception"><a href="#ETH2-perception" class="headerlink" title="ETH2 perception"></a>ETH2 perception</h2><p><img src="/assets/images/ETH2_perception.png" alt="ETH2 Perception"></p>
+<p>As should be clear from the chart, an overwhelming majority of developers in this survey are concerned about ETH2 and its implications. The people working on ETH2 are heads down solving really hard problems. However, this response speaks to the need for better communication of the work that is happening, the problems and solutions involved, timelines, and what it will mean for developers in Ethereum in time.</p>
+<p>One interesting finding is the small minority of users who are not at all concerned about ETH2. When digging deeper on calls some engineers mentioned that they have done research and understand the complexity involved in bringing it online. Perhaps the answer is DYOR and not believing the naysayers on Twitter, or perhaps outreach and better communication to combat ETH2 critics could ease concerns.</p>
+<h2 id="Who-are-you-building-for"><a href="#Who-are-you-building-for" class="headerlink" title="Who are you building for?"></a>Who are you building for?</h2><p><img src="/assets/images/Who_are_you_building_for.png" alt="Who are you building for?"></p>
+<p>We wanted to see what type of reach people are getting with their dapps. We were excited to see that more than a few people had over five thousand users on their platform. Over six percent of developers said they have over a thousand users. On the other side of this however over ninety percent said that they have less than a thousand daily active users on their dapps. </p>
+<p>We’re excited to see these numbers change over the next year. There are some outlier applications like Brave with twelve million active users, but we hope to see even more breakout successes such as the recent launch of Dharma’s mainstream focused application. </p>
+<p>Impediments to blockchain development<br>We asked people what their biggest impediments are to building blockchain tools. In our Zoom interviews we had a lot of input on this question. The general feedback was that the learning required is vast. One interviewee said that learning web3 development was as difficult as learning to become a developer at all. The other interesting anecdote was the ‘analysis paralysis’ that comes from choosing which ecosystem/chain to work on. </p>
+<p>This question gave the most diverse set of opinions, and many developers chose more than one response. Unsurprisingly, ‘private key management/education” eked out a win as the most popular response. We hadn’t expected regulatory clarity to be such a large issue, but it was also substantial. Though not the most popular answer, we would postulate that this is actually the part of the reason we don’t see more founders getting into crypto. It’s hard enough to build a company, let alone one that has a threat of prosecution hanging over it. </p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><h2 id="Several-key-findings-stand-out-from-this-report"><a href="#Several-key-findings-stand-out-from-this-report" class="headerlink" title="Several key findings stand out from this report:"></a>Several key findings stand out from this report:</h2><ul>
+<li>Gitcoin respondents overwhelmingly selected Ethereum as the chain to work on, but also worked on other platforms including Bitcoin</li>
+<li>Truffle remains the dominant developer toolkit for Ethereum, with Embark taking a smaller share of the use</li>
+<li>The technical properties of blockchain are the main drivers for a developer choosing to get into the space</li>
+<li>Private chains are an appealing option for developers interested in working full time in blockchain space</li>
+<li>Developers are under no illusions that the public cares about decentralization, but they themselves do hold that ideal as important</li>
+<li>The majority of developers surveyed are concerned about ETH2 and its implications for the future of Ethereum</li>
+<li>Most dApps still have under a thousand daily active users</li>
+<li>Regulatory clarity and private key management are still major impediments to the creation of dApps</li>
+</ul>
+<p>What was most interesting however was the 1:1 interviews we conducted. We spoke to devs in Russia, Japan, the US and Egypt. These less formal interviews helped put a face on the developers. What was apparent among these people was the deep passion for the potential of this technology. People all over the world are coming into crypto with open minds and open hearts.</p>
+<p>We can often feel like getting into crypto now is getting in “late”, but nothing could be further from the truth. The developer experience is still clunky. The learning curve is still steep. The regulation is still ambiguous. There is almost no aspect of being a developer in blockchain that could be considered “mature.”</p>
+<p>Getting to peer into the mind of blockchain developers is something that needs to be done more often to ensure that we’re building the right tools to help foster growth in decentralized public development. We’re hoping to make this an annual report and welcome more input on distribution, categorization and methodology. </p>
+<p>As the current crypto winter thaws we’re starting to see shoots of new growth. It’s an exciting time to be in cryptocurrency, even more so as a developer. Thank you to all the people who participated in this survey, and especially the team at Gitcoin for making it possible. We’re proud to be part of this ecosystem and look forward to supporting more developers as they come into the space. </p>
+
+  </section>
+
+  
+
+  <div class="o-container o-distance">
+    <div class="o-flex o-flex-space-between">
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/02/24/wasm-ewasm-what-and-why/" class="c-button c-button--quite" title="Previous article">Previous</a>
+  </div>
+  
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/03/18/subspace-2.0/" class="c-button c-button--quite" title="Next article">Next</a>
+  </div>
+  
+</div>
+
+
+  </div>
+  
+</main>
+
+
+    <footer role="contentinfo" class="c-footer o-distance-xxl">
+  <div class="o-container">
+    <div class="c-footer__top">
+      <p class="c-category-title c-footer__top__title u-text-light">
+        <a href="/" class="c-logo c-logo--negative" title="Embark">Embark</a>
+      </p>
+    </div>
+    <div class="c-footer__body">
+
+      <div class="o-grid">
+        <div class="o-grid__column--1-1 o-grid__column--medium-1-2 o-grid__column--large-1-6">
+          <p class="c-category-title u-text-light">The Status Network</p>
+          <ul class="o-list-bare six-columns">
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://status.im/" target="_blank">Status</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://keycard.tech/" target="_blank">Keycard</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://dap.ps/" target="_blank">dap.ps</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://framework.embarklabs.io/" target="_blank">Embark</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://subspace.status.im/" target="_blank">Subspace</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://vac.dev/" target="_blank">Vac</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="c-footer__bottom">
+      <p class="u-text-light">
+        <a href="https://status.im/privacy-policy.html" title="Privacy Policy" target="_blank" class="u-text-light">Privacy Policy</a>
+        / © 2020 Embark
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <script>
+      const EMBARK_DOC_VERSIONS = {
+        
+      };
+    </script>
+
+    
+
+    <script src="/js/index.js"></script>
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+      docsearch({
+        apiKey: '439d8dc2add18007a2f31be4a9c0ed70',
+        indexName: 'embark',
+        inputSelector: '#search-input'
+      });
+    </script>
+    
+  </body>
+</html>
+

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>Smart Contract security analysis with MythX | Embark Blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://blog.embarklabs.io/news/2020/04/02/2020-smart-contract-security-analysis-with-mythx/index.html">
+  <!-- Alternative links -->
+  
+
+  <!-- Icon -->
+  <meta name="msapplication-TileColor" content="#080E1A">
+  <link rel="icon" type="image/png" href="/assets/images/favicon-16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon-32.png" sizes="32x32" />
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-60x60-precomposed.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-76x76-precomposed.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-touch-icon-120x120-precomposed.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152-precomposed.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-precomposed.png">
+  <!-- CSS -->
+  
+<link rel="stylesheet" href="/css/embark.css">
+
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Embark Blog">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/styles/dracula.min.css">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<script>
+  !function(root, factory) {
+    "function" == typeof define && define.amd ? // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function() {
+        return root.svg4everybody = factory();
+    }) : "object" == typeof module && module.exports ? // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory() : root.svg4everybody = factory();
+}(this, function() {
+    /*! svg4everybody v2.1.9 | github.com/jonathantneal/svg4everybody */
+    function embed(parent, svg, target) {
+        // if the target exists
+        if (target) {
+            // create a document fragment to hold the contents of the target
+            var fragment = document.createDocumentFragment(), viewBox = !svg.hasAttribute("viewBox") && target.getAttribute("viewBox");
+            // conditionally set the viewBox on the svg
+            viewBox && svg.setAttribute("viewBox", viewBox);
+            // copy the contents of the clone into the fragment
+            for (// clone the target
+            var clone = target.cloneNode(!0); clone.childNodes.length; ) {
+                fragment.appendChild(clone.firstChild);
+            }
+            // append the fragment into the svg
+            parent.appendChild(fragment);
+        }
+    }
+    function loadreadystatechange(xhr) {
+        // listen to changes in the request
+        xhr.onreadystatechange = function() {
+            // if the request is ready
+            if (4 === xhr.readyState) {
+                // get the cached html document
+                var cachedDocument = xhr._cachedDocument;
+                // ensure the cached html document based on the xhr response
+                cachedDocument || (cachedDocument = xhr._cachedDocument = document.implementation.createHTMLDocument(""),
+                cachedDocument.body.innerHTML = xhr.responseText, xhr._cachedTarget = {}), // clear the xhr embeds list and embed each item
+                xhr._embeds.splice(0).map(function(item) {
+                    // get the cached target
+                    var target = xhr._cachedTarget[item.id];
+                    // ensure the cached target
+                    target || (target = xhr._cachedTarget[item.id] = cachedDocument.getElementById(item.id)),
+                    // embed the target into the svg
+                    embed(item.parent, item.svg, target);
+                });
+            }
+        }, // test the ready state change immediately
+        xhr.onreadystatechange();
+    }
+    function svg4everybody(rawopts) {
+        function oninterval() {
+            // while the index exists in the live <use> collection
+            for (// get the cached <use> index
+            var index = 0; index < uses.length; ) {
+                // get the current <use>
+                var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent), src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                if (!src && opts.attributeName && (src = use.getAttribute(opts.attributeName)),
+                svg && src) {
+                    if (polyfill) {
+                        if (!opts.validate || opts.validate(src, svg, use)) {
+                            // remove the <use> element
+                            parent.removeChild(use);
+                            // parse the src and get the url and id
+                            var srcSplit = src.split("#"), url = srcSplit.shift(), id = srcSplit.join("#");
+                            // if the link is external
+                            if (url.length) {
+                                // get the cached xhr request
+                                var xhr = requests[url];
+                                // ensure the xhr request exists
+                                xhr || (xhr = requests[url] = new XMLHttpRequest(), xhr.open("GET", url), xhr.send(),
+                                xhr._embeds = []), // add the svg and id as an item to the xhr embeds list
+                                xhr._embeds.push({
+                                    parent: parent,
+                                    svg: svg,
+                                    id: id
+                                }), // prepare the xhr ready state change event
+                                loadreadystatechange(xhr);
+                            } else {
+                                // embed the local id into the svg
+                                embed(parent, svg, document.getElementById(id));
+                            }
+                        } else {
+                            // increase the index when the previous value was not "valid"
+                            ++index, ++numberOfSvgUseElementsToBypass;
+                        }
+                    }
+                } else {
+                    // increase the index when the previous value was not "valid"
+                    ++index;
+                }
+            }
+            // continue the interval
+            (!uses.length || uses.length - numberOfSvgUseElementsToBypass > 0) && requestAnimationFrame(oninterval, 67);
+        }
+        var polyfill, opts = Object(rawopts), newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/, webkitUA = /\bAppleWebKit\/(\d+)\b/, olderEdgeUA = /\bEdge\/12\.(\d+)\b/, edgeUA = /\bEdge\/.(\d+)\b/, inIframe = window.top !== window.self;
+        polyfill = "polyfill" in opts ? opts.polyfill : newerIEUA.test(navigator.userAgent) || (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 || (navigator.userAgent.match(webkitUA) || [])[1] < 537 || edgeUA.test(navigator.userAgent) && inIframe;
+        // create xhr requests object
+        var requests = {}, requestAnimationFrame = window.requestAnimationFrame || setTimeout, uses = document.getElementsByTagName("use"), numberOfSvgUseElementsToBypass = 0;
+        // conditionally start the interval if the polyfill is active
+        polyfill && oninterval();
+    }
+    function getSVGAncestor(node) {
+        for (var svg = node; "svg" !== svg.nodeName.toLowerCase() && (svg = svg.parentNode); ) {}
+        return svg;
+    }
+    return svg4everybody;
+});
+
+svg4everybody();
+</script>
+<meta name="description" content="How MythX worksMythX scans for security vulnerabilities in Ethereum and other EVM-based blockchain smart contracts. MythX’s comprehensive range of analysis techniques — including static analysis, dyn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Smart Contract security analysis with MythX">
+<meta property="og:url" content="https://blog.embarklabs.io/news/2020/04/02/2020-smart-contract-security-analysis-with-mythx/index.html">
+<meta property="og:site_name" content="Embark Blog">
+<meta property="og:description" content="How MythX worksMythX scans for security vulnerabilities in Ethereum and other EVM-based blockchain smart contracts. MythX’s comprehensive range of analysis techniques — including static analysis, dyn">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_dashboard.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_dashboard-analyses.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_embark-dashboard-console.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_simplestorage-analysis.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_simplestorage-analysis-success.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_dashboard_showing_submissions.png">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/mythx_analysis-detail.png">
+<meta property="article:published_time" content="2020-04-01T22:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:04:44.203Z">
+<meta property="article:author" content="Embark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.embarklabs.io/assets/images/mythx_dashboard.png">
+</head>
+
+  <body>
+
+    <header role="banner" class="c-header c-header--compact">
+  <div class="o-container">
+    <div class="c-header__top">
+      <a href="https://embarklabs.io" title="Embark" class="c-logo c-logo--negative">Embark</a>
+      <nav role="navigation" class="c-navigation">
+        <div class="c-navigation__header">
+          <a href="https://embarklabs.io" title="Embark" class="c-logo">Embark</a>
+          <button class="c-navigation__close u-text-light" title="Close menu">
+            <svg class="c-icon c-icon--xs"><use xlink:href="/../assets/icons/symbols.svg#icon-close"></use></svg>
+          </button>
+        </div>
+        <div class="c-navigation__body" style="">
+          <ul class="c-navigation__list">
+            <li class="c-navigation__item">
+              <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="Blog">Blog</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="o-flex o-flex-center">
+        <form action="" class="o-flex__item u-hidden-until-large" style="">
+          <input type="search" placeholder="Search" id="search-input">
+        </form>
+        <div class="o-flex__item">
+          <ul class="o-flex o-flex-center">
+            <li class="o-flex__item">
+              <a href="https://github.com/embarklabs/embark" title="Github" target="_blank" class="u-link-ghost">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-github"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item">
+              <a href="https://twitter.com/EmbarkProject" title="Twitter" target="_blank">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-twitter"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item u-hidden-large-up">
+              <button type="button"class="c-navigation__trigger u-link-ghost" title="Open menu">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-navigation-menu"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="c-quick-search o-distance-m u-hidden-large-up">
+      <input type="search" id="inp-search" placeholder="Search">
+    </div>
+  </div>
+  <div class="o-container">
+    <div class="c-header__body">
+      <h1 class="c-title u-text-ghost">Smart Contract security analysis with MythX</h1>
+      
+      <div class="o-distance-m">
+        <div class="o-flex o-flex-center">
+          <span class="o-flex__item">
+            <img src="https://avatars1.githubusercontent.com/u/5089238?s=460&v=4" class="c-avatar-small" alt="author picture">
+          </span>
+          <p class="o-flex__item">
+            Written by <a href="https://twitter.com/ericmastro" title="Eric Mastro on Twitter">Eric Mastro</a> on the <time class="u-text-ghost">2nd April 2020</time>
+          </p>
+        </div>
+      </div>
+      
+
+      
+
+      
+      
+    </div>
+  </div>
+</header>
+
+
+<main role="main" class="o-standard-page">
+  <section class="o-container o-distance">
+    <p><img src="/assets/images/mythx_dashboard.png" alt="Embark dashboard with MythX"></p>
+<h2 id="How-MythX-works"><a href="#How-MythX-works" class="headerlink" title="How MythX works"></a>How MythX works</h2><p><a href="https://mythx.io/">MythX</a> scans for security vulnerabilities in Ethereum and other EVM-based blockchain smart contracts. MythX’s comprehensive range of analysis techniques — including static analysis, dynamic analysis, and symbolic execution — can accurately detect security vulnerabilities to provide an in-depth analysis report. These security analyses can be used throughout the development lifecycle to aid in preparation for a security audit. Using MythX during development eases the impact of a security audit and helps to build secure Smart Contracts from the ground up. The idea is that once MythX returns no technical errors, the contracts are ready for a full audit.</p>
+<p>MythX detects the majority of vulnerabilities listed in the <a href="https://mythx.io/swc-coverage">SWC Registry</a>. The report will return a listing of all the weaknesses found in the code, including the exact position of the issue and its SWC ID. Analysis reports generated can be only accessed by the owner of the account (you).</p>
+<p>Contracts are submitted to MythX using their <a href="https://api.mythx.io/v1/openapi#operation/submitAnalysis">API</a>. A full list of all completed analysis reports can be seen in the <a href="https://dashboard.mythx.io/#/console/analyses">MythX dashboard</a>.</p>
+<p><img src="/assets/images/mythx_dashboard-analyses.png" alt="MythX dashboard with analyses"></p>
+<p>MythX was designed to work with third party security tools and developer plugins. This has paved the way to allow MythX integration in to Embark, by way of the <a href="https://github.com/embarklabs/embark-mythx">Embark MythX plugin</a>. The Embark MythX plugin allows developers to easily submit their contracts (all contracts, or just those that need it) for analysis and see the resulting report in the console.</p>
+<p>Let’s walk through this and see how it can be done!</p>
+<ol>
+<li><a href="#Step-1-Prerequisites">Prerequisites</a></li>
+<li><a href="#Step-2-Create-a-ETH-App">Create a &ETH;App</a></li>
+<li><a href="#Step-3-Install-the-Embark-MythX-plugin">Install the Embark MythX plugin</a></li>
+<li><a href="#Step-4-Create-a-env-file-with-MythX-credentials">Create a <code>.env</code> file with MythX credentials</a></li>
+<li><a href="#Step-5-Run-Embark">Run Embark</a></li>
+<li><a href="#Step-6-Run-some-MythX-commands">Run some MythX commands</a></li>
+<li><a href="#Conclusion">Conclusion</a></li>
+</ol>
+<h2 id="Step-1-Prerequisites"><a href="#Step-1-Prerequisites" class="headerlink" title="Step 1. Prerequisites"></a>Step 1. Prerequisites</h2><p>Before we can submit our first contract for analysis, let’s take care of a few requirements.</p>
+<h3 id="Install-Embark"><a href="#Install-Embark" class="headerlink" title="Install Embark"></a>Install Embark</h3><p><a href="https://framework.embarklabs.io/docs/installation.html">Install Embark</a> either globally or as a package in your &ETH;App. The most simple way forward is to install Embark globally on your system:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn global add embark</span><br><span class="line"># OR</span><br><span class="line">npm i -g embark</span><br></pre></td></tr></table></figure>
+
+<p>The rest of this article will assume you have Embark installed globally, and therefore available from the CLI.</p>
+<h3 id="Create-a-MythX-account"><a href="#Create-a-MythX-account" class="headerlink" title="Create a MythX account"></a>Create a MythX account</h3><p>You’ll need to <a href="https://docs.mythx.io/en/latest/getting-started/index.html">create a MythX account</a> before any contracts can be submitted. The dashboard of this account will list all completed analyses. Signing up for a free plan is easy. The free plan is a great way to test out MythX’s features without forking over any dollary-doos. You may skip the step of connecting your Ethereum address with MetaMask if you’d like, as a username, password, and API key are sufficient to proceed with this tutorial.</p>
+<h3 id="Obtain-a-MythX-API-key"><a href="#Obtain-a-MythX-API-key" class="headerlink" title="Obtain a MythX API key"></a>Obtain a MythX API key</h3><p>Once you’ve created a MythX account, we need to obtain an API key. This can be done on the <a href="https://dashboard.mythx.io/#/console/tools">Tools page</a>. Simply enter your MythX password and click the “Generate API Key” button. We will use the API key in Step 4.</p>
+<h2 id="Step-2-Create-a-ETH-App"><a href="#Step-2-Create-a-ETH-App" class="headerlink" title="Step 2. Create a &ETH;App"></a>Step 2. Create a &ETH;App</h2><p>For this article, we will be creating a demo &ETH;App to use as a base for submitting our first contract for analysis. However, if you already have a &ETH;App with contracdts that you’d like to use instead, simply skip this step.</p>
+<p>Creating an Embark demo is easy, simply run the following commands:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">embark demo</span><br><span class="line">cd embark_demo</span><br></pre></td></tr></table></figure>
+<p>This will create a &ETH;App with one contract, SimpleStorage, which we will submit to MythX for analysis.</p>
+<h2 id="Step-3-Install-the-Embark-MythX-plugin"><a href="#Step-3-Install-the-Embark-MythX-plugin" class="headerlink" title="Step 3. Install the Embark MythX plugin"></a>Step 3. Install the Embark MythX plugin</h2><p>Installing the <a href="https://github.com/embarklabs/embark-mythx">Embark MythX</a> plugin in our &ETH;App is extremely simple:</p>
+<ol>
+<li>Add the <code>embark-mythx</code> package to your &ETH;App:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn add embark-mythx</span><br><span class="line"># OR</span><br><span class="line">npm i embark-mythx --save</span><br></pre></td></tr></table></figure></li>
+<li>Add the <code>embark-mythx</code> plugin to <code>embark.json</code>:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; embark.json</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">&quot;plugins&quot;: &#123;</span><br><span class="line">  &quot;embark-ipfs&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-swarm&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-whisper-geth&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-geth&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-parity&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-profiler&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-graph&quot;: &#123;&#125;,</span><br><span class="line">  &quot;embark-mythx&quot;: &#123;&#125; &#x2F;&#x2F; &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; add this!</span><br><span class="line">&#125;,</span><br><span class="line">&#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Step-4-Create-a-env-file-with-MythX-credentials"><a href="#Step-4-Create-a-env-file-with-MythX-credentials" class="headerlink" title="Step 4. Create a .env file with MythX credentials"></a>Step 4. Create a <code>.env</code> file with MythX credentials</h2><p>Create a <code>.env</code> file in the root of your &ETH;App. Add your MythX API key, username, and password like so:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MYTHX_API_KEY&#x3D;&quot;1234...7890&quot;</span><br><span class="line">MYTHX_USERNAME&#x3D;&quot;satoshi.nakamoto@gmail.com&quot;</span><br><span class="line">MYTHX_PASSWORD&#x3D;&quot;abc123&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Step-5-Run-Embark"><a href="#Step-5-Run-Embark" class="headerlink" title="Step 5. Run Embark"></a>Step 5. Run Embark</h2><p>Now that we have installed the plugin, let’s run Embark to get access to its dashboard:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">embark run --nobrowser</span><br></pre></td></tr></table></figure>
+<p>Once Embark has completed bootstrapping, we should see a command prompt in the Embark dashboard at the bottom:<br><img src="/assets/images/mythx_embark-dashboard-console.png" alt="MythX dashboard with analyses"></p>
+<h2 id="Step-6-Run-some-MythX-commands"><a href="#Step-6-Run-some-MythX-commands" class="headerlink" title="Step 6. Run some MythX commands"></a>Step 6. Run some MythX commands</h2><p>All functionality for the Embark MythX plugin can be accessed via the <code>verify</code> command.</p>
+<h3 id="Available-commands"><a href="#Available-commands" class="headerlink" title="Available commands"></a>Available commands</h3><p>For a full list of available options and usage instructions, execute the <code>help</code> command in the console:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Embark (development) &gt; verify help</span><br></pre></td></tr></table></figure>
+<p>We can see there are a few options for us to use and we can also see how they can be used:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Available Commands</span><br><span class="line"></span><br><span class="line">  verify &lt;options&gt; [contracts]    Runs MythX verification. If array of contracts are specified, only those contracts will be analysed.</span><br><span class="line">  verify report [--format] uuid   Get the report of a completed analysis.</span><br><span class="line">  verify status uuid              Get the status of an already submitted analysis.</span><br><span class="line">  verify list                     Displays a list of the last 20 submitted analyses in a table.</span><br><span class="line">  verify help                     Display this usage guide.</span><br><span class="line"></span><br><span class="line">Examples</span><br><span class="line"></span><br><span class="line">  verify --mode full SimpleStorage ERC20                                Runs a full MythX verification for the SimpleStorage and ERC20 contracts only. </span><br><span class="line">  verify status 0d60d6b3-e226-4192-b9c6-66b45eca3746                    Gets the status of the MythX analysis with the specified uuid.</span><br><span class="line">  verify report --format stylish 0d60d6b3-e226-4192-b9c6-66b45eca3746   Gets the status of the MythX analysis with the specified uuid.</span><br><span class="line"></span><br><span class="line">Verify options</span><br><span class="line"></span><br><span class="line">  -m, --mode string        Analysis mode. Options: quick, standard, deep (default: quick).</span><br><span class="line">  -o, --format string      Output format. Options: text, stylish, compact, table, html, json (default: stylish).</span><br><span class="line">  -c, --no-cache-lookup    Deactivate MythX cache lookups (default: false).</span><br><span class="line">  -d, --debug              Print MythX API request and response.</span><br><span class="line">  -l, --limit number       Maximum number of concurrent analyses (default: 10).</span><br><span class="line">  -t, --timeout number     Timeout in secs to wait for analysis to finish (default: smart default based on mode).</span><br></pre></td></tr></table></figure>
+
+<h3 id="Verify-the-SimpleStorage-contract"><a href="#Verify-the-SimpleStorage-contract" class="headerlink" title="Verify the SimpleStorage contract"></a>Verify the SimpleStorage contract</h3><p>Let’s take a peek to see how easy it is to analyse our SimpleStorage contract.<br>In the Embark console, execute the following command to submit our SimpleStorage contract for MythX security analysis:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">verify</span><br></pre></td></tr></table></figure>
+<p>The results should look the following:<br><img src="/assets/images/mythx_simplestorage-analysis.png" alt="SimpleStorage security analysis"></p>
+<p>First, we can see that a MythX job was submitted, with a URL that takes us to the analysis job in the MythX dashboard.</p>
+<p>Second, we can see from the security analysis output in the console that there is a warning marked “SWC-103”. Looking at the <a href="https://swcregistry.io/docs/SWC-103">SWC Registry for SWC-103</a> help, we can remedy this by changing line 1 of our <code>contracts/simple_storage.sol</code> to:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pragma solidity 0.6.1;</span><br></pre></td></tr></table></figure>
+<p>Embark will detect the change in the contract and automatically recompile and redeploy our contract. We can then re-submit our contract for analysis:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">verify</span><br></pre></td></tr></table></figure>
+<p>And voila!<br><img src="/assets/images/mythx_simplestorage-analysis-success.png" alt="SimpleStorage security analysis success"></p>
+<p>MythX has confirmed that we no longer have any security issues!</p>
+<h3 id="Viewing-the-submissions-in-the-MythX-dashboard"><a href="#Viewing-the-submissions-in-the-MythX-dashboard" class="headerlink" title="Viewing the submissions in the MythX dashboard"></a>Viewing the submissions in the MythX dashboard</h3><p>Open your browser and go to the <a href="https://dashboard.mythx.io/#/console/analyses">MythX analyses</a> page. After logging in, you should be able to see a list of all the contracts you’ve submitted for analyses.</p>
+<p><img src="/assets/images/mythx_dashboard_showing_submissions.png" alt="Mythx Analysis List"></p>
+<p>Click in to each job and then in to each contract, and you will should see details of the security analysis, along with line numbers in the source and a preview of issues in the code at the bottom of the page.</p>
+<p><img src="/assets/images/mythx_analysis-detail.png" alt="Mythx Analysis Detail"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>We have seen firsthand how the Embark MythX plugin can assist in our development workflow, allowing us to analyse the security of our contracts throughout the development lifecycle. While we have only scraped the surface as to the complexity of the MythX’s security analysis, the <a href="https://medium.com/flex-dapps/status-embark-mythx-4786cd989d75">Status Embark + MythX</a> article dives in to more detail on common contract vulnerabilities and how they are presented using the Embark MythX plugin.</p>
+
+  </section>
+
+  
+
+  <div class="o-container o-distance">
+    <div class="o-flex o-flex-space-between">
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/03/24/2020-using-vyper-with-embark/" class="c-button c-button--quite" title="Previous article">Previous</a>
+  </div>
+  
+  
+</div>
+
+
+  </div>
+  
+</main>
+
+
+    <footer role="contentinfo" class="c-footer o-distance-xxl">
+  <div class="o-container">
+    <div class="c-footer__top">
+      <p class="c-category-title c-footer__top__title u-text-light">
+        <a href="/" class="c-logo c-logo--negative" title="Embark">Embark</a>
+      </p>
+    </div>
+    <div class="c-footer__body">
+
+      <div class="o-grid">
+        <div class="o-grid__column--1-1 o-grid__column--medium-1-2 o-grid__column--large-1-6">
+          <p class="c-category-title u-text-light">The Status Network</p>
+          <ul class="o-list-bare six-columns">
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://status.im/" target="_blank">Status</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://keycard.tech/" target="_blank">Keycard</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://dap.ps/" target="_blank">dap.ps</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://framework.embarklabs.io/" target="_blank">Embark</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://subspace.status.im/" target="_blank">Subspace</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://vac.dev/" target="_blank">Vac</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="c-footer__bottom">
+      <p class="u-text-light">
+        <a href="https://status.im/privacy-policy.html" title="Privacy Policy" target="_blank" class="u-text-light">Privacy Policy</a>
+        / © 2020 Embark
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <script>
+      const EMBARK_DOC_VERSIONS = {
+        
+      };
+    </script>
+
+    
+
+    <script src="/js/index.js"></script>
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+      docsearch({
+        apiKey: '439d8dc2add18007a2f31be4a9c0ed70',
+        indexName: 'embark',
+        inputSelector: '#search-input'
+      });
+    </script>
+    
+  </body>
+</html>
+

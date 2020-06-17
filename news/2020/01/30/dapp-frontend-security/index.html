@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>DApp Frontend Security | Embark Blog</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://blog.embarklabs.io/news/2020/01/30/dapp-frontend-security/index.html">
+  <!-- Alternative links -->
+  
+
+  <!-- Icon -->
+  <meta name="msapplication-TileColor" content="#080E1A">
+  <link rel="icon" type="image/png" href="/assets/images/favicon-16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon-32.png" sizes="32x32" />
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-60x60-precomposed.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-76x76-precomposed.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-touch-icon-120x120-precomposed.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152-precomposed.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-precomposed.png">
+  <!-- CSS -->
+  
+<link rel="stylesheet" href="/css/embark.css">
+
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Embark Blog">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/styles/dracula.min.css">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<script>
+  !function(root, factory) {
+    "function" == typeof define && define.amd ? // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function() {
+        return root.svg4everybody = factory();
+    }) : "object" == typeof module && module.exports ? // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory() : root.svg4everybody = factory();
+}(this, function() {
+    /*! svg4everybody v2.1.9 | github.com/jonathantneal/svg4everybody */
+    function embed(parent, svg, target) {
+        // if the target exists
+        if (target) {
+            // create a document fragment to hold the contents of the target
+            var fragment = document.createDocumentFragment(), viewBox = !svg.hasAttribute("viewBox") && target.getAttribute("viewBox");
+            // conditionally set the viewBox on the svg
+            viewBox && svg.setAttribute("viewBox", viewBox);
+            // copy the contents of the clone into the fragment
+            for (// clone the target
+            var clone = target.cloneNode(!0); clone.childNodes.length; ) {
+                fragment.appendChild(clone.firstChild);
+            }
+            // append the fragment into the svg
+            parent.appendChild(fragment);
+        }
+    }
+    function loadreadystatechange(xhr) {
+        // listen to changes in the request
+        xhr.onreadystatechange = function() {
+            // if the request is ready
+            if (4 === xhr.readyState) {
+                // get the cached html document
+                var cachedDocument = xhr._cachedDocument;
+                // ensure the cached html document based on the xhr response
+                cachedDocument || (cachedDocument = xhr._cachedDocument = document.implementation.createHTMLDocument(""),
+                cachedDocument.body.innerHTML = xhr.responseText, xhr._cachedTarget = {}), // clear the xhr embeds list and embed each item
+                xhr._embeds.splice(0).map(function(item) {
+                    // get the cached target
+                    var target = xhr._cachedTarget[item.id];
+                    // ensure the cached target
+                    target || (target = xhr._cachedTarget[item.id] = cachedDocument.getElementById(item.id)),
+                    // embed the target into the svg
+                    embed(item.parent, item.svg, target);
+                });
+            }
+        }, // test the ready state change immediately
+        xhr.onreadystatechange();
+    }
+    function svg4everybody(rawopts) {
+        function oninterval() {
+            // while the index exists in the live <use> collection
+            for (// get the cached <use> index
+            var index = 0; index < uses.length; ) {
+                // get the current <use>
+                var use = uses[index], parent = use.parentNode, svg = getSVGAncestor(parent), src = use.getAttribute("xlink:href") || use.getAttribute("href");
+                if (!src && opts.attributeName && (src = use.getAttribute(opts.attributeName)),
+                svg && src) {
+                    if (polyfill) {
+                        if (!opts.validate || opts.validate(src, svg, use)) {
+                            // remove the <use> element
+                            parent.removeChild(use);
+                            // parse the src and get the url and id
+                            var srcSplit = src.split("#"), url = srcSplit.shift(), id = srcSplit.join("#");
+                            // if the link is external
+                            if (url.length) {
+                                // get the cached xhr request
+                                var xhr = requests[url];
+                                // ensure the xhr request exists
+                                xhr || (xhr = requests[url] = new XMLHttpRequest(), xhr.open("GET", url), xhr.send(),
+                                xhr._embeds = []), // add the svg and id as an item to the xhr embeds list
+                                xhr._embeds.push({
+                                    parent: parent,
+                                    svg: svg,
+                                    id: id
+                                }), // prepare the xhr ready state change event
+                                loadreadystatechange(xhr);
+                            } else {
+                                // embed the local id into the svg
+                                embed(parent, svg, document.getElementById(id));
+                            }
+                        } else {
+                            // increase the index when the previous value was not "valid"
+                            ++index, ++numberOfSvgUseElementsToBypass;
+                        }
+                    }
+                } else {
+                    // increase the index when the previous value was not "valid"
+                    ++index;
+                }
+            }
+            // continue the interval
+            (!uses.length || uses.length - numberOfSvgUseElementsToBypass > 0) && requestAnimationFrame(oninterval, 67);
+        }
+        var polyfill, opts = Object(rawopts), newerIEUA = /\bTrident\/[567]\b|\bMSIE (?:9|10)\.0\b/, webkitUA = /\bAppleWebKit\/(\d+)\b/, olderEdgeUA = /\bEdge\/12\.(\d+)\b/, edgeUA = /\bEdge\/.(\d+)\b/, inIframe = window.top !== window.self;
+        polyfill = "polyfill" in opts ? opts.polyfill : newerIEUA.test(navigator.userAgent) || (navigator.userAgent.match(olderEdgeUA) || [])[1] < 10547 || (navigator.userAgent.match(webkitUA) || [])[1] < 537 || edgeUA.test(navigator.userAgent) && inIframe;
+        // create xhr requests object
+        var requests = {}, requestAnimationFrame = window.requestAnimationFrame || setTimeout, uses = document.getElementsByTagName("use"), numberOfSvgUseElementsToBypass = 0;
+        // conditionally start the interval if the polyfill is active
+        polyfill && oninterval();
+    }
+    function getSVGAncestor(node) {
+        for (var svg = node; "svg" !== svg.nodeName.toLowerCase() && (svg = svg.parentNode); ) {}
+        return svg;
+    }
+    return svg4everybody;
+});
+
+svg4everybody();
+</script>
+<meta name="description" content="This article is the second in my series of articles based on the frontend of the decentralised web.  Throughout the series we’ll look at Web3.js &amp; accessing the Ethereum Blockchain client-side,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DApp Frontend Security">
+<meta property="og:url" content="https://blog.embarklabs.io/news/2020/01/30/dapp-frontend-security/index.html">
+<meta property="og:site_name" content="Embark Blog">
+<meta property="og:description" content="This article is the second in my series of articles based on the frontend of the decentralised web.  Throughout the series we’ll look at Web3.js &amp; accessing the Ethereum Blockchain client-side,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.embarklabs.io/assets/images/web-security_banner.jpg">
+<meta property="og:image" content="https://cdn-media-1.freecodecamp.org/images/1*sd62aH6GGS1RoCR9t4QNyQ.png">
+<meta property="article:published_time" content="2020-01-29T23:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:04:44.202Z">
+<meta property="article:author" content="Embark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.embarklabs.io/assets/images/web-security_banner.jpg">
+</head>
+
+  <body>
+
+    <header role="banner" class="c-header c-header--compact">
+  <div class="o-container">
+    <div class="c-header__top">
+      <a href="https://embarklabs.io" title="Embark" class="c-logo c-logo--negative">Embark</a>
+      <nav role="navigation" class="c-navigation">
+        <div class="c-navigation__header">
+          <a href="https://embarklabs.io" title="Embark" class="c-logo">Embark</a>
+          <button class="c-navigation__close u-text-light" title="Close menu">
+            <svg class="c-icon c-icon--xs"><use xlink:href="/../assets/icons/symbols.svg#icon-close"></use></svg>
+          </button>
+        </div>
+        <div class="c-navigation__body" style="">
+          <ul class="c-navigation__list">
+            <li class="c-navigation__item">
+              <a href="https://blog.embarklabs.io" class="c-navigation__anchor" title="Blog">Blog</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io" class="c-navigation__anchor" title="Embark Framework">Embark</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://subspace.embarklabs.io" class="c-navigation__anchor" title="Subspace">Subspace</a>
+            </li>
+            <li class="c-navigation__item">
+              <a href="https://framework.embarklabs.io/docs/cockpit_introduction.html" class="c-navigation__anchor" title="Cockpit">Cockpit</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="o-flex o-flex-center">
+        <form action="" class="o-flex__item u-hidden-until-large" style="">
+          <input type="search" placeholder="Search" id="search-input">
+        </form>
+        <div class="o-flex__item">
+          <ul class="o-flex o-flex-center">
+            <li class="o-flex__item">
+              <a href="https://github.com/embarklabs/embark" title="Github" target="_blank" class="u-link-ghost">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-github"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item">
+              <a href="https://twitter.com/EmbarkProject" title="Twitter" target="_blank">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-twitter"></use></svg>
+              </a>
+            </li>
+            <li class="o-flex__item u-hidden-large-up">
+              <button type="button"class="c-navigation__trigger u-link-ghost" title="Open menu">
+                <svg class="c-icon"><use xlink:href="/../assets/icons/symbols.svg#icon-navigation-menu"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="c-quick-search o-distance-m u-hidden-large-up">
+      <input type="search" id="inp-search" placeholder="Search">
+    </div>
+  </div>
+  <div class="o-container">
+    <div class="c-header__body">
+      <h1 class="c-title u-text-ghost">DApp Frontend Security</h1>
+      
+      <div class="o-distance-m">
+        <div class="o-flex o-flex-center">
+          <span class="o-flex__item">
+            <img src="https://avatars1.githubusercontent.com/u/29288325?s=400&v=4" class="c-avatar-small" alt="author picture">
+          </span>
+          <p class="o-flex__item">
+            Written by <a href="https://twitter.com/rbin" title="Robin Percy on Twitter">Robin Percy</a> on the <time class="u-text-ghost">30th January 2020</time>
+          </p>
+        </div>
+      </div>
+      
+
+      
+
+      
+      
+    </div>
+  </div>
+</header>
+
+
+<main role="main" class="o-standard-page">
+  <section class="o-container o-distance">
+    <p><img src="/assets/images/web-security_banner.jpg" alt="Web3.js"></p>
+<blockquote>
+<p><em>This article is the second in my series of articles based on the frontend of the decentralised web.  Throughout the series we’ll look at <a href="/news/2019/12/09/web3-what-are-your-options/">Web3.js</a> &amp; accessing the Ethereum Blockchain client-side, <a href="/news/2020/01/30/dapp-frontend-security/">frontend security for DApps</a>, how <a href="/news/2020/02/18/wasm-ewasm-what-and-why/">eWasm / WebAssembly</a> has become the “4th language of the web”, and we’ll build a realtime Blockchain explorer app with Phoenix LiveView!</em></p>
+</blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Working for a <a href="https://status.im/security/">security-focused company like Status</a> means that security, in its many forms, is mentioned on a daily basis. </p>
+<p>However; outside of <a href="http://status.im">Status</a> one of the broadest, most important, yet <em>often ignored</em> considerations when deploying and running web applications is the security of the app.  When I use the term <em>security</em>,  I’m not just speaking from a backend perspective, but also of the frontend of the application.  Having good infrastructure security is highly important, but there are also security factors on the frontend of the application that we really <em>must</em> take into account.</p>
+<p>Security is an ongoing, and ever-changing, practice that you must observe to ensure that your product is never included in the companies that one hears about on the news after a huge data breach. Regardless of which programming paradigm, language or framework you wish to use, there are plenty of non-specific, terse security practices you should follow from the very start of the project.</p>
+<p>In my last personal Startup, we provided User Authentication as a Service, so we were a major target for hackers. On one of our first evenings live, we watched someone attempt to send 5million malicious requests within 30 minutes. None of which had any affect other than exposing the hacker. This is because we made security a priority — which is something we all need to do in the modern world of Tech.</p>
+<p>In this article, I’ll introduce you to my biggest tips for top to bottom (Frontend to Backend) security for your web applications.  We’ll take a look at security for your DApps too!</p>
+<h2 id="Strict-Transport-Security-HSTS"><a href="#Strict-Transport-Security-HSTS" class="headerlink" title="Strict Transport Security (HSTS)"></a>Strict Transport Security (HSTS)</h2><p>HSTS is a security header that allows us to enforce HTTPS across our entire DApp.  If you read my previous article, you’ll remember I advocate the idea of HTTPS everywhere, and showed you how to get a trusted, secure SSL certificate free-of-charge from <a href="https://letsencrypt.org">Let’s Encrypt</a>.  The reason we need HTTPS everywhere is that our users are vulnerable to Cookie stealing and Man-in-the-middle attacks if we don’t have it implemented.</p>
+<p>Now, as you’re probably aware, simply owning an SSL Cert will <em>not</em> immediately make all of your DApp HTTPS only - we need to tell our App to do that, ourselves.  One of the best ways of doing this is by using the HTTP Header of HSTS.  By using this Header, we can force all traffic on our App to use HTTPS and upgrade non-HTTPS.  This Header may also even provide a performance <strong><em>boost</em></strong>, as we no longer would have to send our users through a manual redirect.</p>
+<p>So, you’re probably thinking “Wow! I need this!”.  Well, whilst I agree - alongside the <em>Content Security Policy</em> I’ll talk about later, this needs to be implemented <strong>with caution.</strong>  Allow me to explain!  Here’s what a sample HSTS Header looks like:</p>
+<pre><code>Strict-Transport-Security: max-age=630720; includeSubDomains; preload</code></pre><p><em>And in Node.js:</em></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestHandler</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	res.setHeader(<span class="string">'Strict-Transport-Security'</span>, <span class="string">'max-age=630720; includeSubDomains; preload'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In this Header, we have 3 <em>directives</em> that apply.  <code>max-age</code>, <code>includeSubDomains</code> and <code>preload</code>.</p>
+<p><strong><em>max-age</em></strong>:  By specifying a max-age, we are telling the user’s browser to cache the fact that we use only HTTPS.  This means that if the user tries to visit a non-HTTPS version of the site, their browser will be automatically redirected to the HTTPS site, <em>before</em> it even sends a message to the Server.  Therein lies the slight performance boost I mentioned earlier.  Now, while this <em>does</em> sound fantastic in theory, what we need to be aware of here, is the fact that if a user ever <em>needed</em> to access a non-HTTPS page, their browser simply won’t let them, until this <code>max-age</code> expires. If you are going to activate this feature, and set a long <code>max-age</code>, (required by the pre-load sites I’ll talk about in a second), you <strong><em>really</em></strong> need to be sure that you have your SSL cert setup correctly, and HTTPS enabled on <em>all</em> of your DApp before you take action!</p>
+<p><strong><em>includeSubDomains</em></strong>:  The <code>includeSubDomains</code> directive does exactly what it says on-the-tin.  It simply offers additional protection by enforcing the policy across your subdomains too.  This is useful if you run a DApp that sets Cookies from one section (perhaps a gaming section), to another section (perhaps a profile section), that need to be kept secure.  Again, the issue with this lies similarly to the above, in that you <strong><em>must</em></strong> be sure <em>every</em> subdomain you own and run, is entirely ready for this to be applied.</p>
+<p><strong><em>preload</em></strong>:  The most dangerous directive of them all!  Basically, the <code>preload</code> directive is an in-browser-built directive that comes straight from the browser creators. This means that your Web App can be hard-coded into the actual <em>Browser</em> to always use HTTPS.  Again, whilst this would mean no redirects, and therefore a performance boost, once you’re on this list; it’s <strong><em>very</em></strong> difficult to get back off it!  Considering that Chrome takes around 3 months from build-to-table, and that’s only for the people who auto-update, you’ve got a <em>huge</em> wait-time if you make a mistake.</p>
+<p>So we have ourselves here an incredibly powerful, yet actively quite dangerous Security feature.  The key here is ensuring you <strong>know</strong> your security measures inside-out, and using  discretion.  Whilst I don’t recommend you submit your site to the <code>preload</code> directive, if you wish to - you <a href="https://hstspreload.org/">can here</a>.</p>
+<p><strong>Note</strong> - it is <em>not</em> a requirement to use preload to utilise HSTS.  The only Header you need apply is the max-age header.</p>
+<p>If you are going to use the HSTS protocol, start out with a small <code>max-age</code> - something like a few hours, and continue to ramp it up over a period of time.  This is also the advice Google Chrome give.  If you use the <code>includeSubDomains</code> directive, be sure you don’t have internal (company.mysite.com) subdomains that would be unreachable if affected.  If you’re going to submit your Web App to <code>preload</code>, follow the official guidelines, and make sure you know exactly what you’re doing - (which I’m not entirely confident of myself!)</p>
+<h2 id="Using-the-X-XSS-Protection-Header"><a href="#Using-the-X-XSS-Protection-Header" class="headerlink" title="Using the X-XSS-Protection Header"></a>Using the X-XSS-Protection Header</h2><p>XSS (Cross Site Scripting) is the most common of all Web App attacks.  XSS occurs when a malicious entity injects scripts to be run into your app.  A few years back, most web browsers added a security filter for XSS attacks built into the browser itself.  Now whilst in theory this was a good step, they did tend to throw-up false-positives quite often.  Due to this, the filter can be turned off by the User. (As the option should be available, in my opinion.)</p>
+<p>To ensure our Users are protected, we can force this filter (worth it), on our DApp by using the <code>X-XSS-Protection</code> Header.  This Header is widely supported by common browsers, and something I’d recommend using every time.</p>
+<p>To apply this header to your Node.js app, you should include the following:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestHandler</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	res.setHeader( <span class="string">'X-XSS-Protection'</span>, <span class="string">'1; mode=block'</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Note the two <em>directives</em> in this header:  <code>1</code> is simply acts as a boolean 1 or 0 value to reflect on or off.  <code>mode=block</code> will stop the entire page loading, instead of simply sanitising the page as it would if you excluded this directive.</p>
+<p>If you’re a security-freak like myself, and a user of the Chromium browser, you could even go one-step further than this and set the directives like so:</p>
+<pre><code>X-XSS-Protection: 1; report=&lt;reporting-uri&gt;</code></pre><p>Now, if the browser detects an XSS attack, the page will be sanitized, and report the violation.  Note that this uses the functionality of the CSP <code>report-uri</code> directive to send a report that I will talk about in the Content Security Policy section below.</p>
+<h2 id="Defend-against-Clickjacking"><a href="#Defend-against-Clickjacking" class="headerlink" title="Defend against Clickjacking"></a>Defend against Clickjacking</h2><p>Clickjacking occurs when a malicious agent injects objects / iFrames into your DApp, made to look identical, that actually sends the User to a malicious site when clicked.  Another common, and possibly more scary example is that malicious agents insert something like a payment form into your DApp, that looks identical to your DApp, but steals payment details.</p>
+<p>Now, whilst this <em>could</em> be a very dangerous issue, it’s very easy to mitigate, with almost no impact on your DApp.  Servers offer Browsers a Header Protocol named <code>X-Frame-Options</code>.  This protocol allows us to specify domains to accept iFrames from.  It also allows us to state which sites our DApp can be embedded on.  With this protocol, we get three fairly self-explanatory options/directives:  <code>DENY</code>, <code>ALLOW-FROM</code>, and <code>SAMEORIGIN</code>.</p>
+<p>If we choose <code>DENY</code>, we can block all framing.  If we use <code>ALLOW-FROM</code>, we can supply a list of domains to allow framing within.  I use the <code>SAMEORIGIN</code> directive, as this means framing can only be done within the current domain.  This can be utilised with the following:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestHandler</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	res.setHeader( <span class="string">'X-Frame-Options'</span>, <span class="string">'SAMEORIGIN'</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Content-Security-Policy-CSP"><a href="#Content-Security-Policy-CSP" class="headerlink" title="Content Security Policy (CSP)"></a>Content Security Policy (CSP)</h2><p>CSP is another major topic when it comes to Server-Browser security for Web Apps.  At a high-level; Content Security Policies tell the browser what content is authorised to execute on a Web App, and what will block.  Primarily, this can be used to prevent XSS, in which an attacker could place a <code>&lt;script&gt;</code> tag on your Web App.  The Content-Security-Policy is a Server-Browser header that we can set to ensure our Server tells the Browser exactly which media, scripts, and their origins, allowed to be executed on our DApp.</p>
+<p>The whitelisting of resource loading and execution URIs provides a good level of security, that will in most parts, defend against most attacks.</p>
+<p>To include a Content Security Policy that allows only internal and <em>Google Analytics</em>, in an Express.js server, you could do the following:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.setHeader(<span class="string">"Content-Security-Policy"</span>, <span class="string">"script-src 'self' https://analytics.google.com"</span>);</span><br><span class="line">    <span class="keyword">return</span> next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(express.static(__dirname + <span class="string">'/'</span>));</span><br><span class="line"></span><br><span class="line">app.listen(process.env.PORT || <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>However, if we do not wish to allow <em>any</em> external sites to execute scripts on our DApp, we could simply include the following:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestHandler</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	res.setHeader( <span class="string">'Content-Security-Policy'</span>, <span class="string">"script-src 'self'"</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Note the <code>script-src</code> directive here, that we have set to <code>self</code>, therefore only allowing scripts from within our own domain.  Of course, CSP is not without its own problems.  Firstly, it would be very easy for us to forget about some of the media we have in our DApp and to simply exclude them accidentally.  Now that the web is so <em>rich</em> in media, this would be reasonably easy to do.  Secondly, many of us use third-party plugins on our DApp.  Again, unless we have a full blueprint of these, we could very easily block them.</p>
+<p>So, once activated, this Server Header <em>could</em> potentially be very detrimental to us.  However, there are two great ways of testing this.  You can set a strict policy, and use the built in directives; <code>report-only</code> and <code>report-uri</code> to test them.  The <code>report-uri</code> directive tells the Browser to send a JSON report of all of the blocked scripts to a URi that we specify.  The <code>report-only</code> directive does the same, but will <strong><em>not</em></strong> block the scripts on the site.  This is very useful for testing, before we put this Header into production.</p>
+<p>There’s a great write-up on the reporting, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only">here</a>.</p>
+<p>Content Security Policies are both excellent and very powerful, but must be used cautiously.  Much the same as HSTS mentioned above, we need to ensure we are aware of the situation before activating.  If you are loading in external images, scripts etc. you need to understand that unless you include these in the policy, they <strong><em>will</em></strong> be blocked.</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>Cross Site Request Forgery (CSRF) has been at the forefront of Web App Security for longer than any of us care to remember.  The idea behind it is that a malicious agent sends a (forged) request from one app to another whilst the User is signed in and authorised.  This would therefore allow the request to enter and alter restricted actions on the requested App, with the requested app believing entirely that the actions were coming from the logged in User.  A better way for me to describe this is to show you:</p>
+<p>Imagine if you will, I am security-abusing miscreant, and I happen to know that Twitter has no CSRF protection.  (They do, this is all hypothetical.)  I’m also aware that most people who visit <em>my</em> DApp, probably leave their Twitter logged in, and therefore have a Cookie stored in their browser, to allow them fast access to Twitter the next time they want to post something.</p>
+<p>On my DApp frontend, I could embed a script such as the following:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"https://twitter.com/tweet"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">id</span>=<span class="string">"sendTweet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"tweet"</span> <span class="attr">value</span>=<span class="string">"Hey!  Check out my awesome spam site - spam.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>When a user’s browser loads my DApp, this form will be loaded (entirely invisibly) too.  I would then also have embedded a small piece of JS to POST the form, without them ever knowing:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"sendTweet"</span>).submit();</span><br></pre></td></tr></table></figure>
+
+<p>In doing this, I’ve just sent a Tweet on their account, without ever having to know their Username or Password.  The Cookie they had stored in their Browser allowed my app to send a <em>forged request</em>, pretending to be them - and if Twitter had no CSRF mitigation, it would have worked too!</p>
+<p>For years, we have been trying to solve CSRF requests by checking HTTP headers such as the <code>Origin</code> and <code>Referer</code>.  Whilst these have offered fairly robust protection for a few years, there is now a simple directive that once applied; will entirely mitigate CSRF attacks.</p>
+<p>Enter, the <strong><em>SameSite</em></strong> Cookie directive.  <code>SameSite</code> is relatively new, and only been around for the past year, in which it has gained some publicity, but is still widely unknown.  In essence, the <code>SameSite</code> directive, once applied, will tell the Browser to <strong>never</strong> send that cookie when a request from an external (Cross Site) url is made.  We can apply this directive by altering our Cookies as such:</p>
+<pre><code>Set-Cookie: sess=sessionid123; path=/; SameSite</code></pre><p>It really is that easy.  I wouldn’t recommend removing your existing CSRF protection just yet, but I would definitely recommend including this directive on your DApp.</p>
+<h2 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h2><p>As we know, cookies are an important feature of our Web Applications, carrying data mainly referring to our User Sessions.  While simply implementing the aforementioned directives is sufficient in securing your cookies, and preventing attacks, we can actually take cookie security a step further.</p>
+<p><em>Cookie Prefixing</em> is a relatively under-used technique that we can utilise to ensure a cookie <em>is</em> secure:</p>
+<p><strong><em>The <code>__Secure</code> prefix</em></strong> - If a cookie’s name begins with “__Secure”, the cookie MUST be:</p>
+<ul>
+<li>Set with a “<em>Secure</em>“ attribute</li>
+<li>Set from a URI whose scheme is considered secure by the user agent.</li>
+</ul>
+<p>The following cookie would be rejected when set from any origin, as the “Secure” flag is not set:</p>
+<pre><code>Set-Cookie: __Secure-sess=12345; Domain=myapp.com</code></pre><p>While the following would be accepted if set from a secure origin e.g. <code>https://</code> and rejected otherwise:</p>
+<pre><code>Set-Cookie: __Secure-sess=12345; Secure; Domain=myapp.com</code></pre><p>Alongside the <code>__Secure</code> prefix, we also have the <code>__Host</code> prefix:</p>
+<p><strong><em>The <code>__Host</code> prefix</em></strong> - If a cookie’s name begins with “__Host”, the cookie MUST be:</p>
+<ul>
+<li>Set with a “Secure” attribute</li>
+<li>Set from a URI whose “scheme” is considered “secure” by the user agent.</li>
+<li>Sent only to the host which set the cookie.  That is, a cookie named “__Host-cookie1” set from “<a href="https://example.com&quot;">https://example.com&quot;</a> <em>MUST NOT</em> contain a “Domain” attribute (and will therefore be sent only to “example.com”, and not to “subdomain.example.com”).</li>
+<li>Sent to every request for a host.  That is, a cookie named “__Host-cookie1” MUST contain a “Path” attribute with a value of “/“.</li>
+</ul>
+<p>The following cookies would always be rejected:</p>
+<pre><code>Set-Cookie: __Host-sess=12345
+Set-Cookie: __Host-sess=12345; Secure
+Set-Cookie: __Host-sess=12345; Domain=example.com
+Set-Cookie: __Host-sess=12345; Domain=example.com; Path=/
+Set-Cookie: __Host-sess=12345; Secure; Domain=example.com; Path=/</code></pre><p>While the following would be accepted if set from a secure origin e.g. <code>https://</code>, and rejected otherwise:</p>
+<pre><code>Set-Cookie: __Host-sess=12345; Secure; Path=/</code></pre><p>By setting these prefixes, any compliant browser will be made to enforce them.</p>
+<p>Now, if we include the tips from my first article, and the tips above, we can make the most secure Cookie possible:</p>
+<pre><code>Set-Cookie: __Host-sess=id123; path=/; Secure; HttpOnly; SameSite</code></pre><p>In this most-secure-cookie, we’re utilising the <code>__Host</code> prefix which means the <code>Secure</code> attribute has to be set, and it must be served from a secure host.  There is no <code>Domain</code> attribute set and the <code>Path</code> is /.  We’ve set <code>HttpOnly</code> for XSS protection, and SameSite is enabled too to prevent CSRF.  Of course, this won’t be the best or most practical solution for a lot of people, but it <em>is</em> the most in-theory secure Cookie we could set from our DApp.</p>
+<h2 id="Take-a-DApp-Blueprint"><a href="#Take-a-DApp-Blueprint" class="headerlink" title="Take a DApp Blueprint"></a>Take a DApp Blueprint</h2><p><strong>*Note</strong> - In my opinion, this is one of the most important security steps one can take.*</p>
+<p>Do you know the ins-and-outs of each library your Developers use?  Probably not - it’s near impossible to keep track nowadays, but this is to <em>great</em> detriment.  Are you also aware of which libraries and tools have been given write access to your production servers and databases - and how isolated they are?</p>
+<p>The issue here is that using so much <em>automation</em> in modern development, we grant access to a huge amount of tools/libraries without <em>really</em> knowing exactly what they’re doing.  We take it for granted that each of these libraries is entirely safe and without their security vulnerabilities - or worse - performing malicious activities themselves.</p>
+<p>We all want the most streamlined Dev cycle possible.  We all use automation tools that trigger a whole bunch of processes, doing things that barely any of us are aware of.  The propensity of some Devs to throw <code>sudo</code> commands at package managers if a command fails is also truly terrifying.</p>
+<p>So how do we get around this?  <strong><em>Take a Tech Blueprint!</em></strong>  This needn’t be a complex process, it’s as simple as knowing what each piece of Software is doing on your servers, and what authority they’ve been granted.  Take a note of any new tools / packages before you grant them permissions, and do a little research.  Some simple Googling of key phrases i.e. <code>*package* security vulnerabilities</code> will usually bring up more results than you’d expect.  It’s also worth checking out the <em>Issues</em> tab on the package’s GitHub page.  Vulnerabilities are often discussed there and you’ll be able to act accordingly.  This applies to the top-level Package Managers too.</p>
+<p>Package managers are used by almost ALL of us.  If you really want to scare yourself, go ahead and search <code>*package manager* security vulnerability</code> and take a look at all of the results!  Again, knowing what we are installing and granting permissions to, and especially keeping a note of this, could just save our Bacon.  Take a look at <a href="https://medium.com/friendship-dot-js/i-peeked-into-my-node-modules-directory-and-you-wont-believe-what-happened-next-b89f63d21558">this article for a relevant example!</a></p>
+<p><strong>Handy tip:</strong>  if you want to know which hooks an npm package runs, before you install it, run the command:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm show <span class="variable">$module</span> scripts</span><br></pre></td></tr></table></figure>
+
+<h2 id="Security-for-DApp-Users"><a href="#Security-for-DApp-Users" class="headerlink" title="Security for DApp Users"></a>Security for DApp Users</h2><p><img src="https://cdn-media-1.freecodecamp.org/images/1*sd62aH6GGS1RoCR9t4QNyQ.png" alt="Dapp security"><br><a href="https://www.freecodecamp.org/news/how-to-design-a-secure-backend-for-your-decentralized-application-9541b5d8bddb/">Image Source</a></p>
+<p>With more and more DApps being created including web-based exchanges, crypto-based games etc.  The opportunities for bad actors increase with each new DApp released.  Say, for instance, someone released an interactive game built around Web3, and directly interacting with user’s wallets.  On registration for the game, wallets are created, and they collected sensitive data, including user’s private keys being stored in local storage (super insecure).</p>
+<p>The DApp developer, however, didn’t realise that a bad actor has been injecting a remote script during registration that evaluates and sends all of the player’s private keys to the bad actor’s server.</p>
+<ul>
+<li><strong>Protect wallets and private keys:</strong> If user’s wallets are compromised, this is game over. Extreme care needs to be taken when handling this sensitive information.</li>
+<li><strong>Protect user information:</strong> Users do not want their personal data being exposed to the world. Ensure that user data remains private.</li>
+<li><strong>Use <em>MetaMask</em> or similar</strong> to ensure security of wallets and user keys.</li>
+<li><strong>Evaluate wisely what needs to be stored in the blockchain or in your servers.</strong> Only include data that is absolutely necessary for you smart contracts to function within the contracts themselves.</li>
+</ul>
+<p>There is an excellent write-up on DApp security standards you <a href="https://github.com/Dexaran/DAPP-security-standards/blob/master/README.md">can check out here.</a></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Without a doubt, the most effective method for maintaining the security of your DApps  is keeping up-to-date with any security protocols on an ongoing basis.  Vulnerabilities are an extremely fickle and dynamic topic, in that they change / pop up so regularly.</p>
+<p>By following the tips in this article, keeping up-to-date with any security announcements, and having an in-depth overview of your systems, you can rest assured that you are well on your way to having a jolly well secured DApp.  As stressed in this article, security considerations are not only found on the backend of our apps, but on the frontend too.  Ensuring that we approach both means we can be confident about the safety of our users (which should be our number one priority).  The best tools in web security are common sense and vigilance.</p>
+<p>So, from enforcing HTTPS with Strict Transport Security, to securing our DApp frontend with a Content Security Policy; we’ve covered the main topics, in my opinion to ensuring frontend to backend security for our web &amp; decentralised web applications. These topics are all techniques I utilise myself and would advocate for use in your apps on an ongoing basis.</p>
+<p>For any future projects, I recommend taking a look at these <a href="https://nexus.mythx.io/directory#!/">Blockchain Security providers.</a></p>
+<p><a href="https://twitter.com/rbin"> <strong><em>- @rbin</em></strong></a></p>
+
+  </section>
+
+  
+
+  <div class="o-container o-distance">
+    <div class="o-flex o-flex-space-between">
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/01/29/subspace-1-2/" class="c-button c-button--quite" title="Previous article">Previous</a>
+  </div>
+  
+  
+  <div class="o-flex__item">
+    <a href="/news/2020/02/11/subspace-1-3/" class="c-button c-button--quite" title="Next article">Next</a>
+  </div>
+  
+</div>
+
+
+  </div>
+  
+</main>
+
+
+    <footer role="contentinfo" class="c-footer o-distance-xxl">
+  <div class="o-container">
+    <div class="c-footer__top">
+      <p class="c-category-title c-footer__top__title u-text-light">
+        <a href="/" class="c-logo c-logo--negative" title="Embark">Embark</a>
+      </p>
+    </div>
+    <div class="c-footer__body">
+
+      <div class="o-grid">
+        <div class="o-grid__column--1-1 o-grid__column--medium-1-2 o-grid__column--large-1-6">
+          <p class="c-category-title u-text-light">The Status Network</p>
+          <ul class="o-list-bare six-columns">
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://status.im/" target="_blank">Status</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://keycard.tech/" target="_blank">Keycard</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://dap.ps/" target="_blank">dap.ps</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://framework.embarklabs.io/" target="_blank">Embark</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://subspace.status.im/" target="_blank">Subspace</a></li>
+            <li class="o-list-bare__item"><a class="u-link-ghost" href="https://vac.dev/" target="_blank">Vac</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="c-footer__bottom">
+      <p class="u-text-light">
+        <a href="https://status.im/privacy-policy.html" title="Privacy Policy" target="_blank" class="u-text-light">Privacy Policy</a>
+        / © 2020 Embark
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.4/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <script>
+      const EMBARK_DOC_VERSIONS = {
+        
+      };
+    </script>
+
+    
+
+    <script src="/js/index.js"></script>
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+      docsearch({
+        apiKey: '439d8dc2add18007a2f31be4a9c0ed70',
+        indexName: 'embark',
+        inputSelector: '#search-input'
+      });
+    </script>
+    
+  </body>
+</html>
+
