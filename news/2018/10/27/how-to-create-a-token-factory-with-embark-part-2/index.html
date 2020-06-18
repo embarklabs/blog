@@ -164,7 +164,7 @@ svg4everybody();
 <meta property="og:image" content="https://blog.embarklabs.io/assets/images/token_factory_2/page_7.png">
 <meta property="og:image" content="https://blog.embarklabs.io/assets/images/token_factory_2/console_2.png">
 <meta property="article:published_time" content="2018-10-26T22:00:00.000Z">
-<meta property="article:modified_time" content="2020-06-15T08:04:44.200Z">
+<meta property="article:modified_time" content="2020-06-18T10:30:36.148Z">
 <meta property="article:author" content="Embark">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.embarklabs.io/assets/images/token_factory_2/console_1.png">
@@ -260,13 +260,13 @@ svg4everybody();
 <p>A Token is typically a unit used to represent a medium of exchange for some service or utility. They can represent a concert ticket, a membership, voting share, reputation points, etc…</p>
 <h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>For the second part of the tutorial, Embark 3.0 or higher is required.</p>
 <p>If you are using an older version you can update with:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6200e0-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6200e0-b0bc-11ea-8e3d-a97ff14ee75d">$ npm install -g embark@3</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-8582dc60-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-8582dc60-b14f-11ea-a8c4-37fcefc7035f">$ npm install -g embark@3</code></pre>
 
 
 <p>Afterwards make sure that <code>embark version</code> returns 3.0 then restart embark with <code>embark run</code></p>
 <h2 id="Generalizing-Token-Interaction"><a href="#Generalizing-Token-Interaction" class="headerlink" title="Generalizing Token Interaction"></a>Generalizing Token Interaction</h2><p>We’ll start by generalizing the previous UI so we can input the address of a ERC20 Token and interact with it.</p>
 <p>First, we’ll add a simple form to <em>app/index.html</em> to get address of the token we wish to interact with.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae67cd40-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae67cd40-b0bc-11ea-8e3d-a97ff14ee75d">&lt;html&gt;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-85880c81-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-85880c81-b14f-11ea-a8c4-37fcefc7035f">&lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Embark&lt;/title&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;css/app.css&quot;&gt;
@@ -301,7 +301,7 @@ svg4everybody();
 
 
 <p>In <em>app/js/index.js</em> we’ll get the address given in the input, initialize a new contract object for that address and the Token ABI, and then assign it to a variable. We’ll also update the rest of code to use <em>currentToken</em> instead of <em>Token</em>. This way the existing code will work with the token we will be loading.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6b0190-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6b0190-b0bc-11ea-8e3d-a97ff14ee75d">import EmbarkJS from &#39;Embark/EmbarkJS&#39;;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858a2f61-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858a2f61-b14f-11ea-a8c4-37fcefc7035f">import EmbarkJS from &#39;Embark/EmbarkJS&#39;;
 import $ from &#39;jquery&#39;;
 import Token from &#39;Embark/contracts/Token&#39;;
 
@@ -354,7 +354,7 @@ $(document).ready(function() {
 <p>It’s <em>980</em> as expected (<em>1000</em> was the initial supply as configured in <em>config/contracts.json</em> and <em>20</em> was transferred out in <a href="/news/2018/09/27/how-to-create-a-token-factory-with-embark-part-1/">part 1</a></p>
 <h2 id="Deploy-New-Tokens-on-the-fly"><a href="#Deploy-New-Tokens-on-the-fly" class="headerlink" title="Deploy New Tokens on the fly"></a>Deploy New Tokens on the fly</h2><p>Now that we have an UI to interact with an existing Token given its address, we’ll add functionality to deploy tokens on the fly, each with their own initial supply.</p>
 <p>First we’ll add a simple form to <em>app/index.html</em> to get the desired supply of the new token to deploy.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6bc4e0-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6bc4e0-b0bc-11ea-8e3d-a97ff14ee75d">&lt;html&gt;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858aa492-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858aa492-b14f-11ea-a8c4-37fcefc7035f">&lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Embark&lt;/title&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;css/app.css&quot;&gt;
@@ -397,7 +397,7 @@ $(document).ready(function() {
 
 <p>Embark makes the contract objects available in the js side, each contract object will have a method called <em>deploy</em> that can deploy new instances of the contract. This method can take parameters for the contract, and it will return a promise containing a contract object of the deployed contract.</p>
 <p>In <em>app/js/index.js</em> we’ll add the code to deploy new tokens client side using this functionality:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6c8830-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6c8830-b0bc-11ea-8e3d-a97ff14ee75d">$(document).ready(function() {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858acba1-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858acba1-b14f-11ea-a8c4-37fcefc7035f">$(document).ready(function() {
 
   var currentToken;
   $(&quot;#deployToken button&quot;).click(function() {
@@ -451,7 +451,7 @@ $(document).ready(function() {
 <p><img src="/assets/images/token_factory_2/page_7.png" alt="Screenshot"></p>
 <p>And it’s <em>500</em> as expected since that’s the initial supply defined for the first token deployed.</p>
 <h2 id="Disabling-the-Token-Deploy-from-Embarks-side"><a href="#Disabling-the-Token-Deploy-from-Embarks-side" class="headerlink" title="Disabling the Token Deploy from Embarks side"></a>Disabling the Token Deploy from Embarks side</h2><p>Now that your DApp can deploy Tokens on the fly, It’s unnecessary for Embark to deploy the Token contract like it did in <a href="/news/2018/09/27/how-to-create-a-token-factory-with-embark-part-1/">part 1</a>, however you still need Embark to make the Token contract available on the client side.  To achieve this, go to config/contracts.js and set “deploy”: false for that contract</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6cfd60-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6cfd60-b0bc-11ea-8e3d-a97ff14ee75d">module.exports = {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858acba4-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858acba4-b14f-11ea-a8c4-37fcefc7035f">module.exports = {
   &quot;default&quot;: {
     // .....
     &quot;gas&quot;: &quot;auto&quot;,

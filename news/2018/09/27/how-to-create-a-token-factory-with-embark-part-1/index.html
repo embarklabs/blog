@@ -163,7 +163,7 @@ svg4everybody();
 <meta property="og:image" content="https://blog.embarklabs.io/assets/images/token_factory_1/page_4.png">
 <meta property="og:image" content="https://blog.embarklabs.io/assets/images/token_factory_1/page_5.png">
 <meta property="article:published_time" content="2018-09-26T22:00:00.000Z">
-<meta property="article:modified_time" content="2020-06-15T08:04:44.200Z">
+<meta property="article:modified_time" content="2020-06-18T10:30:36.148Z">
 <meta property="article:author" content="Embark">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.embarklabs.io/assets/images/token_factory_1/dashboard.png">
@@ -258,16 +258,16 @@ svg4everybody();
     <p>In this tutorial series we’ll create a Token Factory using Ethereum. In part 1 we’ll start by creating a DApp to interact with a single token, on part 2 we’ll adapt the application so it can deploy new tokens on the fly on the web side with user provided parameters.</p>
 <p>A Token is typically a unit used to represent a medium of exchange for some service or utility. They can represent a concert ticket, a membership, voting share, reputation points, etc…</p>
 <h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>First of all, make sure you have <a href="https://geth.ethereum.org/">Go-Ethereum</a> and Embark installed.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae62c430-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae62c430-b0bc-11ea-8e3d-a97ff14ee75d">$ npm -g install embark</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-85826730-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-85826730-b14f-11ea-a8c4-37fcefc7035f">$ npm -g install embark</code></pre>
 
 
 <p>Now, let’s create a new dapp</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae67cd41-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae67cd41-b0bc-11ea-8e3d-a97ff14ee75d">$ embark new TokenFactory</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-85880c80-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-85880c80-b14f-11ea-a8c4-37fcefc7035f">$ embark new TokenFactory</code></pre>
 
 
 
 <p>This will create a directory called TokenFactory, cd to it and run:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6b0191-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6b0191-b0bc-11ea-8e3d-a97ff14ee75d">$ embark run</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858a2f60-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858a2f60-b14f-11ea-a8c4-37fcefc7035f">$ embark run</code></pre>
 
 
 <p>In another console, in the same directory, run:</p>
@@ -285,7 +285,7 @@ svg4everybody();
 <p>Now open your browser at <a href="http://localhost:8000">http://localhost:8000</a> , start your favourite editor and let’s get started!</p>
 <h2 id="Adding-the-Token-Contract"><a href="#Adding-the-Token-Contract" class="headerlink" title="Adding the Token Contract"></a>Adding the Token Contract</h2><p>We’ll add a typical ERC20 token contract to contracts/token.sol</p>
 <p><em>warning: this contract is for educational purposes only, do not use it in production unless you know what you are doing</em></p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6bc4e1-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6bc4e1-b0bc-11ea-8e3d-a97ff14ee75d">pragma solidity ^0.4.23;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858aa491-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858aa491-b14f-11ea-a8c4-37fcefc7035f">pragma solidity ^0.4.23;
 
 contract Token {
 
@@ -351,7 +351,7 @@ contract Token {
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">constructor(uint initial_balance) public &#123;</span><br><span class="line">    _balances[msg.sender] &#x3D; initial_balance;</span><br><span class="line">    _supply &#x3D; initial_balance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Let’s rectify this by specifying the <em>initial_balance</em> value in <code>config/contracts.js</code></p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6c8831-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6c8831-b0bc-11ea-8e3d-a97ff14ee75d">module.exports = {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858acba0-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858acba0-b14f-11ea-a8c4-37fcefc7035f">module.exports = {
   default: {
     // .....
     gas: &quot;auto&quot;,
@@ -370,13 +370,13 @@ contract Token {
 
 <p>Embark will detect the change and redeploy the contract with the new parameters.</p>
 <p>You can confirm that the token supply is 1000 by typing:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6cfd61-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6cfd61-b0bc-11ea-8e3d-a97ff14ee75d">$ Token.methods._supply().call(console.log)</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858acba3-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858acba3-b14f-11ea-a8c4-37fcefc7035f">$ Token.methods._supply().call(console.log)</code></pre>
 
 
 <p><img src="/assets/images/token_factory_1/console_2.png" alt="Console"></p>
 <h2 id="Creating-the-UI"><a href="#Creating-the-UI" class="headerlink" title="Creating the UI"></a>Creating the UI</h2><p>For the sake of brevity, we wouldn’t implement every single functionality in the contract. However, we’ll implement two important features: Checking balance of an address and Transferring Tokens from one address to another.</p>
 <h2 id="Checking-address-balance"><a href="#Checking-address-balance" class="headerlink" title="Checking address balance"></a>Checking address balance</h2><p>To input the address to query, we’ll edit <em>app/index.html</em> and add a simple form.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d2470-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d2470-b0bc-11ea-8e3d-a97ff14ee75d">&lt;html&gt;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858af2b1-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858af2b1-b14f-11ea-a8c4-37fcefc7035f">&lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Embark&lt;/title&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;css/app.css&quot;&gt;
@@ -395,16 +395,16 @@ contract Token {
 
 <p><strong>Adding jQuery</strong></p>
 <p>To simplify the code a bit in this tutorial, we’ll add the jQuery library to our DApp.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d2472-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d2472-b0bc-11ea-8e3d-a97ff14ee75d">$ npm install jquery@3 --save</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858af2b3-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858af2b3-b14f-11ea-a8c4-37fcefc7035f">$ npm install jquery@3 --save</code></pre>
 
 
 <p>Now edit the file <em>app/js/index.js</em> and add:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d4b80-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d4b80-b0bc-11ea-8e3d-a97ff14ee75d">import $ from &#39;jquery&#39;;</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b19c0-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b19c0-b14f-11ea-a8c4-37fcefc7035f">import $ from &#39;jquery&#39;;</code></pre>
 
 
 <p><strong>Setting the default address</strong></p>
 <p>Let’s add to the input field field our own address as the default text so we can easily query our own balance. In the file <em>app/js/index.js</em> add:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d4b82-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d4b82-b0bc-11ea-8e3d-a97ff14ee75d">import $ from &#39;jquery&#39;;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b19c2-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b19c2-b14f-11ea-a8c4-37fcefc7035f">import $ from &#39;jquery&#39;;
 import EmbarkJS from &#39;Embark/EmbarkJS&#39;;
 
 $(document).ready(function() {
@@ -428,14 +428,14 @@ $(document).ready(function() {
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function balanceOf( address who ) constant returns (uint value) &#123;</span><br><span class="line">  return _balances[who];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>This method will be available in the JS code automatically as a promise, like:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d7291-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d7291-b0bc-11ea-8e3d-a97ff14ee75d">import Token from &#39;Embark/contracts/Token&#39;;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b19c4-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b19c4-b14f-11ea-a8c4-37fcefc7035f">import Token from &#39;Embark/contracts/Token&#39;;
 
 Token.methods.balanceOf(address).call().then(function(balance) { });</code></pre>
 
 
 
 <p>So we can simply add a click event to the button, get the address, query the balance and set the result.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d7292-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d7292-b0bc-11ea-8e3d-a97ff14ee75d">import $ from &#39;jquery&#39;;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b40d0-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b40d0-b14f-11ea-a8c4-37fcefc7035f">import $ from &#39;jquery&#39;;
 import EmbarkJS from &#39;Embark/EmbarkJS&#39;;
 import Token from &#39;Embark/contracts/Token&#39;;
 
@@ -466,7 +466,7 @@ $(document).ready(function() {
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function transfer( address to, uint value) returns (bool ok)</span><br></pre></td></tr></table></figure>
 
 <p>The method will take two parameters, an address and a value. Like in the previous step, let’s first add a simple form to the html page at <em>app/index.html</em>:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d99a0-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d99a0-b0bc-11ea-8e3d-a97ff14ee75d">&lt;html&gt;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b40d1-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b40d1-b14f-11ea-a8c4-37fcefc7035f">&lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Embark&lt;/title&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;css/app.css&quot;&gt;
@@ -494,7 +494,7 @@ $(document).ready(function() {
 
 
 <p>Then we will add the code to take the address and number of tokens from the inputs and call the contracts transfer method to <em>app/js/index.js</em>:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d99a1-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d99a1-b0bc-11ea-8e3d-a97ff14ee75d">import $ from &#39;jquery&#39;;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b40d2-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b40d2-b14f-11ea-a8c4-37fcefc7035f">import $ from &#39;jquery&#39;;
 import EmbarkJS from &#39;Embark/EmbarkJS&#39;;
 import Token from &#39;Embark/contracts/Token&#39;;
 

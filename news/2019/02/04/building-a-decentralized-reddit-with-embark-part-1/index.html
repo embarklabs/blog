@@ -155,7 +155,7 @@ svg4everybody();
 <meta property="og:description" content="In this tutorial we want to get very practical and build a decentralized Reddit application from scratch using Embark. The goal is to get a better idea of not only what parts and components are involv">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-02-03T23:00:00.000Z">
-<meta property="article:modified_time" content="2020-06-15T08:04:44.200Z">
+<meta property="article:modified_time" content="2020-06-18T10:30:35.251Z">
 <meta property="article:author" content="Embark">
 <meta name="twitter:card" content="summary">
 </head>
@@ -271,7 +271,7 @@ svg4everybody();
 <p>If there are any issues in the “Available Services” section of the dashboard, go back to our <a href="/docs/installation.html">installation guide</a> and make sure all tools are available on your machine.</p>
 <h2 id="Creating-the-Smart-Contract"><a href="#Creating-the-Smart-Contract" class="headerlink" title="Creating the Smart Contract"></a>Creating the Smart Contract</h2><p>Alright, next up we want to create the brain of our application, which is a Smart Contract written in <a href="https://solidity.readthedocs.io/en/v0.5.3/">Solidity</a>, that enables creating posts and votes. We’re going to build it up step by step and afterwards we’ll add some tests to ensure our code is actually working.</p>
 <p>First thing we do is creating a file <code>DReddit.sol</code> inside <code>contracts</code> with a Smart Contract like this:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae631250-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae631250-b0bc-11ea-8e3d-a97ff14ee75d">pragma solidity ^0.5.0;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858378a0-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858378a0-b14f-11ea-a8c4-37fcefc7035f">pragma solidity ^0.5.0;
 
 contract DReddit {
 
@@ -279,7 +279,7 @@ contract DReddit {
 
 
 <p>Great! With that in place, let’s introduce a couple of data structures for creating and storing topic posts. Let’s say a post will have a creation date, a description and an address of the owner. There’s a few more things we’ll have to add, but let’s do it one step at a time. Here’s what a <code>Post</code> struct could look like:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae67cd42-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae67cd42-b0bc-11ea-8e3d-a97ff14ee75d">struct Post {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-85880c82-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-85880c82-b14f-11ea-a8c4-37fcefc7035f">struct Post {
   uint creationDate;
   bytes description;
   address owner;
@@ -287,11 +287,11 @@ contract DReddit {
 
 
 <p>We’re also going to add an array to store all of our posts. Now that we have a <code>Post</code> struct, this is a simple as:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6b0192-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6b0192-b0bc-11ea-8e3d-a97ff14ee75d">Post [] public posts;</code></pre>
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858a2f62-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858a2f62-b14f-11ea-a8c4-37fcefc7035f">Post [] public posts;</code></pre>
 
 
 <h3 id="Creating-posts"><a href="#Creating-posts" class="headerlink" title="Creating posts"></a>Creating posts</h3><p>It’s time to add our first method which will enable users to add new posts to the platform. For that, we’ll create the method <code>createPost(bytes _description)</code> where <code>_description</code> are the bytes that represent the posts text.</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6b76c0-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6b76c0-b0bc-11ea-8e3d-a97ff14ee75d">function createPost(bytes _description) public {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858aa490-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858aa490-b14f-11ea-a8c4-37fcefc7035f">function createPost(bytes _description) public {
   uint postId = posts.length++;
   posts[postId] = Post({
     creationDate: block.timestamp,
@@ -303,7 +303,7 @@ contract DReddit {
 
 <p>The first thing we do is creating an id for the post to be stored. We then use our <code>Post</code> struct to create a new post instance. Notice that we leverage the <code>postId</code> when storing the Post in our <code>posts</code> array. To set the owner, we take advantage of Solidity’s global <code>msg</code> object which is available in every transaction.</p>
 <h3 id="Emitting-events"><a href="#Emitting-events" class="headerlink" title="Emitting events"></a>Emitting events</h3><p>As we’re planning to build a front-end that reacts to posts being created, we need to emit an event so the front-end can subscribe to it accordingly. For that, we first introduce a new event type <code>NewPost</code> which will look something like this:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6bc4e2-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6bc4e2-b0bc-11ea-8e3d-a97ff14ee75d">event NewPost(
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858aa493-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858aa493-b14f-11ea-a8c4-37fcefc7035f">event NewPost(
   uint indexed postId,
   address owner,
   bytes description
@@ -311,7 +311,7 @@ contract DReddit {
 
 
 <p>Once that is done, all we have to do is emit <code>NewPost</code> inside <code>createPost()</code> with the required data:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6c8832-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6c8832-b0bc-11ea-8e3d-a97ff14ee75d">function createPost(bytes _description) public {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858acba2-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858acba2-b14f-11ea-a8c4-37fcefc7035f">function createPost(bytes _description) public {
   ...
   emit NewPost(postId, msg.sender, _description);
 }</code></pre>
@@ -325,7 +325,7 @@ contract DReddit {
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct Post &#123;</span><br><span class="line">  ...</span><br><span class="line">  uint upvotes;</span><br><span class="line">  uint downvotes;</span><br><span class="line">  mapping(address &#x3D;&gt; Ballot) voters;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Here’s the <code>NewPost</code> event which we’ll use in a few moments:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6cfd62-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6cfd62-b0bc-11ea-8e3d-a97ff14ee75d">event NewVote(
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858af2b0-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858af2b0-b14f-11ea-a8c4-37fcefc7035f">event NewVote(
   uint indexed postId,
   address owner,
   uint8 vote
@@ -337,7 +337,7 @@ contract DReddit {
 
 <p>With these building blocks at hand, let’s implement a <code>vote(uint postId, uint8 _vote)</code> method. <code>_vote</code> is going to be one of our defined <code>Ballot</code> types and is represented as uint going from 0 - 2. We’ll use Solidity’s <code>require()</code> statement to ensure we only vote on posts that actually exist, as well as nobody can actually vote multiple times on the same post.</p>
 <p>We then increment the up or down vote counter respectively, store the voter and emit a <code>NewVote</code> event:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d2471-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d2471-b0bc-11ea-8e3d-a97ff14ee75d">function vote(uint _postId, uint8 _vote) public {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858af2b2-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858af2b2-b14f-11ea-a8c4-37fcefc7035f">function vote(uint _postId, uint8 _vote) public {
   Post storage post = posts[_postId];
 
   require(post.creationDate != 0, &quot;Post does not exist&quot;);
@@ -357,7 +357,7 @@ contract DReddit {
 
 
 <h3 id="Determine-if-users-can-vote"><a href="#Determine-if-users-can-vote" class="headerlink" title="Determine if users can vote"></a>Determine if users can vote</h3><p>We probably want to add an indication to the UI that a user has already voted on a certain post. For that it’d be handy to have an API that actually tells us whether a user can vote on a post. We’ve already discussed earlier that users can’t vote multiple times on the same post, so figuring out if a user can vote is pretty straight forward. Here’s what a <code>canVote(uint _postId)</code> method could look like:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d2473-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d2473-b0bc-11ea-8e3d-a97ff14ee75d">function canVote(uint _postId) public view returns (bool) {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858af2b4-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858af2b4-b14f-11ea-a8c4-37fcefc7035f">function canVote(uint _postId) public view returns (bool) {
   if (_postId &gt; posts.length - 1) return false;
   Post storage post = posts[_postId];
   return (post.voters[msg.sender] == Ballot.NONE);
@@ -365,7 +365,7 @@ contract DReddit {
 
 
 <h3 id="Fetching-votes"><a href="#Fetching-votes" class="headerlink" title="Fetching votes"></a>Fetching votes</h3><p>We also need a way to actually let users check what they’ve voted for, in case they did. For that we’ll add a simple <code>getVote()</code> method that looks something like this:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d4b81-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d4b81-b0bc-11ea-8e3d-a97ff14ee75d">function getVote(uint _postId) public view returns (uint8) {
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b19c1-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b19c1-b14f-11ea-a8c4-37fcefc7035f">function getVote(uint _postId) public view returns (uint8) {
   Post storage post = posts[_postId];
   return uint8(post.voters[msg.sender]);
 }</code></pre>
@@ -373,7 +373,7 @@ contract DReddit {
 
 <p>And with that, our Smart Contract is pretty much done! Just to make sure that everything is compiling smoothly, we can execute <code>embark build --contracts</code> in case there’s no existing Embark instance watching our work already.</p>
 <p>Here’s the complete Smart Contract code (you can also find it in <a href="https://github.com/embarklabs/dreddit-tutorial">this repository</a>:</p>
-<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-ae6d7290-b0bc-11ea-8e3d-a97ff14ee75d"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-ae6d7290-b0bc-11ea-8e3d-a97ff14ee75d">pragma solidity ^0.5.0;
+<pre class="highlight "><button class="c-button c-button--squared" data-clipboard-target="#code-858b19c3-b14f-11ea-a8c4-37fcefc7035f"><svg class="c-icon c-icon--xs"><use xlink:href="/assets/icons/symbols.svg#icon-copy-paste"></use></svg></button><code id="code-858b19c3-b14f-11ea-a8c4-37fcefc7035f">pragma solidity ^0.5.0;
 
 contract DReddit {
 
