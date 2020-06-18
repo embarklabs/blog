@@ -20,3 +20,4 @@ yarn.lock
 !/yarn.lock
 public
 db.json
+.deploy_git/
