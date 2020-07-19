@@ -28,7 +28,7 @@
     "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "lunr": "^2.3.8",
     "node-sass": "4.13.1",
     "uuid": "^3.3.3"
